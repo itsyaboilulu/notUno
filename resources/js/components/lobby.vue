@@ -54,7 +54,7 @@ export default {
         this.canplay            = ( this.datamembers.length > 1 ) ? 1 : 0 ;
         this.settings.setting   = this.setting;
         this.settings.deck      = this.deck;
-        this.joinLink           = "/join?join="+this.game.password;
+        this.joinLink           = "http://uno.yaboilulu.co.uk/join?join="+this.game.password;
     },
     created(){
         startTimer(this.check,this.checkTime);

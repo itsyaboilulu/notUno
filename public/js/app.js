@@ -2006,7 +2006,7 @@ __webpack_require__.r(__webpack_exports__);
     this.canplay = this.datamembers.length > 1 ? 1 : 0;
     this.settings.setting = this.setting;
     this.settings.deck = this.deck;
-    this.joinLink = "/join?join=" + this.game.password;
+    this.joinLink = "http://uno.yaboilulu.co.uk/join?join=" + this.game.password;
   },
   created: function created() {
     (0,_timer_min_js__WEBPACK_IMPORTED_MODULE_1__.startTimer)(this.check, this.checkTime);
@@ -40103,7 +40103,7 @@ var render = function() {
               }
             ],
             attrs: { type: "Checkbox", name: "stack" },
-            domProps: { checked: _vm.setting.stack, value: _vm.setting.stack },
+            domProps: { value: _vm.setting.stack },
             on: {
               change: function($event) {
                 return _vm.update($event)
@@ -40133,10 +40133,7 @@ var render = function() {
               }
             ],
             attrs: { type: "Checkbox", name: "drawUntilPlay" },
-            domProps: {
-              checked: _vm.setting.drawUntilPlay,
-              value: _vm.setting.drawUntilPlay
-            },
+            domProps: { value: _vm.setting.drawUntilPlay },
             on: {
               change: function($event) {
                 return _vm.update($event)
@@ -40167,7 +40164,6 @@ var render = function() {
             ],
             attrs: { type: "checkbox", name: "allowTimeouts" },
             domProps: {
-              checked: _vm.setting.allowTimeouts,
               checked: Array.isArray(_vm.setting.allowTimeouts)
                 ? _vm._i(_vm.setting.allowTimeouts, null) > -1
                 : _vm.setting.allowTimeouts

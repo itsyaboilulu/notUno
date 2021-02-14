@@ -17,7 +17,7 @@
                 </td>
                 <td>
                     <input v-on:change='update($event)' type="Checkbox" v-model='setting.stack'
-                        :checked="setting.stack"  name="stack" >
+                      name="stack" >
                 </td>
             </tr>
             <tr>
@@ -27,7 +27,7 @@
                 </td>
                 <td>
                     <input v-on:change='update($event)' type="Checkbox" v-model='setting.drawUntilPlay'
-                        :checked="setting.drawUntilPlay" name="drawUntilPlay" >
+                         name="drawUntilPlay" >
                 </td>
             </tr>
             <tr>
@@ -37,7 +37,7 @@
                 </td>
                 <td>
                     <input  v-on:change='update($event)' type="checkbox" v-model='setting.allowTimeouts'
-                        :checked="setting.allowTimeouts" name="allowTimeouts" >
+                        name="allowTimeouts" >
                 </td>
             </tr>
             <tr v-if="setting.allowTimeouts">
