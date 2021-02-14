@@ -35,7 +35,7 @@ class ckGameLeaderboard extends ckModel
      * @return boolean
      */
     public function addWin(){
-        $this->win = ($this->win + 1);
+        $this->wins = ($this->wins + 1);
         return $this->save();
     }
 

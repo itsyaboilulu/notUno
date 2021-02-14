@@ -4,6 +4,7 @@ use App\Http\Controllers\APIController;
 use App\Http\Controllers\gameController;
 use App\Models\card;
 use App\Models\chat;
+use App\Models\ckGameLeaderboard;
 use App\Models\ckGameToMember;
 use App\Models\ckModel;
 use App\Models\deck;
@@ -51,7 +52,8 @@ Route::post('api/register', [App\Http\Controllers\APIController::class, 'registe
 Auth::routes();
 
 Route::get('/test', function(){
-    print_r(useful::uriDecode(NULL));
+
+    (new ckGameLeaderboard(1,1))->addWin();
 
 
 });
