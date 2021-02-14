@@ -52,9 +52,7 @@ Auth::routes();
 
 Route::get('/test', function(){
     $game =  game::find(1);
-    echo $game->updated;
-    echo '<br>';
-    echo date("Y-m-d H:i:s");
-    echo '<hr>';
-    echo useful::diffMins($game->updated, NULL);
+    $s = new hand(array());
+    echo $s->hasEmptyHand();
+
 });

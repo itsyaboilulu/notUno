@@ -134,9 +134,8 @@ class hand extends deck {
      * @return boolean
      */
     public function hasEmptyHand(){
-        return (count($this->hand))?
-            FALSE:
-            TRUE;
+        return (@count($this->hand))? ( (count($this->hand))?
+            FALSE: TRUE) : TRUE;
     }
 
     /**
