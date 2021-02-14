@@ -31,7 +31,7 @@ class chat extends Model
      */
     public static function chatlog($gid,$from=0)
     {
-        return DB::select("SELECT u.username, c.message, c.id
+        $chat =  DB::select("SELECT u.username, c.message, c.id
             FROM chat c
                 INNER JOIN users u
                     ON u.id = c.uid
@@ -40,6 +40,7 @@ class chat extends Model
             ORDER BY c.id DESC
             LIMIT 100
         ");
+        return array_reverse($chat);
     }
 
     /**
