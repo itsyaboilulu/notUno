@@ -125,7 +125,9 @@ class hand extends deck {
                 break;
             }
         }
-        return $this->sortHand();
+        return ($this->hasEmptyHand()) ?
+            TRUE :
+            $this->sortHand();
     }
 
     /**

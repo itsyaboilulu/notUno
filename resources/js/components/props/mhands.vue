@@ -1,8 +1,7 @@
 <template>
     <div id="mhands">
         <h4>CARDS</h4>
-        <ul >
-
+        <ul>
             <li v-for="h in hand" >{{h.member}}: {{h.count}}</li>
         </ul>
     </div>

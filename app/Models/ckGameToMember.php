@@ -57,8 +57,8 @@ class ckGameToMember extends ckModel
         if (!$h->removeCard($card)) {
             return False;
         };
-
-        $this->hand = ($h->hasEmptyHand())? NULL : serialize($h->hand());
+        $this->hand = ( $h->hasEmptyHand() ) ?
+            NULL : serialize($h->hand());
         return $this->save();
     }
 

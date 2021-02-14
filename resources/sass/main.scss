@@ -86,6 +86,7 @@ button {
         padding: 0;
         display: flex;
         flex-wrap: wrap;
+        flex-direction: column;
     }
 }
 
@@ -405,6 +406,9 @@ button {
                 padding: 5px 10px;
             }
             ul {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
                 padding: 5px !important;
                 li {
                     padding: 5px;

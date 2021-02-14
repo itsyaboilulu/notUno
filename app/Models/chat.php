@@ -31,16 +31,15 @@ class chat extends Model
      */
     public static function chatlog($gid,$from=0)
     {
-        return DB::table('chat')
-            ->select('users.username', 'chat.message','chat.id')
-            ->join('users','users.id','=','chat.uid')
-            ->where('chat.gid', $gid)
-            ->where('chat.id','>',$from)
-            ->orderBy('chat.id', 'desc')
-            ->limit(100)
-            ->get()
-            ->reverse()
-            ->values();
+        return DB::select("SELECT u.username, c.message, c.id
+            FROM chat c
+                INNER JOIN users u
+                    ON u.id = c.uid
+            WHERE c.gid  = $gid
+                AND c.id > $from
+            ORDER BY c.id DESC
+            LIMIT 100
+        ");
     }
 
     /**
