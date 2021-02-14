@@ -13,9 +13,14 @@ class useful {
      * @return array
      */
     public static function uriDecode($data){
-        foreach(explode('&', $data) as $dat){
-            $d = explode('=',$dat);
-            $ret[$d[0]] = ($d[1] == 'false')? 0 : (($d[1] == 'true')? 1 : $d[1]) ;
+        $ret = NULL;
+        if ($data){
+            foreach(explode('&', $data) as $dat){
+                $d = explode('=',$dat);
+                $ret[$d[0]] = ( $d[1] == 'false')?
+                    0 : ( ( $d[1] == 'true')
+                            ? 1 : $d[1] ) ;
+            }
         }
         return $ret;
     }

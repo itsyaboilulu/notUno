@@ -72,12 +72,10 @@ class gameToMember extends Model
     public static function handCounts($gid)
     {
         foreach( gameToMember::where('gid',$gid)->get() as $g ){
-            if ( Auth::id() != $g->uid ){
                 $ret[] = array(
                     'member'=> users::getName($g->uid),
                     'count' => (useful::unserialize($g->hand)) ? count(useful::unserialize($g->hand)) : 0
                 ) ;
-            }
         }
         return $ret;
     }

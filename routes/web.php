@@ -51,11 +51,7 @@ Route::post('api/register', [App\Http\Controllers\APIController::class, 'registe
 Auth::routes();
 
 Route::get('/test', function(){
-    $game =  game::find(1);
-    $s = new hand(array('R8'));
-    echo $s->removeCard('R8');
-    echo $s->hasEmptyHand();
-    //print_r( $s->hand() );
+    print_r(useful::uriDecode(NULL));
 
 
 });
