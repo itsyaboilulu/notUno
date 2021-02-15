@@ -74,7 +74,7 @@ button {
     }
     #lobby,
     #play {
-        margin-right: 5px;
+        margin-right: 2.5px;
     }
 }
 #mhands {
@@ -188,6 +188,7 @@ button {
     }
     .top {
         width: 100%;
+        margin-bottom: 5px;
         display: flex;
         .actions {
             margin: auto auto auto auto;
@@ -200,10 +201,12 @@ button {
                 text-transform: capitalize;
                 font-size: 30px;
             }
-            button {
-                float: right;
-                img {
-                    height: 50px;
+            .btns {
+                button {
+                    float: right;
+                    img {
+                        height: 50px;
+                    }
                 }
             }
         }
@@ -220,16 +223,29 @@ button {
         vertical-align: top;
     }
     .actions {
-        margin-top: 10px;
+        margin-bottom: 5px;
         width: 100%;
-        display: flex;
-        flex-direction: row;
         text-align: center;
-        justify-content: center;
-        align-content: center;
-        button {
-            width: 50%;
-            margin: 5px;
+        h2 {
+            text-transform: capitalize;
+            font-size: 30px;
+            width: 100%;
+        }
+        .btns {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            text-align: center;
+            justify-content: center;
+            align-content: center;
+            button {
+                width: calc(50%-5px);
+                margin: 5px;
+            }
+        }
+        &:last-child {
+            margin-top: 5px;
+            margin-bottom: 0px;
         }
     }
 }
@@ -645,8 +661,14 @@ button {
     .actions {
         display: flex;
         flex-direction: column;
+        text-align: center;
         button {
-            width: 100% !important;
+            margin: auto;
+            margin-bottom: 5px;
+            width: 90% !important;
+            img {
+                width: 70%;
+            }
         }
     }
     .logo {

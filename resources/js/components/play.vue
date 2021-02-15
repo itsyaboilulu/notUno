@@ -1,6 +1,12 @@
 
 <template>
     <div id="play">
+        <div class="actions" v-if="!yourTurn">
+            <h2>{{turn}}'s turn</h2>
+        </div>
+        <div class="actions" v-if="yourTurn">
+            <h2>Your turn</h2>
+        </div>
         <div class="top">
             <unoCard v-bind:cardValue=card v-bind:playable=0 v-bind:against=0></unoCard>
             <mhands v-bind:hands=mmhand ></mhands>
@@ -12,14 +18,12 @@
                 </div>
             </div>
         </div>
-
         <div class="actions" v-if="yourTurn">
+            <div class="btns" >
                 <button v-if="!stack" v-on:click="draw()" class="draw"><img :src="'resources/img/draw.png'"></button>
                 <button v-if="isuno" class="uno" v-on:click="callUno()"><img :src="'resources/img/uno.png'"></button>
             </div>
-            <div class="actions" v-if="!yourTurn">
-                <h2>{{turn}}'s turn</h2>
-            </div>
+        </div>
     </div>
 </template>
 

@@ -2172,6 +2172,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -39763,6 +39767,16 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "play" } }, [
+    !_vm.yourTurn
+      ? _c("div", { staticClass: "actions" }, [
+          _c("h2", [_vm._v(_vm._s(_vm.turn) + "'s turn")])
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.yourTurn
+      ? _c("div", { staticClass: "actions" }, [_c("h2", [_vm._v("Your turn")])])
+      : _vm._e(),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "top" },
@@ -39798,41 +39812,37 @@ var render = function() {
     _vm._v(" "),
     _vm.yourTurn
       ? _c("div", { staticClass: "actions" }, [
-          !_vm.stack
-            ? _c(
-                "button",
-                {
-                  staticClass: "draw",
-                  on: {
-                    click: function($event) {
-                      return _vm.draw()
+          _c("div", { staticClass: "btns" }, [
+            !_vm.stack
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "draw",
+                    on: {
+                      click: function($event) {
+                        return _vm.draw()
+                      }
                     }
-                  }
-                },
-                [_c("img", { attrs: { src: "resources/img/draw.png" } })]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.isuno
-            ? _c(
-                "button",
-                {
-                  staticClass: "uno",
-                  on: {
-                    click: function($event) {
-                      return _vm.callUno()
+                  },
+                  [_c("img", { attrs: { src: "resources/img/draw.png" } })]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.isuno
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "uno",
+                    on: {
+                      click: function($event) {
+                        return _vm.callUno()
+                      }
                     }
-                  }
-                },
-                [_c("img", { attrs: { src: "resources/img/uno.png" } })]
-              )
-            : _vm._e()
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    !_vm.yourTurn
-      ? _c("div", { staticClass: "actions" }, [
-          _c("h2", [_vm._v(_vm._s(_vm.turn) + "'s turn")])
+                  },
+                  [_c("img", { attrs: { src: "resources/img/uno.png" } })]
+                )
+              : _vm._e()
+          ])
         ])
       : _vm._e()
   ])

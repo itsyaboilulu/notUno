@@ -13,7 +13,6 @@ export default {
     computed:{
         hand: function(){
             return _.orderBy(this.hands,'member','asc').slice(0,5);
-
         }
     }
 }
