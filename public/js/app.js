@@ -2218,11 +2218,15 @@ __webpack_require__.r(__webpack_exports__);
     nextTurn: function nextTurn() {
       for (var key in this.mmhand) {
         if (this.turn == this.mmhand[key].member) {
-          if (key + 1 > this.mmhand.length) {
-            key = 0;
-          }
+          try {
+            if (key + 1 > this.mmhand.length) {
+              key = 0;
+            }
 
-          return this.mmhand[key + 1].member;
+            return this.mmhand[key + 1].member;
+          } catch (_unused) {
+            return this.mmhand[0];
+          }
         }
       }
     }
