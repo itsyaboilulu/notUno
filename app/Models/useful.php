@@ -32,7 +32,7 @@ class useful {
      * @return array
      */
     public static function strToArray($data) {
-        return explode(',',$data);
+        return (is_array($data))? explode(',',$data) : NULL;
     }
 
 

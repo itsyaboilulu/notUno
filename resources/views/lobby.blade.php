@@ -1,3 +1,6 @@
+@php
+    $page = 'lobby';
+@endphp
 @extends('/layouts/main')
 @section('head')
     <script href='resources/js/ajax.min.js'></script>

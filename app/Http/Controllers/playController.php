@@ -106,7 +106,6 @@ class playController extends Controller
 
 
     public function startGame(Request $request){
-
         $game = game::gameFromPassword($request->get('password'));
         if ($game && !$game->started){
             $game->name = $request->get('name');

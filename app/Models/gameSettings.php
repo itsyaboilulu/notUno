@@ -80,7 +80,7 @@ class gameSettings {
     public function save()
     {
         $game = game::find($this->game_id);
-        $game->setting = serialize($this->settings);
+        $game->setting = serialize($this->settings());
         return $game->save();
     }
 

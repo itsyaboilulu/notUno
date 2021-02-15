@@ -18,6 +18,7 @@ use App\Models\useful;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Jenssegers\Agent\Facades\Agent;
 use PhpParser\Node\Expr\Print_;
 
 /*
@@ -53,7 +54,6 @@ Auth::routes();
 
 Route::get('/test', function(){
 
-    (new ckGameLeaderboard(1,1))->addWin();
 
 
 });

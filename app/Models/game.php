@@ -109,11 +109,10 @@ class game extends Model
      */
     public function startGame($settings = NULL)
     {
-        if ($settings) {
-            $set = new gameSettings($this->id);
-            $set->setSettings($settings);
-            $set->save();
-        }
+
+        $set = new gameSettings($this->id);
+        $set->setSettings($settings);
+        $set->save();
 
         $hand = new hand( NULL, useful::unserialize( $this->deck ) );
 

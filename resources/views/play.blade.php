@@ -1,3 +1,6 @@
+@php
+    $page = 'play';
+@endphp
 @extends('/layouts/main')
 @section('head')
 

@@ -68,9 +68,6 @@ button {
         background-color: $bk;
         min-width: 300px;
     }
-    #chat {
-        width: 300px !important;
-    }
     #lobby,
     #play {
         margin-right: 5px;
@@ -329,71 +326,6 @@ button {
     }
 }
 
-//mobile
-
-@media only screen and (max-width: 800px) {
-    #chat {
-        display: none;
-    }
-    body {
-        padding: 5px;
-    }
-    .uno-card {
-        width: 70px !important;
-        height: 90px !important;
-        padding: 3px;
-        img {
-            width: 60px;
-            height: 60px;
-        }
-    }
-    .draw,
-    .lobby,
-    .uno,
-    .home {
-        width: 100% !important;
-    }
-    #colorPallet {
-        height: 100vh;
-        width: 100vw;
-        background-color: rgba($color: #000, $alpha: 0.4);
-        .colorPallet {
-            position: fixed;
-            top: calc(80vh - 8px);
-            height: calc(20vh + 4px);
-            padding: 3px;
-            background-color: black;
-            display: flex;
-            flex-wrap: wrap;
-            div {
-                border-radius: 5px;
-                width: calc(50vw - 12px);
-                height: calc(10vh - 8px);
-                margin: 4px;
-            }
-            :first-child {
-                background-color: $uno_red;
-            }
-            :nth-child(2) {
-                background-color: $uno_green;
-            }
-            :nth-child(3) {
-                background-color: $uno_blue;
-            }
-            :last-child {
-                background-color: $uno_yellow;
-            }
-        }
-    }
-    .actions {
-        display: flex;
-        flex-direction: column;
-        button {
-            width: 100% !important;
-        }
-    }
-}
-
 #lobby {
     padding: 2% 0;
     .lobby {
@@ -436,6 +368,11 @@ button {
                 &:hover {
                     cursor: pointer;
                     font-weight: bold;
+                }
+                label {
+                    overflow-x: hidden;
+                    font-size: 12px;
+                    padding-top: 3px;
                 }
                 width: 100%;
                 display: flex;
@@ -516,5 +453,165 @@ button {
                 font-weight: bold;
             }
         }
+    }
+}
+
+//mobile
+
+@media only screen and (max-width: 800px) {
+    .header {
+        .flex {
+            justify-content: space-between;
+            width: 100%;
+            vertical-align: middle;
+            img {
+                align-self: center;
+            }
+            img:first-child {
+                margin-left: 5px;
+                margin-right: 10px;
+            }
+            img:last-child {
+                margin-right: 5px;
+            }
+            .logo {
+                height: 70px !important;
+                padding: 0 !important;
+            }
+        }
+    }
+    #navigation {
+        background-color: rgba($color: #000, $alpha: 0) !important;
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100vh !important;
+        width: 100vw;
+        z-index: 100;
+        .navigation {
+            background-color: $fk;
+            width: 60vw;
+            height: 100vh !important;
+            border-right: 1px solid black;
+        }
+        &.close {
+            right: 100%;
+            -webkit-transition: height, 0.4s linear;
+            -moz-transition: height, 0.4s linear;
+            -ms-transition: height, 0.4s linear;
+            -o-transition: height, 0.4s linear;
+            transition: height, 0.4s linear;
+        }
+        &.open {
+            right: 0;
+            -webkit-transition: height, 0.4s linear;
+            -moz-transition: height, 0.4s linear;
+            -ms-transition: height, 0.4s linear;
+            -o-transition: height, 0.4s linear;
+            transition: height, 0.4s linear;
+        }
+    }
+    #chat {
+        background-color: rgba($color: #000, $alpha: 0) !important;
+        position: absolute;
+        right: 0;
+        top: 0;
+        border-radius: 0 !important;
+        padding: 0;
+        height: 100vh;
+        width: 100vw;
+        z-index: 100;
+        transition: 1s left cubic-bezier(0.77, 0, 0.175, 1);
+        &.close {
+            right: 100%;
+            -webkit-transition: height, 0.4s linear;
+            -moz-transition: height, 0.4s linear;
+            -ms-transition: height, 0.4s linear;
+            -o-transition: height, 0.4s linear;
+            transition: height, 0.4s linear;
+        }
+        &.open {
+            right: 0;
+            -webkit-transition: height, 0.4s linear;
+            -moz-transition: height, 0.4s linear;
+            -ms-transition: height, 0.4s linear;
+            -o-transition: height, 0.4s linear;
+            transition: height, 0.4s linear;
+        }
+        .chat {
+            float: left;
+            border-left: 1px solid black;
+            width: 80vw;
+            .messages {
+                height: calc(100vh - 72px);
+            }
+        }
+    }
+    body {
+        padding: 5px;
+    }
+    .uno-card {
+        width: 70px !important;
+        height: 90px !important;
+        padding: 3px;
+        img {
+            width: 60px;
+            height: 60px;
+        }
+    }
+    .draw,
+    .lobby,
+    .uno,
+    .home {
+        width: 100% !important;
+    }
+    #colorPallet {
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba($color: #000, $alpha: 0.4);
+        .colorPallet {
+            position: fixed;
+            top: calc(80vh - 8px);
+            height: calc(20vh + 4px);
+            padding: 3px;
+            background-color: black;
+            display: flex;
+            flex-wrap: wrap;
+            div {
+                border-radius: 5px;
+                width: calc(50vw - 12px);
+                height: calc(10vh - 8px);
+                margin: 4px;
+            }
+            :first-child {
+                background-color: $uno_red;
+            }
+            :nth-child(2) {
+                background-color: $uno_green;
+            }
+            :nth-child(3) {
+                background-color: $uno_blue;
+            }
+            :last-child {
+                background-color: $uno_yellow;
+            }
+        }
+    }
+    .actions {
+        display: flex;
+        flex-direction: column;
+        button {
+            width: 100% !important;
+        }
+    }
+    .logo {
+        height: 10px !important;
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 800px) {
+    #chat {
+        width: 300px !important;
     }
 }

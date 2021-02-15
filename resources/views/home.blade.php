@@ -1,3 +1,6 @@
+@php
+    $page = 'home';
+@endphp
 @extends('/layouts/main')
 @section('head')
 

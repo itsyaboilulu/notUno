@@ -25,7 +25,7 @@ class playAPI extends play
      */
     public function checkTurn()
     {
-        parent::checkTimeOut();
+        $this->checkTimeOut();
         $ret = [
                 'yourturn'      => FALSE,
                 'player'        => users::getName($this->game()->turn),
