@@ -9,7 +9,7 @@
         <title>Uno</title>
     </head>
     <div class="header">
-        @if (Agent::isMobile())
+        @if (Agent::isMobile() && $page != 'login' )
             <div class="flex">
                 <img src="resources/img/bars.png" height="40px" width="40px"
                     onclick="showNav()"
