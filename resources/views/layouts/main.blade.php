@@ -1,5 +1,5 @@
 @php
-    $cache = '?v=1.6';
+    $cache = '?v=1.7';
 @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
