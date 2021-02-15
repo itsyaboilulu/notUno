@@ -36,7 +36,7 @@
                 </span>
                 <deckBreakDown v-if="hs.deck && admin"  v-bind:deck="settings.deck"       ></deckBreakDown>
                 <gameSettings  v-if="!hs.deck && admin" v-bind:setting="settings.setting" ></gameSettings>
-                <button id='start' :disabled="canplay == 0" v-on:click="start()"> start </button>
+                <button v-if="admin" id='start' :disabled="canplay == 0" v-on:click="start()"> start </button>
             </div>
 
         </div>

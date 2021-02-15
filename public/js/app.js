@@ -39616,18 +39616,20 @@ var render = function() {
             ? _c("gameSettings", { attrs: { setting: _vm.settings.setting } })
             : _vm._e(),
           _vm._v(" "),
-          _c(
-            "button",
-            {
-              attrs: { id: "start", disabled: _vm.canplay == 0 },
-              on: {
-                click: function($event) {
-                  return _vm.start()
-                }
-              }
-            },
-            [_vm._v(" start ")]
-          )
+          _vm.admin
+            ? _c(
+                "button",
+                {
+                  attrs: { id: "start", disabled: _vm.canplay == 0 },
+                  on: {
+                    click: function($event) {
+                      return _vm.start()
+                    }
+                  }
+                },
+                [_vm._v(" start ")]
+              )
+            : _vm._e()
         ],
         1
       )
