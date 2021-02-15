@@ -2176,6 +2176,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2211,6 +2213,19 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.check();
+  },
+  computed: {
+    nextTurn: function nextTurn() {
+      for (var key in this.mmhand) {
+        if (this.turn == this.mmhand[key].member) {
+          if (key + 1 > this.mmhand.length) {
+            key = 0;
+          }
+
+          return this.mmhand[key + 1].member;
+        }
+      }
+    }
   },
   methods: {
     check: function check() {
@@ -2670,7 +2685,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ['hands'],
   computed: {
     hand: function hand() {
-      return _.orderBy(this.hands, 'member', 'asc').slice(0, 5);
+      return this.hands.slice(0, 5);
     }
   }
 });
@@ -39768,12 +39783,18 @@ var render = function() {
   return _c("div", { attrs: { id: "play" } }, [
     !_vm.yourTurn
       ? _c("div", { staticClass: "actions" }, [
-          _c("h2", [_vm._v(_vm._s(_vm.turn) + "'s turn")])
+          _c("h2", [_vm._v(_vm._s(_vm.turn) + "'s turn")]),
+          _vm._v(" "),
+          _c("p", [_vm._v(_vm._s(_vm.nextTurn) + " is going next")])
         ])
       : _vm._e(),
     _vm._v(" "),
     _vm.yourTurn
-      ? _c("div", { staticClass: "actions" }, [_c("h2", [_vm._v("Your turn")])])
+      ? _c("div", { staticClass: "actions" }, [
+          _c("h2", [_vm._v("Your turn")]),
+          _vm._v(" "),
+          _c("p", [_vm._v(_vm._s(_vm.nextTurn) + " is going next")])
+        ])
       : _vm._e(),
     _vm._v(" "),
     _c(

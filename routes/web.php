@@ -15,6 +15,7 @@ use App\Models\gamePlayCard;
 use App\Models\gameToMember;
 use App\Models\playAPI;
 use App\Models\useful;
+use App\Models\users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -52,3 +53,10 @@ Route::post('api/register', [App\Http\Controllers\APIController::class, 'registe
 
 Auth::routes();
 
+Route::get('/test', function(){
+
+    echo '<hr>';
+    print_r( gameToMember::handCounts(4) );
+    echo '<hr>';
+
+});

@@ -71,12 +71,14 @@ class gameToMember extends Model
      */
     public static function handCounts($gid)
     {
-        $order = unserialize( (game::find($gid))->order );
         foreach( gameToMember::where('gid',$gid)->get() as $g ){
-                $ret[ array_search($g->uid,$order) ] = array(
+                $or[ $g->uid ] = array(
                     'member'=> users::getName($g->uid),
                     'count' => (useful::unserialize($g->hand)) ? count(useful::unserialize($g->hand)) : 0
                 ) ;
+        }
+        foreach(unserialize((game::find($gid))->order) as $o){
+            $ret[] = $or[$o];
         }
         return $ret;
     }

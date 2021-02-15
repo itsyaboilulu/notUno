@@ -12,7 +12,7 @@ export default {
     props:['hands'],
     computed:{
         hand: function(){
-            return _.orderBy(this.hands,'member','asc').slice(0,5);
+            return this.hands.slice(0,5);
         }
     }
 }

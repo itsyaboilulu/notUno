@@ -3,9 +3,11 @@
     <div id="play">
         <div class="actions" v-if="!yourTurn">
             <h2>{{turn}}'s turn</h2>
+            <p>{{nextTurn}} is going next</p>
         </div>
         <div class="actions" v-if="yourTurn">
             <h2>Your turn</h2>
+            <p>{{nextTurn}} is going next</p>
         </div>
         <div class="top">
             <unoCard v-bind:cardValue=card v-bind:playable=0 v-bind:against=0></unoCard>
@@ -41,7 +43,6 @@
             this.yourTurn                   = this.myturn;
             this.game_settinsg.password     = this.game.password;
             this.isuno                      = (this.hand.length == 2) ? true : false;
-
         },
         data () {
             return {
@@ -64,6 +65,18 @@
         },
         created(){
             this.check();
+        },
+        computed:{
+            nextTurn: function(){
+                for(var key in this.mmhand){
+                    if ( this.turn == this.mmhand[key].member ){
+                        if ((key+1) > this.mmhand.length){
+                            key = 0;
+                        }
+                        return this.mmhand[(key+1)].member
+                    }
+                }
+            },
         },
         methods: {
             check(){
