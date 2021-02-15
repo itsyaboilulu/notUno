@@ -1880,6 +1880,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ['logs', 'user', 'password'],
   data: function data() {
     return {
+      close: 'close',
       message: '',
       log: [1, 2, 3],
       checkTime: 10,
@@ -39357,10 +39358,10 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "chat" } }, [
+  return _c("div", { staticClass: "close", attrs: { id: "chat" } }, [
     _c("div", { staticClass: "chat" }, [
       _c("div", { staticClass: "options" }, [
-        _vm._v("\n        Mute:\n            "),
+        _vm._v("\n            Mute:\n                "),
         _c(
           "strong",
           {
@@ -39409,7 +39410,9 @@ var render = function() {
                 l.username != "uno" && _vm.showusers
                   ? _c("div", [
                       _c("strong", [_vm._v(_vm._s(l.username))]),
-                      _vm._v(": " + _vm._s(l.message) + "\n                ")
+                      _vm._v(
+                        ": " + _vm._s(l.message) + "\n                    "
+                      )
                     ])
                   : _vm._e()
               ]

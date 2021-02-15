@@ -1,24 +1,27 @@
+@php
+    $cache = '?v=1.2';
+@endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <link rel="stylesheet" href="resources/css/main.min.css?v=1.2" />
+        <link rel="stylesheet" href="resources/css/main.min.css{{$cache}}" />
         @yield('head')
         <title>Uno</title>
     </head>
     <div class="header">
         @if (Agent::isMobile() && $page != 'login' )
             <div class="flex">
-                <img src="resources/img/bars.png" height="40px" width="40px"
+                <img src="resources/img/bars.png" height="30px" width="30px"
                     onclick="showNav()"
                 >
-                <a href="/"><img class="logo" src="resources/img/logo.png" height="30px" ></a>
+                <a href="/"><img class="logo" src="resources/img/logo.png" height="20px" ></a>
                 @if ($page != 'home')
-                    <img src="resources/img/chat.png" onclick="showChat()" height="50px" width="50px" >
+                    <img src="resources/img/chat.png" onclick="showChat()" height="40px" width="40px" >
                 @else
-                    <div style="width: 50px; height:50px;">&nbsp;</div>
+                    <div style="width: 40px; height:40px;">&nbsp;</div>
                 @endif
             </div>
         @else
@@ -51,7 +54,7 @@
             @yield('body')
         </div>
     </body>
-    <script src="public/js/app.js"></script>
+    <script src="public/js/app.js{{$cache}}"></script>
     @yield('script')
     @if (Agent::isMobile())
         <script>
@@ -62,7 +65,6 @@
             window.addEventListener('resize', appHeight);
             appHeight();
             @if ($page != 'home')
-                document.getElementById('chat').classList.add('close');
                 function showChat (){
                     document.getElementById('chat').classList.toggle('close');
                     document.getElementById('chat').classList.toggle('open');

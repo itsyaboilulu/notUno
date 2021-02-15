@@ -481,8 +481,10 @@ button {
                 margin-right: 5px;
             }
             .logo {
-                height: 70px !important;
+                height: 30px !important;
+                width: 130px;
                 padding: 0 !important;
+                padding-top: 5px !important;
             }
         }
     }
@@ -539,8 +541,8 @@ button {
                     padding: 5px;
                     border-bottom: 1px solid black;
                     img {
-                        width: 180px;
-                        height: 40px !important;
+                        height: 30px !important;
+                        width: 130px;
                     }
                 }
             }

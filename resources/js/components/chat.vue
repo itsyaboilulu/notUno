@@ -1,27 +1,27 @@
 <template>
-    <div id='chat'>
-     <div class="chat">
-         <div class="options">
-            Mute:
-                <strong :class="{ strickthough:!showusers }" v-on:click=" showusers = (showusers)?0:1" >players</strong>
-                <strong :class="{ strickthough:!showuno }" v-on:click=" showuno = (showuno)?0:1">unobot</strong>
+    <div id='chat' class="close">
+        <div class="chat">
+            <div class="options">
+                Mute:
+                    <strong :class="{ strickthough:!showusers }" v-on:click=" showusers = (showusers)?0:1" >players</strong>
+                    <strong :class="{ strickthough:!showuno }" v-on:click=" showuno = (showuno)?0:1">unobot</strong>
 
-         </div>
-         <div class="messages" id='messages'>
-             <ul>
-                 <li v-for="l in log" :class="{ recived:l.username!=user && l.username!='uno', sent:l.username==user, uno:l.username=='uno' }" >
-                    <div v-if="l.username == 'uno' && showuno" v-html="l.message"></div>
-                    <div v-if="l.username != 'uno' && showusers">
-                            <strong>{{l.username}}</strong>: {{l.message}}
-                    </div>
-                </li>
-             </ul>
-         </div>
-         <div class="input">
-             <input type="text" v-model="message" v-on:keyup.enter="send()" placeholder="type...">
-             <button v-on:click="send()">></button>
-         </div>
-     </div>
+            </div>
+            <div class="messages" id='messages'>
+                <ul>
+                    <li v-for="l in log" :class="{ recived:l.username!=user && l.username!='uno', sent:l.username==user, uno:l.username=='uno' }" >
+                        <div v-if="l.username == 'uno' && showuno" v-html="l.message"></div>
+                        <div v-if="l.username != 'uno' && showusers">
+                                <strong>{{l.username}}</strong>: {{l.message}}
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="input">
+                <input type="text" v-model="message" v-on:keyup.enter="send()" placeholder="type...">
+                <button v-on:click="send()">></button>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -32,6 +32,7 @@
         props:['logs','user','password'],
         data(){
             return {
+                close       :'close',
                 message     :'',
                 log         :[1,2,3],
                 checkTime   :10,
