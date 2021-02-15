@@ -18,7 +18,7 @@
                 @if ($page != 'home')
                     <img src="resources/img/chat.png" onclick="showChat()" height="50px" width="50px" >
                 @else
-                    <div style="width: 50px; height:50px; color:red">-</div>
+                    <div style="width: 50px; height:50px;">&nbsp;</div>
                 @endif
             </div>
         @else
@@ -28,7 +28,6 @@
     @if (Agent::isMobile())
         <div id="navigation" class="close">
             <div class="navigation">
-
                 <ul>
                     <a href="/">
                         <li>
