@@ -28,15 +28,22 @@
     @if (Agent::isMobile())
         <div id="navigation" class="close">
             <div class="navigation">
-                <a href="/"><img class="logo" src="resources/img/logo.png" height="30px" ></a>
+
                 <ul>
+                    <a href="/">
+                        <li>
+                            <img class="logo"
+                                src="resources/img/logo.png"
+                                height="50px" >
+                        </li>
+                    </a>
                     <a href=""><li> Home </li></a>
                     <a href="hostnew"><li> Host new game </li></a>
                     <form method="POST" id='logout' action="{{ route('logout') }}">
                         @csrf
                         <a onclick="document.getElementById('logout').submit()"><li>Logout</li></a>
                     </form>
-                <ul>
+                </ul>
             </div>
         </div>
     @endif
