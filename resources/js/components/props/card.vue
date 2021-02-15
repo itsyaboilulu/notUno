@@ -44,9 +44,6 @@
                 }
             }
         },
-        beforeDestroy(){
-            this.$el.parentNode.removeChild(this.$el);
-        },
         methods: {
             updateCardView($data){
                 if ( $data == 'W' || $data == 'WD4' ){

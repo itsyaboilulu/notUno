@@ -2317,9 +2317,6 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  beforeDestroy: function beforeDestroy() {
-    this.$el.parentNode.removeChild(this.$el);
-  },
   methods: {
     updateCardView: function updateCardView($data) {
       if ($data == 'W' || $data == 'WD4') {
