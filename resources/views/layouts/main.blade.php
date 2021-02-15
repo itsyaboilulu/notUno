@@ -55,6 +55,12 @@
     @yield('script')
     @if (Agent::isMobile())
         <script>
+            const appHeight = () => {
+                const doc = document.documentElement;
+                doc.style.setProperty('--vh', `${window.innerHeight}px`);
+            }
+            window.addEventListener('resize', appHeight);
+            appHeight();
             @if ($page != 'home')
                 document.getElementById('chat').classList.add('close');
                 function showChat (){

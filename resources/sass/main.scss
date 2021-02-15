@@ -4,6 +4,10 @@
     src: url(fonts/VCR_OSD_MONO_1.001.ttf);
 }
 
+:root {
+    --vh: 100vh;
+}
+
 button {
     font-family: Minecraft;
     padding: 5px;
@@ -231,7 +235,7 @@ button {
 }
 
 #colorPallet {
-    height: 100vh;
+    height: var(--vh);
     width: 100vw;
     position: absolute;
     z-index: 100;
@@ -240,21 +244,23 @@ button {
 }
 #colorPallet {
     position: fixed;
-    height: 100vh !important;
+    height: var(--vh) !important;
     width: 99vw !important;
     background-color: rgba($color: #000, $alpha: 0.4);
     .colorPallet {
+        width: calc(30vh + 6px);
+        height: calc(30vh + 6px);
         position: fixed;
-        top: calc(80vh - 8px);
-        height: calc(20vh + 4px);
+        top: calc(50% - calc(30vh + 0px));
+        left: calc(50% - calc(20vh + 0px));
         padding: 3px;
         background-color: black;
         display: flex;
         flex-wrap: wrap;
         div {
             border-radius: 0px;
-            width: calc(50vw - 20px);
-            height: calc(10vh - 8px);
+            width: calc(15vh - 6px);
+            height: calc(15vh - 6px);
             margin: 4px;
             cursor: pointer;
         }
@@ -485,13 +491,13 @@ button {
         position: absolute;
         right: 0;
         top: 0;
-        height: 100vh !important;
+        height: var(--vh) !important;
         width: 100vw;
         z-index: 100;
         .navigation {
             background-color: $fk;
             width: 60vw;
-            height: 100vh !important;
+            height: var(--vh) !important;
             border-right: 1px solid black;
         }
         &.close {
@@ -555,7 +561,7 @@ button {
         top: 0;
         border-radius: 0 !important;
         padding: 0;
-        height: 100vh;
+        height: var(--vh);
         width: 100vw;
         z-index: 100;
         transition: 1s left cubic-bezier(0.77, 0, 0.175, 1);
@@ -580,7 +586,7 @@ button {
             border-left: 1px solid black;
             width: 80vw;
             .messages {
-                height: calc(100vh - 72px);
+                height: calc(var(--vh) - 72px);
             }
         }
     }
@@ -603,7 +609,7 @@ button {
         width: 100% !important;
     }
     #colorPallet {
-        height: 100vh;
+        height: var(--vh);
         width: 100vw;
         background-color: rgba($color: #000, $alpha: 0.4);
         .colorPallet {
