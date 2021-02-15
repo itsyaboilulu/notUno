@@ -46,9 +46,12 @@ class playController extends Controller
     {
         try {
             $game = game::gameFromPassword($request->get('join'));
-            $game->addMember(Auth::id());
-            ( new chatMessages($game->id) )->joined();
-            return redirect('lobby?game='.$game->password);
+            if (!$game->started){
+                $game->addMember(Auth::id());
+                (new chatMessages($game->id))->joined();
+                return redirect('lobby?game=' . $game->password);
+            }
+            return redirect('/');
         } catch (Exception $e) {
             return redirect('/');
         }
