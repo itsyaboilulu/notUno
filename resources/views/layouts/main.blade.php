@@ -30,9 +30,12 @@
             <div class="navigation">
                 <a href="/"><img class="logo" src="resources/img/logo.png" height="30px" ></a>
                 <ul>
-                    <li> Home </li>
-                    <li>host new game</li>
-                    <li> logout </li>
+                    <a href=""><li> Home </li></a>
+                    <a href="hostnew"><li> Host new game </li></a>
+                    <form method="POST" id='logout' action="{{ route('logout') }}">
+                        @csrf
+                        <a onclick="document.getElementById('logout').submit()"><li>Logout</li></a>
+                    </form>
                 <ul>
             </div>
         </div>

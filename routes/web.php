@@ -52,9 +52,3 @@ Route::post('api/register', [App\Http\Controllers\APIController::class, 'registe
 
 Auth::routes();
 
-Route::get('/test', function(){
-        echo useful::diffMins('2021-02-14 23:54:19', date("Y-m-d H:i:s"));
-           // useful::diffMins($this->game()->updated, date("Y-m-d H:i:s")) > $this->settings('timeoutsTime')
-
-
-});

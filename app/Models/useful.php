@@ -50,7 +50,7 @@ class useful {
      * get mins between 2 dates
      */
     public static function diffMins($start,$finnish){
-        return ( useful::diffSeconds($start, $finnish) /60 );
+        return ( useful::diffSeconds($start, $finnish) / 60 );
     }
 
     /**
