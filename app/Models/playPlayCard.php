@@ -120,7 +120,7 @@ class playPlayCard extends play {
             }
         }
         if (!$stackable){
-            return $this->resolveStack();
+            return ($this->resolveStack()) ? TRUE : $this->drawCard($this->checkNextTurn(), $this->card->drawAmount()); ;
         }
         $this->chat()->canStack();
         $this->game()->addStack(Auth::id(),$this->card->Card(),$this->card->drawAmount() );
@@ -134,15 +134,14 @@ class playPlayCard extends play {
      */
     private function resolveStack()
     {
-        if ( isset( unserialize( $this->game()->game_data )['stack'] ) ) {
-            $this->drawCard( $this->checkNextTurn(),
-                ( unserialize($this->game()->game_data)['stack']['draw'] + $this->card->drawAmount() )
+        if (isset(unserialize($this->game()->game_data)['stack'])) {
+            $this->drawCard(
+                $this->checkNextTurn(),
+                (unserialize($this->game()->game_data)['stack']['draw'] + $this->card->drawAmount())
             );
-            $this->game()->clearStack();
-        } else{
-            $this->drawCard($this->checkNextTurn(), $this->card->drawAmount());
+            return $this->game()->clearStack();
         }
-        return TRUE;
+        return;
     }
 
 }

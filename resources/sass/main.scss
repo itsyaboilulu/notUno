@@ -17,7 +17,10 @@ button {
         font-weight: bold;
     }
 }
-
+ul {
+    padding: 0;
+    margin: 0;
+}
 input {
     font-family: Minecraft;
 }
@@ -96,7 +99,7 @@ button {
 }
 
 #chat {
-    padding: 2% 0;
+    padding: 0 0 2% 0;
     .chat {
         height: 100%;
         width: 100%;
@@ -174,7 +177,7 @@ button {
 
 #play {
     width: 100%;
-    padding: 2% 5px 2% 2%;
+    padding: 0 5px 2% 0;
     display: flex;
     flex-direction: column;
     .top,
@@ -258,45 +261,7 @@ button {
     bottom: 0;
     left: 0;
 }
-#colorPallet {
-    position: fixed;
-    height: var(--vh) !important;
-    width: 99vw !important;
-    background-color: rgba($color: #000, $alpha: 0.4);
-    .colorPallet {
-        width: calc(30vh + 6px);
-        height: calc(30vh + 6px);
-        position: fixed;
-        top: calc(50% - calc(30vh + 0px));
-        left: calc(50% - calc(20vh + 0px));
-        padding: 3px;
-        background-color: black;
-        display: flex;
-        flex-wrap: wrap;
-        div {
-            border-radius: 0px;
-            width: calc(15vh - 6px);
-            height: calc(15vh - 6px);
-            margin: 4px;
-            cursor: pointer;
-        }
-        div:hover {
-            filter: brightness(50%);
-        }
-        :first-child {
-            background-color: $uno_red;
-        }
-        :nth-child(2) {
-            background-color: $uno_green;
-        }
-        :nth-child(3) {
-            background-color: $uno_blue;
-        }
-        :last-child {
-            background-color: $uno_yellow;
-        }
-    }
-}
+
 .uno-card {
     min-width: 50px;
     min-height: 50px;
@@ -460,7 +425,7 @@ button {
     .home {
         margin: auto;
         background-color: $fk;
-        width: 80%;
+        width: 100%;
         border-radius: 5px;
         padding: 10px;
         text-align: center;
@@ -482,6 +447,7 @@ button {
 
 @media only screen and (max-width: 800px) {
     .header {
+        margin-bottom: 2%;
         .flex {
             justify-content: space-between;
             width: 100%;
@@ -680,5 +646,85 @@ button {
 @media only screen and (min-width: 800px) {
     #chat {
         width: 300px !important;
+    }
+    #navigation {
+        display: flex;
+        ul {
+            width: 100%;
+            margin: auto;
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 5px;
+            background-color: $bk;
+            padding: 2px;
+            a {
+                text-decoration: none;
+                color: inherit;
+            }
+            a :hover {
+                font-weight: bold;
+                cursor: pointer;
+            }
+            a:first-child li {
+                border-radius: 5px 0 0 5px;
+            }
+            a:nth-last-child(2) li {
+                border-radius: 0 5px 5px 0;
+                border-width: 0;
+            }
+            li {
+                border-right: 1px solid black;
+                padding: 5px 7px;
+                padding-right: 10px;
+                background-color: $fk;
+            }
+            form {
+                flex-grow: 1;
+                a li {
+                    border-radius: 5px;
+                    float: right;
+                    border-width: 0;
+                }
+            }
+        }
+    }
+    #colorPallet {
+        position: fixed;
+        height: var(--vh) !important;
+        width: 99vw !important;
+        background-color: rgba($color: #000, $alpha: 0.4);
+        .colorPallet {
+            width: calc(30vh + 6px);
+            height: calc(30vh + 6px);
+            position: fixed;
+            top: calc(50% - calc(30vh + 0px));
+            left: calc(50% - calc(20vh + 0px));
+            padding: 3px;
+            background-color: black;
+            display: flex;
+            flex-wrap: wrap;
+            div {
+                border-radius: 0px;
+                width: calc(15vh - 6px);
+                height: calc(15vh - 6px);
+                margin: 4px;
+                cursor: pointer;
+            }
+            div:hover {
+                filter: brightness(50%);
+            }
+            :first-child {
+                background-color: $uno_red;
+            }
+            :nth-child(2) {
+                background-color: $uno_green;
+            }
+            :nth-child(3) {
+                background-color: $uno_blue;
+            }
+            :last-child {
+                background-color: $uno_yellow;
+            }
+        }
     }
 }

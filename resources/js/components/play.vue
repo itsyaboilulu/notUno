@@ -20,7 +20,7 @@
         </div>
         <div class="actions" v-if="yourTurn">
             <div class="btns" >
-                <button v-if="!stack || hand.length == 1" v-on:click="draw()" class="draw"><img :src="'resources/img/draw.png'"></button>
+                <button v-if="!stack" v-on:click="draw()" class="draw"><img :src="'resources/img/draw.png'"></button>
                 <button v-if="isuno" class="uno" v-on:click="callUno()"><img :src="'resources/img/uno.png'"></button>
             </div>
         </div>

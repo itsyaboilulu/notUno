@@ -39812,7 +39812,7 @@ var render = function() {
     _vm.yourTurn
       ? _c("div", { staticClass: "actions" }, [
           _c("div", { staticClass: "btns" }, [
-            !_vm.stack || _vm.hand.length == 1
+            !_vm.stack
               ? _c(
                   "button",
                   {

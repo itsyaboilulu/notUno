@@ -48,6 +48,10 @@ class playAPI extends play
      */
     public function APIdrawCard()
     {
+        if ($this->checkStack()){
+            $this->drawCard( $this->game()->turn, (unserialize($this->game()->game_data)['stack']['draw']) );
+            $this->game()->clearStack();
+        }
         return ($this->draw()) ? $this->checkTurn() : $this->error_generic;
     }
 

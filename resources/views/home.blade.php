@@ -16,10 +16,6 @@
             </div>
             <hr>
             <a href="hostnew"><button>Host New Game</button></a>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button>Logout</button>
-            </form>
         </div>
     </div>
 <ul>

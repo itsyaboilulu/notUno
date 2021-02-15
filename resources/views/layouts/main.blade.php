@@ -39,7 +39,7 @@
                                 height="50px" >
                         </li>
                     </a>
-                    <a href=""><li> Home </li></a>
+                    <a href="/"><li> Home </li></a>
                     <a href="hostnew"><li> Host new game </li></a>
                     <form method="POST" id='logout' action="{{ route('logout') }}">
                         @csrf
@@ -48,6 +48,19 @@
                 </ul>
             </div>
         </div>
+    @else
+        @if ($page != 'login')
+            <div id="navigation">
+                <ul>
+                    <a href="/"><li> Home </li></a>
+                    <a href="hostnew"><li> Host new game </li></a>
+                    <form method="POST" id='logout' action="{{ route('logout') }}">
+                        @csrf
+                        <a onclick="document.getElementById('logout').submit()"><li>Logout</li></a>
+                    </form>
+                </ul>
+            </div>
+        @endif
     @endif
     <body>
         <div id='app'>
