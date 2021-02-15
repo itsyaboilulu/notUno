@@ -1,3 +1,6 @@
+@php
+    $page = 'login';
+@endphp
 @extends('layouts.main')
 
 @section('body')
