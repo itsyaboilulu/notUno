@@ -50,11 +50,17 @@ class useful {
      * get mins between 2 dates
      */
     public static function diffMins($start,$finnish){
+        return ( useful::diffSeconds($start, $finnish) /60 );
+    }
 
-        $datetime1 = new DateTime("$start");
-        $datetime2 = new DateTime("$finnish");
-        $interval = $datetime1->diff($datetime2);
-        return $interval->format('%i');
+    /**
+     * get seconds between 2 dates
+     */
+    public static function diffSeconds($start, $finnish)
+    {
+        $datetime1 = strtotime("$start");
+        $datetime2 = strtotime("$finnish");
+        return abs($datetime1 - $datetime2);
     }
 
 }

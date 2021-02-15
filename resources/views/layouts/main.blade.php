@@ -28,7 +28,12 @@
     @if (Agent::isMobile())
         <div id="navigation" class="close">
             <div class="navigation">
-
+                <a href="/"><img class="logo" src="resources/img/logo.png" height="30px" ></a>
+                <ul>
+                    <li> Home </li>
+                    <li>host new game</li>
+                    <li> logout </li>
+                <ul>
             </div>
         </div>
     @endif
