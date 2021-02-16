@@ -18,7 +18,7 @@
             <div v-if="!canplay" class="players">
                 <span >Need at least 2 players to start a game</span>
             </div>
-            <div class="settings">
+            <div class="settings" v-if="admin">
                 <h4>Settings</h4>
                 <form v-if="admin" id='startgame' action="startgame" >
                     <input type="hidden" name="password" v-bind:value="game.password" />

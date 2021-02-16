@@ -39675,136 +39675,140 @@ var render = function() {
             ])
           : _vm._e(),
         _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "settings" },
-          [
-            _c("h4", [_vm._v("Settings")]),
-            _vm._v(" "),
-            _vm.admin
-              ? _c(
-                  "form",
-                  { attrs: { id: "startgame", action: "startgame" } },
-                  [
-                    _c("input", {
-                      attrs: { type: "hidden", name: "password" },
-                      domProps: { value: _vm.game.password }
-                    }),
-                    _vm._v(" "),
-                    _c("input", {
-                      attrs: {
-                        type: "hidden",
-                        name: "settings",
-                        id: "settings"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("input", {
-                      attrs: { type: "hidden", name: "deck", id: "deck" }
-                    }),
-                    _vm._v(" "),
-                    _c("label", { attrs: { for: "name" } }, [
-                      _vm._v(" name:  "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.game.name,
-                            expression: "game.name"
-                          }
-                        ],
-                        attrs: { name: "name", required: "" },
-                        domProps: { value: _vm.game.name },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(_vm.game, "name", $event.target.value)
-                          }
-                        }
-                      })
-                    ]),
-                    _c("br")
-                  ]
-                )
-              : _vm._e(),
-            _vm._v("\n                Join Link:"),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "span",
-              {
-                staticClass: "joinLink",
-                on: {
-                  click: function($event) {
-                    return _vm.copy()
-                  }
-                }
-              },
+        _vm.admin
+          ? _c(
+              "div",
+              { staticClass: "settings" },
               [
-                _c("button", [_vm._v("Copy")]),
+                _c("h4", [_vm._v("Settings")]),
                 _vm._v(" "),
-                _c("label", [_vm._v(_vm._s(_vm.joinLink))])
-              ]
-            ),
-            _vm._v(" "),
-            _vm.admin
-              ? _c("span", [
-                  _c(
-                    "span",
-                    {
-                      class: { s_option: !_vm.hs.deck, pointer: 1 },
-                      on: {
-                        click: function($event) {
-                          _vm.hs.deck = 0
-                        }
-                      }
-                    },
-                    [_vm._v("Settings")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      class: { s_option: _vm.hs.deck, pointer: 1 },
-                      on: {
-                        click: function($event) {
-                          _vm.hs.deck = 1
-                        }
-                      }
-                    },
-                    [_vm._v("Cards")]
-                  )
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.hs.deck && _vm.admin
-              ? _c("deckBreakDown", { attrs: { deck: _vm.settings.deck } })
-              : _vm._e(),
-            _vm._v(" "),
-            !_vm.hs.deck && _vm.admin
-              ? _c("gameSettings", { attrs: { setting: _vm.settings.setting } })
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.admin
-              ? _c(
-                  "button",
+                _vm.admin
+                  ? _c(
+                      "form",
+                      { attrs: { id: "startgame", action: "startgame" } },
+                      [
+                        _c("input", {
+                          attrs: { type: "hidden", name: "password" },
+                          domProps: { value: _vm.game.password }
+                        }),
+                        _vm._v(" "),
+                        _c("input", {
+                          attrs: {
+                            type: "hidden",
+                            name: "settings",
+                            id: "settings"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("input", {
+                          attrs: { type: "hidden", name: "deck", id: "deck" }
+                        }),
+                        _vm._v(" "),
+                        _c("label", { attrs: { for: "name" } }, [
+                          _vm._v(" name:  "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.game.name,
+                                expression: "game.name"
+                              }
+                            ],
+                            attrs: { name: "name", required: "" },
+                            domProps: { value: _vm.game.name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.game, "name", $event.target.value)
+                              }
+                            }
+                          })
+                        ]),
+                        _c("br")
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v("\n                Join Link:"),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "span",
                   {
-                    attrs: { id: "start", disabled: _vm.canplay == 0 },
+                    staticClass: "joinLink",
                     on: {
                       click: function($event) {
-                        return _vm.start()
+                        return _vm.copy()
                       }
                     }
                   },
-                  [_vm._v(" start ")]
-                )
-              : _vm._e()
-          ],
-          1
-        )
+                  [
+                    _c("button", [_vm._v("Copy")]),
+                    _vm._v(" "),
+                    _c("label", [_vm._v(_vm._s(_vm.joinLink))])
+                  ]
+                ),
+                _vm._v(" "),
+                _vm.admin
+                  ? _c("span", [
+                      _c(
+                        "span",
+                        {
+                          class: { s_option: !_vm.hs.deck, pointer: 1 },
+                          on: {
+                            click: function($event) {
+                              _vm.hs.deck = 0
+                            }
+                          }
+                        },
+                        [_vm._v("Settings")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          class: { s_option: _vm.hs.deck, pointer: 1 },
+                          on: {
+                            click: function($event) {
+                              _vm.hs.deck = 1
+                            }
+                          }
+                        },
+                        [_vm._v("Cards")]
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.hs.deck && _vm.admin
+                  ? _c("deckBreakDown", { attrs: { deck: _vm.settings.deck } })
+                  : _vm._e(),
+                _vm._v(" "),
+                !_vm.hs.deck && _vm.admin
+                  ? _c("gameSettings", {
+                      attrs: { setting: _vm.settings.setting }
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.admin
+                  ? _c(
+                      "button",
+                      {
+                        attrs: { id: "start", disabled: _vm.canplay == 0 },
+                        on: {
+                          click: function($event) {
+                            return _vm.start()
+                          }
+                        }
+                      },
+                      [_vm._v(" start ")]
+                    )
+                  : _vm._e()
+              ],
+              1
+            )
+          : _vm._e()
       ],
       1
     )
