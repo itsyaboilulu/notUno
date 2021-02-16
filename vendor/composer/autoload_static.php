@@ -98,6 +98,7 @@ class ComposerStaticInitc31c45beb0a726f0edcf24c475cd135f
         ),
         'P' => 
         array (
+            'Pushpad\\' => 8,
             'Psy\\' => 4,
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
@@ -337,6 +338,10 @@ class ComposerStaticInitc31c45beb0a726f0edcf24c475cd135f
         'Ramsey\\Collection\\' => 
         array (
             0 => __DIR__ . '/..' . '/ramsey/collection/src',
+        ),
+        'Pushpad\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pushpad/pushpad-php/lib',
         ),
         'Psy\\' => 
         array (
@@ -595,9 +600,9 @@ class ComposerStaticInitc31c45beb0a726f0edcf24c475cd135f
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
-        'App\\Http\\Controllers\\gameController' => __DIR__ . '/../..' . '/app/Http/Controllers/gameController.php',
         'App\\Http\\Controllers\\homeController' => __DIR__ . '/../..' . '/app/Http/Controllers/homeController.php',
         'App\\Http\\Controllers\\playController' => __DIR__ . '/../..' . '/app/Http/Controllers/playController.php',
+        'App\\Http\\Controllers\\settingsController' => __DIR__ . '/../..' . '/app/Http/Controllers/settingsController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
@@ -610,6 +615,8 @@ class ComposerStaticInitc31c45beb0a726f0edcf24c475cd135f
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\card' => __DIR__ . '/../..' . '/app/Models/card.php',
         'App\\Models\\cards' => __DIR__ . '/../..' . '/app/Models/cards.php',
+        'App\\Models\\chat' => __DIR__ . '/../..' . '/app/Models/chat.php',
+        'App\\Models\\chatMessages' => __DIR__ . '/../..' . '/app/Models/chatMessages.php',
         'App\\Models\\ckGameLeaderboard' => __DIR__ . '/../..' . '/app/Models/ckGameLeaderboard.php',
         'App\\Models\\ckGameToMember' => __DIR__ . '/../..' . '/app/Models/ckGameToMember.php',
         'App\\Models\\ckModel' => __DIR__ . '/../..' . '/app/Models/ckModel.php',
@@ -620,12 +627,14 @@ class ComposerStaticInitc31c45beb0a726f0edcf24c475cd135f
         'App\\Models\\gameSettings' => __DIR__ . '/../..' . '/app/Models/gameSettings.php',
         'App\\Models\\gameToMember' => __DIR__ . '/../..' . '/app/Models/gameToMember.php',
         'App\\Models\\hand' => __DIR__ . '/../..' . '/app/Models/hand.php',
+        'App\\Models\\logs' => __DIR__ . '/../..' . '/app/Models/logs.php',
         'App\\Models\\migrations' => __DIR__ . '/../..' . '/app/Models/migrations.php',
         'App\\Models\\passwordResets' => __DIR__ . '/../..' . '/app/Models/passwordResets.php',
         'App\\Models\\personalAccessTokens' => __DIR__ . '/../..' . '/app/Models/personalAccessTokens.php',
         'App\\Models\\play' => __DIR__ . '/../..' . '/app/Models/play.php',
         'App\\Models\\playAPI' => __DIR__ . '/../..' . '/app/Models/playAPI.php',
         'App\\Models\\playPlayCard' => __DIR__ . '/../..' . '/app/Models/playPlayCard.php',
+        'App\\Models\\pushPad' => __DIR__ . '/../..' . '/app/Models/pushPad.php',
         'App\\Models\\sessions' => __DIR__ . '/../..' . '/app/Models/sessions.php',
         'App\\Models\\useful' => __DIR__ . '/../..' . '/app/Models/useful.php',
         'App\\Models\\users' => __DIR__ . '/../..' . '/app/Models/users.php',
@@ -4435,6 +4444,8 @@ class ComposerStaticInitc31c45beb0a726f0edcf24c475cd135f
         'Psy\\VersionUpdater\\GitHubChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/GitHubChecker.php',
         'Psy\\VersionUpdater\\IntervalChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/IntervalChecker.php',
         'Psy\\VersionUpdater\\NoopChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/NoopChecker.php',
+        'Pushpad\\Notification' => __DIR__ . '/..' . '/pushpad/pushpad-php/lib/Notification.php',
+        'Pushpad\\Pushpad' => __DIR__ . '/..' . '/pushpad/pushpad-php/lib/Pushpad.php',
         'Ramsey\\Collection\\AbstractArray' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractArray.php',
         'Ramsey\\Collection\\AbstractCollection' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractCollection.php',
         'Ramsey\\Collection\\AbstractSet' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractSet.php',

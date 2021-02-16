@@ -63,4 +63,11 @@ class useful {
         return abs($datetime1 - $datetime2);
     }
 
+    /**
+     * gets the date from past time using seconds
+     */
+    public static function getPast($secs){
+        return date("Y-m-d h:i:s", strtotime("-$secs seconds"));
+    }
+
 }

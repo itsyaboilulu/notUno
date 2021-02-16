@@ -14,12 +14,12 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => 'a58185b61e37b6760e41e663c4bf2b8d106aba31',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -507,12 +507,12 @@ private static $installed = array (
     ),
     'laravel/laravel' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => 'a58185b61e37b6760e41e663c4bf2b8d106aba31',
     ),
     'laravel/sail' => 
     array (
@@ -902,6 +902,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '6f990c19f91729de8b31e639d6e204ea59f19cf3',
+    ),
+    'pushpad/pushpad-php' => 
+    array (
+      'pretty_version' => 'v1.5.1',
+      'version' => '1.5.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '4a97e98ed19462223be9e27652890932224f0032',
     ),
     'ralouphie/getallheaders' => 
     array (

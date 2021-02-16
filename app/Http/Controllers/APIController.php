@@ -8,6 +8,7 @@ use App\Models\gameLeaderboard;
 use App\Models\playAPI;
 use App\Models\gameToMember;
 use App\Models\users;
+use App\Models\userSettings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -83,6 +84,20 @@ class APIController extends Controller
         return [
             'available' => ( users::available( $request->get('name') ) ),
         ];
+    }
+
+
+    public function settings(Request $request){
+        if ($request->isMethod('post')) {
+            $settings = userSettings::findOrMake(Auth::id());
+            switch ($request->get('action')) {
+                case 'updateNotify' :
+                    return $settings->updateNotify();
+                case 'setSetting'   :
+                    return $settings->setSetting($request->get('key'), $request->get('val'));
+            }
+        }
+        return $this->error_notpost;
     }
 
 }

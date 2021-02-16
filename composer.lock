@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "24481c13e68b917fb04d75a67cc4c0e1",
+    "content-hash": "32c90459e2545f4e60e20141bfc6a832",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2877,6 +2877,54 @@
                 "source": "https://github.com/bobthecow/psysh/tree/v0.10.6"
             },
             "time": "2021-01-18T15:53:43+00:00"
+        },
+        {
+            "name": "pushpad/pushpad-php",
+            "version": "v1.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pushpad/pushpad-php.git",
+                "reference": "4a97e98ed19462223be9e27652890932224f0032"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pushpad/pushpad-php/zipball/4a97e98ed19462223be9e27652890932224f0032",
+                "reference": "4a97e98ed19462223be9e27652890932224f0032",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Pushpad\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pushpad",
+                    "homepage": "https://pushpad.xyz"
+                }
+            ],
+            "description": "Pushpad PHP Library",
+            "homepage": "https://pushpad.xyz",
+            "keywords": [
+                "api",
+                "push notifications",
+                "pushpad"
+            ],
+            "support": {
+                "issues": "https://github.com/pushpad/pushpad-php/issues",
+                "source": "https://github.com/pushpad/pushpad-php/tree/v1.5.1"
+            },
+            "time": "2019-02-09T15:41:50+00:00"
         },
         {
             "name": "ralouphie/getallheaders",

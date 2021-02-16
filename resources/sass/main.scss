@@ -686,6 +686,21 @@ button {
     }
 }
 
+#settings {
+    width: 100%;
+    .settings {
+        padding: 10px;
+        h4,
+        p {
+            padding-bottom: 5px;
+            margin: 0;
+        }
+        table {
+            padding-top: 5px;
+        }
+    }
+}
+
 @media only screen and (min-width: 800px) {
     #chat {
         width: 300px !important;

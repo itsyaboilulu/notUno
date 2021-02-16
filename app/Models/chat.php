@@ -61,6 +61,10 @@ class chat extends Model
         $c->uid     = Auth::id();
         $c->message = $message;
 
+        if (strpos($message, '@alert') !== false) {
+            new alert($gid, Auth::id());
+        }
+
         return $c->save();
     }
 

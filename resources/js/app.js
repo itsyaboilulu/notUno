@@ -1,5 +1,3 @@
-
-
 require('./bootstrap');
 
 window.Vue = require('vue').default;
@@ -12,6 +10,7 @@ Vue.component('play',           require('./components/play.vue').default);
 Vue.component('lobby',          require('./components/lobby.vue').default);
 Vue.component('chat',           require('./components/chat.vue').default);
 Vue.component('leaderboard',    require('./components/leaderboard.vue').default);
+Vue.component('settings',       require('./components/settings.vue').default);
 
 
 Vue.component('unoCard',        require('./components/props/card.vue').default);

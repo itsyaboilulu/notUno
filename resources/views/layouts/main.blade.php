@@ -1,5 +1,5 @@
 @php
-    $cache = '?v=2.1';
+    $cache = '?v=2.2';
 @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -50,6 +50,7 @@
                     </a>
                     <a href="/"><li> Home </li></a>
                     <a href="hostnew"><li> Host new game </li></a>
+                    <a href="settings"><li> account </li></a>
                     <form method="POST" id='logout' action="{{ route('logout') }}">
                         @csrf
                         <a onclick="document.getElementById('logout').submit()"><li>Logout</li></a>
@@ -63,6 +64,7 @@
                 <ul>
                     <a href="/"><li> Home </li></a>
                     <a href="hostnew"><li> Host new game </li></a>
+                    <a href="settings"><li> account </li></a>
                     <form method="POST" id='logout' action="{{ route('logout') }}">
                         @csrf
                         <a onclick="document.getElementById('logout').submit()"><li>Logout</li></a>
@@ -108,4 +110,5 @@
             }
         </script>
     @endif
+
 </html>
