@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="resources/css/main.min.css{{$cache}}" />
         @yield('head')
         <title>Uno</title>
+        <link rel="manifest" href="resources/pwa/manifest.json">
     </head>
     <div class="header">
         @if (Agent::isMobile() && $page != 'login' )

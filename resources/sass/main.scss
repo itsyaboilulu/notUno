@@ -75,9 +75,14 @@ button {
         background-color: $bk;
         min-width: 300px;
     }
+    #chat {
+        margin-left: 2.5px;
+        margin-right: auto;
+    }
     #lobby,
     #play {
         margin-right: 2.5px;
+        margin-left: auto;
     }
 }
 #mhands {
