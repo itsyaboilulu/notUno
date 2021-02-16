@@ -1,26 +1,9 @@
 <?php
 
-use App\Http\Controllers\APIController;
-use App\Http\Controllers\gameController;
-use App\Models\card;
-use App\Models\chat;
-use App\Models\ckGameLeaderboard;
-use App\Models\ckGameToMember;
-use App\Models\ckModel;
-use App\Models\deck;
-use App\Models\game;
-use App\Models\gameSettings;
-use App\Models\hand;
-use App\Models\gamePlayCard;
-use App\Models\gameToMember;
-use App\Models\playAPI;
-use App\Models\useful;
-use App\Models\users;
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Jenssegers\Agent\Facades\Agent;
-use PhpParser\Node\Expr\Print_;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -55,8 +38,6 @@ Auth::routes();
 
 Route::get('/test', function(){
 
-    echo '<hr>';
-    print_r( gameToMember::handCounts(4) );
-    echo '<hr>';
+
 
 });

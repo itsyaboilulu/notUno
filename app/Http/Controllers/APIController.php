@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\chat;
 use App\Models\game;
+use App\Models\gameLeaderboard;
 use App\Models\playAPI;
 use App\Models\gameToMember;
 use App\Models\users;
@@ -49,7 +50,7 @@ class APIController extends Controller
                 switch ($request->get('action')) {
                     case 'checkMembers':
                         return [
-                            'members' => $game->getMembers(),
+                            'members' => gameLeaderboard::gameLeaderBoard($game->id),
                             'started' => $game->started,
                         ];
                     default:

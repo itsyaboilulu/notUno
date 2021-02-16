@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\game;
+use App\Models\gameLeaderboard;
 use App\Models\gameToMember;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,10 +22,10 @@ class homeController extends Controller
             return view('auth/login');
         }
 
-        $games = gameToMember::gamesFromMemberId(Auth::id());
-
         return view('home', array(
-            'games'=>$games)
+                'games'         => gameToMember::gamesFromMemberId(Auth::id()),
+                'leaderboard'   => gameLeaderboard::globalLeaderBoard(),
+            )
         );
     }
 }

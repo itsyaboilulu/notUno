@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
 
@@ -33,4 +34,42 @@ class gameLeaderboard extends Model
         return $l->save();
     }
 
+    /**
+     * returns list of the top 10 player by numbe of wins
+     *
+     * @return collection
+     */
+    public static function globalLeaderBoard()
+    {
+        $sql = "SELECT  u.username,
+                (
+                    SELECT sum(n.wins)
+                    FROM game_leaderboard n
+                    WHERE n.uid = l.uid
+                ) as wins
+            FROM game_leaderboard l
+                INNER JOIN users u
+                    ON u.id = l.uid
+            WHERE wins != 0
+            GROUP BY l.uid
+            ORDER BY wins DESC
+            LIMIT 10;";
+        return DB::select($sql);
+    }
+
+    /**
+     * returns list of the winners for the given game
+     *
+     * @return collection
+     */
+    public static function gameLeaderBoard($gid)
+    {
+        $sql = "SELECT u.username, l.wins
+            FROM game_leaderboard l
+                INNER JOIN users u
+                    ON u.id = l.uid
+            WHERE l.gid = $gid
+            ORDER BY l.wins DESC;";
+        return DB::select($sql);
+    }
 }

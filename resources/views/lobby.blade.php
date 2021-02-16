@@ -10,11 +10,11 @@
 
     <div class="chatLayout">
         <lobby
-            v-bind:game     = "{{json_encode($game)}}"
-            v-bind:members  = "{{json_encode($members)}}"
-            v-bind:admin    = {{json_encode($admin)}}
-            v-bind:deck     = {{ json_encode($deck) }}
-            v-bind:setting  = {{ json_encode($settings) }}
+            v-bind:game         = "{{json_encode($game)}}"
+            v-bind:admin        = {{json_encode($admin)}}
+            v-bind:deck         = {{ json_encode($deck) }}
+            v-bind:setting      = {{ json_encode($settings) }}
+            v-bind:dleaderboard = {{json_encode($leaderboard)}}
         ></lobby>
         <chat
             v-bind:logs=    "{{ json_encode($chat) }}"

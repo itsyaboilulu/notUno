@@ -322,27 +322,55 @@ button {
         flex-wrap: wrap;
     }
 }
-
+#leaderboard {
+    margin-top: -26px;
+    background-color: $bk;
+    padding-top: 5px;
+    .leaderboard {
+        margin-top: 26px;
+        background-color: $fk;
+        border-radius: 5px;
+        text-align: center;
+        h4 {
+            padding-top: 20px !important;
+            margin-bottom: 10px;
+        }
+        table {
+            border-spacing: 0;
+            tr td {
+                border-bottom: 1px solid black;
+                padding: 7px;
+            }
+            tr:last-child td {
+                border-bottom: 0px solid black;
+            }
+        }
+    }
+}
 #lobby {
-    padding: 2% 0;
+    h4 {
+        text-align: center;
+        padding: 5px !important;
+    }
+    padding: 0 0 2% 0;
     .lobby {
+        #leaderboard {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+            margin-bottom: 5px;
+            .leaderboard {
+                margin-top: 0;
+                h4 {
+                    margin: 0;
+                    padding: 10px !important;
+                }
+            }
+        }
         .players {
             height: 100%;
             background-color: $fk;
             border-radius: 5px;
-            h4 {
-                margin: 0;
-                padding: 5px 10px;
-            }
-            ul {
-                display: flex;
-                flex-direction: column;
-                flex-wrap: wrap;
-                padding: 5px !important;
-                li {
-                    padding: 5px;
-                }
-            }
+            padding: 10px;
         }
         .settings {
             background-color: $fk;
@@ -357,7 +385,8 @@ button {
             }
             h4 {
                 margin: 0;
-                padding: 0 0 5px 0;
+                padding: 10px !important;
+                padding-top: 0 !important;
             }
             .joinLink {
                 button:hover,
@@ -454,7 +483,6 @@ button {
 }
 
 //mobile
-
 @media only screen and (max-width: 800px) {
     .header {
         margin-bottom: 2%;

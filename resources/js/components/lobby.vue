@@ -10,12 +10,13 @@
 <template>
     <div id='lobby'>
         <div class="lobby">
-            <div class="players">
-                <h4>Players</h4>
-                <span v-if="!canplay">Need at least 2 players to start a game</span>
-                <ul class="members">
-                    <li v-for="member in datamembers" > > {{member.username}}</li>
-                </ul>
+            <leaderboard
+                v-if                = "leaderboard.length"
+                v-bind:type         = "lbType"
+                v-bind:leaderboard  = "leaderboard"
+            ></leaderboard>
+            <div v-if="!canplay" class="players">
+                <span >Need at least 2 players to start a game</span>
             </div>
             <div class="settings">
                 <h4>Settings</h4>
@@ -48,23 +49,24 @@ import { startTimer }   from "../timer.min.js";
 export default {
 
     name:'lobby',
-    props:['game','members','admin','deck','setting'],
+    props:['game','admin','deck','setting','dleaderboard'],
     mounted(){
-        this.datamembers        = this.members;
-        this.canplay            = ( this.datamembers.length > 1 ) ? 1 : 0 ;
+        this.canplay            = ( this.leaderboard.length > 1 ) ? 1 : 0 ;
         this.settings.setting   = this.setting;
         this.settings.deck      = this.deck;
         this.joinLink           = "http://uno.yaboilulu.co.uk/join?join="+this.game.password;
+        this.leaderboard        = this.dleaderboard;
     },
     created(){
         startTimer(this.check,this.checkTime);
     },
     data () {
         return {
-            datamembers: '',
-            checkTime: 30,
-            canplay:0,
-            joinLink:0,
+            checkTime   : 30,
+            canplay     : 0,
+            joinLink    : 0,
+            lbType      : 'Leaderboard',
+            leaderboard : '',
             hs:{
                 deck:0,
             },
@@ -95,8 +97,8 @@ export default {
             }, 1 );
         },
         updateMembers($response){
-            this.datamembers = $response.members;
-            this.canplay = ( this.datamembers.length > 1 ) ? 1 : 0 ;
+            this.leaderboard = $response.members;
+            this.canplay = ( this.leaderboard.length > 1 ) ? 1 : 0 ;
             if ($response.started){
                 location.reload();
             }

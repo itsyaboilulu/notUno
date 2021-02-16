@@ -6,6 +6,7 @@ use App\Models\chat;
 use App\Models\chatMessages;
 use App\Models\deck;
 use App\Models\game;
+use App\Models\gameLeaderboard;
 use App\Models\gameSettings;
 use App\Models\gameToMember;
 use App\Models\play;
@@ -22,6 +23,13 @@ class playController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+     * displays lobby page
+     *
+     * @todo clean up
+     * @param Request $request
+     * @return void
+     */
     public function lobby(Request $request){
         try {
             $game = game::gameFromPassword( $request->get('game'));
@@ -29,12 +37,13 @@ class playController extends Controller
             return ($game->started) ?
                 redirect('play') :
                 view( 'lobby',[
-                    'game'      => $game,
-                    'settings'  => (new gameSettings($game->id))->settings(),
-                    'members'   => $game->getMembers(),
-                    'deck'      => (new deck($game->deck))->deck(),
-                    'admin'     => $game->isAdmin(),
-                    'chat'      => chat::chatlog(session('game')->id),
+                    'game'          => $game,
+                    'settings'      => (new gameSettings($game->id))->settings(),
+                    'members'       => $game->getMembers(),
+                    'deck'          => (new deck($game->deck))->deck(),
+                    'admin'         => $game->isAdmin(),
+                    'chat'          => chat::chatlog(session('game')->id),
+                    'leaderboard'   => gameLeaderboard::gameLeaderBoard($game->id)
                     ]
                 );
         } catch (Exception $e){
@@ -42,6 +51,13 @@ class playController extends Controller
         }
     }
 
+    /**
+     * allows user to join a game
+     *
+     * @todo clean up
+     * @param Request $request
+     * @return void
+     */
     public function join(Request $request)
     {
         try {
@@ -89,7 +105,7 @@ class playController extends Controller
     /**
      * create and host a new game
      *
-     * @return void
+     * @return redirect
      */
     public function hostNew(){
         $game = new game();
@@ -104,10 +120,17 @@ class playController extends Controller
         $gtm->admin = 1;
         $gtm->save();
 
+        gameLeaderboard::addMember(Auth::id(), $game->id);
+
         return redirect('lobby?game='.$game->password);
     }
 
-
+    /**
+     * start a new game
+     *
+     * @param Request $request
+     * @return void
+     */
     public function startGame(Request $request){
         $game = game::gameFromPassword($request->get('password'));
         if ($game && !$game->started){

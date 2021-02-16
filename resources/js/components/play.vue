@@ -70,7 +70,6 @@
             nextTurn: function(){
                 for(var key in this.mmhand){
                     if ( this.turn == this.mmhand[key].member ){
-                        console.log(key,this.mmhand[key], (+key + +1));
                         try {
                             return this.mmhand[(+key + +1)].member
                         } catch {

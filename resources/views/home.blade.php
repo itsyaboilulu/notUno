@@ -18,7 +18,10 @@
             <a href="hostnew"><button>Host New Game</button></a>
         </div>
     </div>
-<ul>
+    <leaderboard
+        v-bind:leaderboard = "{{json_encode($leaderboard)}}"
+        v-bind:type = "{{json_encode('Global Leaderboard')}}"
+    ></leaderboard>
 @endsection
 @section('script')
 @endsection

@@ -1940,6 +1940,39 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/leaderboard.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/leaderboard.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'leaderboard',
+  props: ['leaderboard', 'type']
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/lobby.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/lobby.vue?vue&type=script&lang=js& ***!
@@ -1997,27 +2030,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'lobby',
-  props: ['game', 'members', 'admin', 'deck', 'setting'],
+  props: ['game', 'admin', 'deck', 'setting', 'dleaderboard'],
   mounted: function mounted() {
-    this.datamembers = this.members;
-    this.canplay = this.datamembers.length > 1 ? 1 : 0;
+    this.canplay = this.leaderboard.length > 1 ? 1 : 0;
     this.settings.setting = this.setting;
     this.settings.deck = this.deck;
     this.joinLink = "http://uno.yaboilulu.co.uk/join?join=" + this.game.password;
+    this.leaderboard = this.dleaderboard;
   },
   created: function created() {
     (0,_timer_min_js__WEBPACK_IMPORTED_MODULE_1__.startTimer)(this.check, this.checkTime);
   },
   data: function data() {
     return {
-      datamembers: '',
       checkTime: 30,
       canplay: 0,
       joinLink: 0,
+      lbType: 'Leaderboard',
+      leaderboard: '',
       hs: {
         deck: 0
       },
@@ -2047,8 +2082,8 @@ __webpack_require__.r(__webpack_exports__);
       }, 1);
     },
     updateMembers: function updateMembers($response) {
-      this.datamembers = $response.members;
-      this.canplay = this.datamembers.length > 1 ? 1 : 0;
+      this.leaderboard = $response.members;
+      this.canplay = this.leaderboard.length > 1 ? 1 : 0;
 
       if ($response.started) {
         location.reload();
@@ -2218,8 +2253,6 @@ __webpack_require__.r(__webpack_exports__);
     nextTurn: function nextTurn() {
       for (var key in this.mmhand) {
         if (this.turn == this.mmhand[key].member) {
-          console.log(key, this.mmhand[key], +key + +1);
-
           try {
             return this.mmhand[+key + +1].member;
           } catch (_unused) {
@@ -2814,6 +2847,7 @@ Vue.component('register', __webpack_require__(/*! ./components/register.vue */ "
 Vue.component('play', __webpack_require__(/*! ./components/play.vue */ "./resources/js/components/play.vue").default);
 Vue.component('lobby', __webpack_require__(/*! ./components/lobby.vue */ "./resources/js/components/lobby.vue").default);
 Vue.component('chat', __webpack_require__(/*! ./components/chat.vue */ "./resources/js/components/chat.vue").default);
+Vue.component('leaderboard', __webpack_require__(/*! ./components/leaderboard.vue */ "./resources/js/components/leaderboard.vue").default);
 Vue.component('unoCard', __webpack_require__(/*! ./components/props/card.vue */ "./resources/js/components/props/card.vue").default);
 Vue.component('deckBreakDown', __webpack_require__(/*! ./components/props/deckBreakDown.vue */ "./resources/js/components/props/deckBreakDown.vue").default);
 Vue.component('gameSettings', __webpack_require__(/*! ./components/props/gameSettings.vue */ "./resources/js/components/props/gameSettings.vue").default);
@@ -38664,6 +38698,45 @@ component.options.__file = "resources/js/components/chat.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/leaderboard.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/leaderboard.vue ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _leaderboard_vue_vue_type_template_id_9954b7fc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./leaderboard.vue?vue&type=template&id=9954b7fc& */ "./resources/js/components/leaderboard.vue?vue&type=template&id=9954b7fc&");
+/* harmony import */ var _leaderboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./leaderboard.vue?vue&type=script&lang=js& */ "./resources/js/components/leaderboard.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _leaderboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _leaderboard_vue_vue_type_template_id_9954b7fc___WEBPACK_IMPORTED_MODULE_0__.render,
+  _leaderboard_vue_vue_type_template_id_9954b7fc___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/leaderboard.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/lobby.vue":
 /*!*******************************************!*\
   !*** ./resources/js/components/lobby.vue ***!
@@ -39033,6 +39106,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/leaderboard.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/leaderboard.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_leaderboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./leaderboard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/leaderboard.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_leaderboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/lobby.vue?vue&type=script&lang=js&":
 /*!********************************************************************!*\
   !*** ./resources/js/components/lobby.vue?vue&type=script&lang=js& ***!
@@ -39203,6 +39292,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_chat_vue_vue_type_template_id_151b8bba___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_chat_vue_vue_type_template_id_151b8bba___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./chat.vue?vue&type=template&id=151b8bba& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/chat.vue?vue&type=template&id=151b8bba&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/leaderboard.vue?vue&type=template&id=9954b7fc&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/leaderboard.vue?vue&type=template&id=9954b7fc& ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_leaderboard_vue_vue_type_template_id_9954b7fc___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_leaderboard_vue_vue_type_template_id_9954b7fc___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_leaderboard_vue_vue_type_template_id_9954b7fc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./leaderboard.vue?vue&type=template&id=9954b7fc& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/leaderboard.vue?vue&type=template&id=9954b7fc&");
 
 
 /***/ }),
@@ -39493,6 +39599,49 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/leaderboard.vue?vue&type=template&id=9954b7fc&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/leaderboard.vue?vue&type=template&id=9954b7fc& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { attrs: { id: "leaderboard" } }, [
+    _c("div", { staticClass: "leaderboard" }, [
+      _c("h4", [_vm._v(_vm._s(_vm.type))]),
+      _vm._v(" "),
+      _c(
+        "table",
+        _vm._l(_vm.leaderboard, function(l, index) {
+          return _c("tr", { key: index }, [
+            _c("td", [_vm._v("#" + _vm._s(index + 1))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(l.username))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(l.wins) + " Wins")])
+          ])
+        }),
+        0
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/lobby.vue?vue&type=template&id=3ed74cca&scoped=true&":
 /*!*****************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/lobby.vue?vue&type=template&id=3ed74cca&scoped=true& ***!
@@ -39510,147 +39659,155 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "lobby" } }, [
-    _c("div", { staticClass: "lobby" }, [
-      _c("div", { staticClass: "players" }, [
-        _c("h4", [_vm._v("Players")]),
+    _c(
+      "div",
+      { staticClass: "lobby" },
+      [
+        _vm.leaderboard.length
+          ? _c("leaderboard", {
+              attrs: { type: _vm.lbType, leaderboard: _vm.leaderboard }
+            })
+          : _vm._e(),
         _vm._v(" "),
         !_vm.canplay
-          ? _c("span", [_vm._v("Need at least 2 players to start a game")])
+          ? _c("div", { staticClass: "players" }, [
+              _c("span", [_vm._v("Need at least 2 players to start a game")])
+            ])
           : _vm._e(),
         _vm._v(" "),
         _c(
-          "ul",
-          { staticClass: "members" },
-          _vm._l(_vm.datamembers, function(member) {
-            return _c("li", [_vm._v(" > " + _vm._s(member.username))])
-          }),
-          0
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "settings" },
-        [
-          _c("h4", [_vm._v("Settings")]),
-          _vm._v(" "),
-          _vm.admin
-            ? _c("form", { attrs: { id: "startgame", action: "startgame" } }, [
-                _c("input", {
-                  attrs: { type: "hidden", name: "password" },
-                  domProps: { value: _vm.game.password }
-                }),
-                _vm._v(" "),
-                _c("input", {
-                  attrs: { type: "hidden", name: "settings", id: "settings" }
-                }),
-                _vm._v(" "),
-                _c("input", {
-                  attrs: { type: "hidden", name: "deck", id: "deck" }
-                }),
-                _vm._v(" "),
-                _c("label", { attrs: { for: "name" } }, [
-                  _vm._v(" name:  "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.game.name,
-                        expression: "game.name"
+          "div",
+          { staticClass: "settings" },
+          [
+            _c("h4", [_vm._v("Settings")]),
+            _vm._v(" "),
+            _vm.admin
+              ? _c(
+                  "form",
+                  { attrs: { id: "startgame", action: "startgame" } },
+                  [
+                    _c("input", {
+                      attrs: { type: "hidden", name: "password" },
+                      domProps: { value: _vm.game.password }
+                    }),
+                    _vm._v(" "),
+                    _c("input", {
+                      attrs: {
+                        type: "hidden",
+                        name: "settings",
+                        id: "settings"
                       }
-                    ],
-                    attrs: { name: "name", required: "" },
-                    domProps: { value: _vm.game.name },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                    }),
+                    _vm._v(" "),
+                    _c("input", {
+                      attrs: { type: "hidden", name: "deck", id: "deck" }
+                    }),
+                    _vm._v(" "),
+                    _c("label", { attrs: { for: "name" } }, [
+                      _vm._v(" name:  "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.game.name,
+                            expression: "game.name"
+                          }
+                        ],
+                        attrs: { name: "name", required: "" },
+                        domProps: { value: _vm.game.name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.game, "name", $event.target.value)
+                          }
                         }
-                        _vm.$set(_vm.game, "name", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _c("br")
-              ])
-            : _vm._e(),
-          _vm._v("\n                Join Link:"),
-          _c("br"),
-          _vm._v(" "),
-          _c(
-            "span",
-            {
-              staticClass: "joinLink",
-              on: {
-                click: function($event) {
-                  return _vm.copy()
-                }
-              }
-            },
-            [
-              _c("button", [_vm._v("Copy")]),
-              _vm._v(" "),
-              _c("label", [_vm._v(_vm._s(_vm.joinLink))])
-            ]
-          ),
-          _vm._v(" "),
-          _vm.admin
-            ? _c("span", [
-                _c(
-                  "span",
-                  {
-                    class: { s_option: !_vm.hs.deck, pointer: 1 },
-                    on: {
-                      click: function($event) {
-                        _vm.hs.deck = 0
-                      }
-                    }
-                  },
-                  [_vm._v("Settings")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  {
-                    class: { s_option: _vm.hs.deck, pointer: 1 },
-                    on: {
-                      click: function($event) {
-                        _vm.hs.deck = 1
-                      }
-                    }
-                  },
-                  [_vm._v("Cards")]
+                      })
+                    ]),
+                    _c("br")
+                  ]
                 )
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.hs.deck && _vm.admin
-            ? _c("deckBreakDown", { attrs: { deck: _vm.settings.deck } })
-            : _vm._e(),
-          _vm._v(" "),
-          !_vm.hs.deck && _vm.admin
-            ? _c("gameSettings", { attrs: { setting: _vm.settings.setting } })
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.admin
-            ? _c(
-                "button",
-                {
-                  attrs: { id: "start", disabled: _vm.canplay == 0 },
-                  on: {
-                    click: function($event) {
-                      return _vm.start()
-                    }
+              : _vm._e(),
+            _vm._v("\n                Join Link:"),
+            _c("br"),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
+                staticClass: "joinLink",
+                on: {
+                  click: function($event) {
+                    return _vm.copy()
                   }
-                },
-                [_vm._v(" start ")]
-              )
-            : _vm._e()
-        ],
-        1
-      )
-    ])
+                }
+              },
+              [
+                _c("button", [_vm._v("Copy")]),
+                _vm._v(" "),
+                _c("label", [_vm._v(_vm._s(_vm.joinLink))])
+              ]
+            ),
+            _vm._v(" "),
+            _vm.admin
+              ? _c("span", [
+                  _c(
+                    "span",
+                    {
+                      class: { s_option: !_vm.hs.deck, pointer: 1 },
+                      on: {
+                        click: function($event) {
+                          _vm.hs.deck = 0
+                        }
+                      }
+                    },
+                    [_vm._v("Settings")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      class: { s_option: _vm.hs.deck, pointer: 1 },
+                      on: {
+                        click: function($event) {
+                          _vm.hs.deck = 1
+                        }
+                      }
+                    },
+                    [_vm._v("Cards")]
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.hs.deck && _vm.admin
+              ? _c("deckBreakDown", { attrs: { deck: _vm.settings.deck } })
+              : _vm._e(),
+            _vm._v(" "),
+            !_vm.hs.deck && _vm.admin
+              ? _c("gameSettings", { attrs: { setting: _vm.settings.setting } })
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.admin
+              ? _c(
+                  "button",
+                  {
+                    attrs: { id: "start", disabled: _vm.canplay == 0 },
+                    on: {
+                      click: function($event) {
+                        return _vm.start()
+                      }
+                    }
+                  },
+                  [_vm._v(" start ")]
+                )
+              : _vm._e()
+          ],
+          1
+        )
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = []
