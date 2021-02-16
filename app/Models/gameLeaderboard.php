@@ -51,7 +51,7 @@ class gameLeaderboard extends Model
                 INNER JOIN users u
                     ON u.id = l.uid
             WHERE wins != 0
-            GROUP BY l.uid
+            GROUP BY u.username
             ORDER BY wins DESC
             LIMIT 10;";
         return DB::select($sql);
