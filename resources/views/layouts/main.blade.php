@@ -50,7 +50,7 @@
                     </a>
                     <a href="/"><li> Home </li></a>
                     <a href="hostnew"><li> Host new game </li></a>
-                    <a href="settings"><li> account </li></a>
+                    <a href="settings"><li> Settings </li></a>
                     <form method="POST" id='logout' action="{{ route('logout') }}">
                         @csrf
                         <a onclick="document.getElementById('logout').submit()"><li>Logout</li></a>
@@ -64,7 +64,7 @@
                 <ul>
                     <a href="/"><li> Home </li></a>
                     <a href="hostnew"><li> Host new game </li></a>
-                    <a href="settings"><li> account </li></a>
+                    <a href="settings"><li> Settings </li></a>
                     <form method="POST" id='logout' action="{{ route('logout') }}">
                         @csrf
                         <a onclick="document.getElementById('logout').submit()"><li>Logout</li></a>

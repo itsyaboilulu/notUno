@@ -2,7 +2,7 @@
     <div id="settings" >
         <div class="settings">
             <h4>Allow push notifications</h4>
-                <p> allows use to send you push notifications when you've been alerted in a game</p>
+                <p> allows us to send you push notifications when you've been alerted in a game</p>
                 <div id="pushpad-subscribe" v-on:click="updateNotify()"></div>
                 <table v-if="nots">
                     <tr>
