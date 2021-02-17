@@ -77,6 +77,7 @@ class playPlayCard extends play {
      */
     private function special()
     {
+
         switch($this->card->isSpecial()){
             case 'S':
                 return TRUE;
@@ -86,9 +87,9 @@ class playPlayCard extends play {
                     $this->stack() :
                     $this->drawCard($this->checkNextTurn(), $this->card->drawAmount());
             case 'R':
-                $this->reverseOrder();
+                return $this->reverseOrder();
             default:
-                return;
+                return $this->extremeCards();
         }
     }
 
@@ -144,4 +145,45 @@ class playPlayCard extends play {
         return;
     }
 
+    /**
+     * check and act upon the playing of special cards
+     *
+     * @return void
+     */
+    private function extremeCards(){
+        switch ($this->card->basecard()){
+            case '4':
+                if ($this->settings('extreme4')){
+                    return $this->extremeFour();
+                }
+            default:
+                return;
+        }
+    }
+
+    /**
+     * handle the playing of a extreme 4
+     *
+     * @return void
+     */
+    private function extremeFour()
+    {
+        $deck = new deck(unserialize($this->game()->deck));
+        while (true) {
+            $d = $deck->draw();
+            $draw[] = $d;
+            if ( $this->card->canBePlayed($d) ){
+                break;
+            }
+        }
+        $mg = new ckGameToMember($this->game()->id, $this->checkNextTurn());
+        foreach ($draw as $dr){
+            $mg->addCard($dr);
+        }
+        $this->chat->extremeFour($this->game()->turn, $this->checkNextTurn(), count($draw));
+        return;
+    }
+
 }
+
+

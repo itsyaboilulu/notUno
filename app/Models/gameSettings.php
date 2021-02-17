@@ -110,8 +110,11 @@ class gameSettings {
             'stack'             => 0,
             'drawUntilPlay'     => 0,
             'allowTimeouts'     => 0,
-            'timeoutsTime'      => 30,
-            'timeoutsDraw'      => 2,
+                'timeoutsTime'      => 30,
+                'timeoutsDraw'      => 2,
+            'extreme7'          => 0,
+            'extreme4'          => 0,
+            'extreme0'          => 0,
         );
     }
 

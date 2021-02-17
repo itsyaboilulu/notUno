@@ -58,6 +58,19 @@
                         name="timeoutsDraw" min="1" step="1" >
                 </td>
             </tr>
+            <tr>
+                <td colspan="2" style="text-align:center; padding:10px">Extreme Rules</td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="tooltip" title="playing a 4 causes the next player draws cards until they can play">?</button>
+                    special 4's
+                </td>
+                <td>
+                    <input  v-on:change='update($event)' type="checkbox" v-model='setting.extreme4'
+                        name="extreme4" >
+                </td>
+            </tr>
         </table>
     </div>
 </template>

@@ -42,6 +42,16 @@ body {
     background-color: $bk;
     padding: 5px 15%;
 }
+@media only screen and (max-width: 1000px) {
+    body {
+        padding: 5px 5%;
+    }
+}
+@media only screen and (max-width: 900px) {
+    body {
+        padding: 5px 5px;
+    }
+}
 .header {
     text-align: center;
 }

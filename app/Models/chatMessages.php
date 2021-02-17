@@ -136,4 +136,15 @@ class chatMessages
         return $this->newMessage( $this->username($user) . " took too long to play ");
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function extremeFour($user,$target,$cards)
+    {
+        $this->newMessage($this->username($user) . " played an extreme 4 ");
+        return $this->newMessage($this->username($target) . " had to draw $cards cards ");
+    }
+
 }

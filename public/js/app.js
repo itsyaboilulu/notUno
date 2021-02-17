@@ -2683,6 +2683,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'gameSettings',
   props: ['setting'],
@@ -40636,7 +40649,61 @@ var render = function() {
               })
             ])
           ])
-        : _vm._e()
+        : _vm._e(),
+      _vm._v(" "),
+      _vm._m(4),
+      _vm._v(" "),
+      _c("tr", [
+        _vm._m(5),
+        _vm._v(" "),
+        _c("td", [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.setting.extreme4,
+                expression: "setting.extreme4"
+              }
+            ],
+            attrs: { type: "checkbox", name: "extreme4" },
+            domProps: {
+              checked: Array.isArray(_vm.setting.extreme4)
+                ? _vm._i(_vm.setting.extreme4, null) > -1
+                : _vm.setting.extreme4
+            },
+            on: {
+              change: [
+                function($event) {
+                  var $$a = _vm.setting.extreme4,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = null,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 &&
+                        _vm.$set(_vm.setting, "extreme4", $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        _vm.$set(
+                          _vm.setting,
+                          "extreme4",
+                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                        )
+                    }
+                  } else {
+                    _vm.$set(_vm.setting, "extreme4", $$c)
+                  }
+                },
+                function($event) {
+                  return _vm.update($event)
+                }
+              ]
+            }
+          })
+        ])
+      ])
     ])
   ])
 }
@@ -40703,6 +40770,40 @@ var staticRenderFns = [
         [_vm._v("?")]
       ),
       _vm._v("\n                Allow Timeouts\n            ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c(
+        "td",
+        {
+          staticStyle: { "text-align": "center", padding: "5px" },
+          attrs: { colspan: "2" }
+        },
+        [_vm._v("Extreme Rules")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c(
+        "button",
+        {
+          staticClass: "tooltip",
+          attrs: {
+            title:
+              "playing a 4 causes the next player draws cards until they can play"
+          }
+        },
+        [_vm._v("?")]
+      ),
+      _vm._v("\n                special 4's\n            ")
     ])
   }
 ]
@@ -40901,7 +41002,7 @@ var render = function() {
       _vm._v(" "),
       _c("p", [
         _vm._v(
-          " allows use to send you push notifications when you've been alerted in a game"
+          " allows us to send you push notifications when you've been alerted in a game"
         )
       ]),
       _vm._v(" "),
