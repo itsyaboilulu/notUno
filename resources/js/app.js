@@ -18,6 +18,7 @@ Vue.component('deckBreakDown',  require('./components/props/deckBreakDown.vue').
 Vue.component('gameSettings',   require('./components/props/gameSettings.vue').default);
 Vue.component('colorpallet',    require('./components/props/colorpallet.vue').default);
 Vue.component('mhands',         require('./components/props/mhands.vue').default);
+Vue.component('memberpick',     require('./components/props/memberpick.vue').default);
 
 const app = new Vue({
     el: '#app',

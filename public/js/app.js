@@ -2226,6 +2226,7 @@ __webpack_require__.r(__webpack_exports__);
     this.yourTurn = this.myturn;
     this.game_settinsg.password = this.game.password;
     this.isuno = this.hand.length == 2 ? true : false;
+    this.extreme7 = this.game.extreme7;
   },
   data: function data() {
     return {
@@ -2238,6 +2239,7 @@ __webpack_require__.r(__webpack_exports__);
       isuno: false,
       stack: false,
       mmhand: '',
+      extreme7: '',
       game_settinsg: {
         password: ''
       },
@@ -2330,6 +2332,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'card',
@@ -2354,6 +2359,7 @@ __webpack_require__.r(__webpack_exports__);
       color: '',
       isSpecial: 0,
       showPallet: 0,
+      showMemberPick: 0,
       highlight: 1,
       display: {
         colors: {
@@ -2389,6 +2395,8 @@ __webpack_require__.r(__webpack_exports__);
         if (this.canBePlayed()) {
           if (this.isWild()) {
             this.showPallet = 1;
+          } else if (this.number == 7 && this.$parent.extreme7) {
+            this.showMemberPick = 1;
           } else {
             (0,_ajax_min_js__WEBPACK_IMPORTED_MODULE_0__.ajax)(this.checkResponse, 'api/game', {
               action: 'playCard',
@@ -2408,6 +2416,17 @@ __webpack_require__.r(__webpack_exports__);
         card: $color + this.cardValue,
         password: this.$parent.game_settinsg.password,
         uno_call: this.$parent.uno
+      }, 1);
+      this.$parent.uno = 0;
+    },
+    playMemberPick: function playMemberPick($member) {
+      this.showMemberPick = 0;
+      (0,_ajax_min_js__WEBPACK_IMPORTED_MODULE_0__.ajax)(this.checkResponse, 'api/game', {
+        action: 'playCard',
+        card: this.cardValue,
+        password: this.$parent.game_settinsg.password,
+        uno_call: this.$parent.uno,
+        extra: $member
       }, 1);
       this.$parent.uno = 0;
     },
@@ -2696,6 +2715,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'gameSettings',
   props: ['setting'],
@@ -2703,6 +2742,43 @@ __webpack_require__.r(__webpack_exports__);
     update: function update($event) {
       this.setting[$event.target.name] = $event.target.type == "checkbox" ? $event.target.checked ? 1 : 0 : $event.target.value;
       this.$parent.updateSettings('setting', this.setting);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/props/memberpick.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/props/memberpick.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'memberpick',
+  props: ['members'],
+  methods: {
+    close: function close($dont) {
+      if (!$dont) {
+        this.$parent.showMemberPick = 0;
+      }
     }
   }
 });
@@ -2954,6 +3030,7 @@ Vue.component('deckBreakDown', __webpack_require__(/*! ./components/props/deckBr
 Vue.component('gameSettings', __webpack_require__(/*! ./components/props/gameSettings.vue */ "./resources/js/components/props/gameSettings.vue").default);
 Vue.component('colorpallet', __webpack_require__(/*! ./components/props/colorpallet.vue */ "./resources/js/components/props/colorpallet.vue").default);
 Vue.component('mhands', __webpack_require__(/*! ./components/props/mhands.vue */ "./resources/js/components/props/mhands.vue").default);
+Vue.component('memberpick', __webpack_require__(/*! ./components/props/memberpick.vue */ "./resources/js/components/props/memberpick.vue").default);
 var app = new Vue({
   el: '#app'
 });
@@ -39113,6 +39190,45 @@ component.options.__file = "resources/js/components/props/gameSettings.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/props/memberpick.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/props/memberpick.vue ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _memberpick_vue_vue_type_template_id_420ee105___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./memberpick.vue?vue&type=template&id=420ee105& */ "./resources/js/components/props/memberpick.vue?vue&type=template&id=420ee105&");
+/* harmony import */ var _memberpick_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./memberpick.vue?vue&type=script&lang=js& */ "./resources/js/components/props/memberpick.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _memberpick_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _memberpick_vue_vue_type_template_id_420ee105___WEBPACK_IMPORTED_MODULE_0__.render,
+  _memberpick_vue_vue_type_template_id_420ee105___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/props/memberpick.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/props/mhands.vue":
 /*!**************************************************!*\
   !*** ./resources/js/components/props/mhands.vue ***!
@@ -39374,6 +39490,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/props/memberpick.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/props/memberpick.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_memberpick_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./memberpick.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/props/memberpick.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_memberpick_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/props/mhands.vue?vue&type=script&lang=js&":
 /*!***************************************************************************!*\
   !*** ./resources/js/components/props/mhands.vue?vue&type=script&lang=js& ***!
@@ -39584,6 +39716,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_gameSettings_vue_vue_type_template_id_cd0b0802___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_gameSettings_vue_vue_type_template_id_cd0b0802___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./gameSettings.vue?vue&type=template&id=cd0b0802& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/props/gameSettings.vue?vue&type=template&id=cd0b0802&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/props/memberpick.vue?vue&type=template&id=420ee105&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/props/memberpick.vue?vue&type=template&id=420ee105& ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_memberpick_vue_vue_type_template_id_420ee105___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_memberpick_vue_vue_type_template_id_420ee105___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_memberpick_vue_vue_type_template_id_420ee105___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./memberpick.vue?vue&type=template&id=420ee105& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/props/memberpick.vue?vue&type=template&id=420ee105&");
 
 
 /***/ }),
@@ -40248,7 +40397,11 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _vm.showPallet ? _c("colorpallet") : _vm._e()
+      _vm.showPallet ? _c("colorpallet") : _vm._e(),
+      _vm._v(" "),
+      _vm.showMemberPick && _vm.number == 7
+        ? _c("memberpick", { attrs: { members: _vm.$parent.mmhand } })
+        : _vm._e()
     ],
     1
   )
@@ -40662,6 +40815,58 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
+                value: _vm.setting.extreme0,
+                expression: "setting.extreme0"
+              }
+            ],
+            attrs: { type: "checkbox", name: "extreme0" },
+            domProps: {
+              checked: Array.isArray(_vm.setting.extreme0)
+                ? _vm._i(_vm.setting.extreme0, null) > -1
+                : _vm.setting.extreme0
+            },
+            on: {
+              change: [
+                function($event) {
+                  var $$a = _vm.setting.extreme0,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = null,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 &&
+                        _vm.$set(_vm.setting, "extreme0", $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        _vm.$set(
+                          _vm.setting,
+                          "extreme0",
+                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                        )
+                    }
+                  } else {
+                    _vm.$set(_vm.setting, "extreme0", $$c)
+                  }
+                },
+                function($event) {
+                  return _vm.update($event)
+                }
+              ]
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("tr", [
+        _vm._m(6),
+        _vm._v(" "),
+        _c("td", [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
                 value: _vm.setting.extreme4,
                 expression: "setting.extreme4"
               }
@@ -40694,6 +40899,58 @@ var render = function() {
                     }
                   } else {
                     _vm.$set(_vm.setting, "extreme4", $$c)
+                  }
+                },
+                function($event) {
+                  return _vm.update($event)
+                }
+              ]
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("tr", [
+        _vm._m(7),
+        _vm._v(" "),
+        _c("td", [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.setting.extreme7,
+                expression: "setting.extreme7"
+              }
+            ],
+            attrs: { type: "checkbox", name: "extreme7" },
+            domProps: {
+              checked: Array.isArray(_vm.setting.extreme7)
+                ? _vm._i(_vm.setting.extreme7, null) > -1
+                : _vm.setting.extreme7
+            },
+            on: {
+              change: [
+                function($event) {
+                  var $$a = _vm.setting.extreme7,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = null,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 &&
+                        _vm.$set(_vm.setting, "extreme7", $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        _vm.$set(
+                          _vm.setting,
+                          "extreme7",
+                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                        )
+                    }
+                  } else {
+                    _vm.$set(_vm.setting, "extreme7", $$c)
                   }
                 },
                 function($event) {
@@ -40780,11 +41037,30 @@ var staticRenderFns = [
       _c(
         "td",
         {
-          staticStyle: { "text-align": "center", padding: "5px" },
+          staticStyle: { "text-align": "center", padding: "10px" },
           attrs: { colspan: "2" }
         },
         [_vm._v("Extreme Rules")]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c(
+        "button",
+        {
+          staticClass: "tooltip",
+          attrs: {
+            title:
+              "playing a 0 causes all players to swap cards to the person going after them"
+          }
+        },
+        [_vm._v("?")]
+      ),
+      _vm._v("\n                special 0's\n            ")
     ])
   },
   function() {
@@ -40805,8 +41081,101 @@ var staticRenderFns = [
       ),
       _vm._v("\n                special 4's\n            ")
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c(
+        "button",
+        {
+          staticClass: "tooltip",
+          attrs: {
+            title: "playing a 7 allows the player to swap hands with another"
+          }
+        },
+        [_vm._v("?")]
+      ),
+      _vm._v("\n                special 7's\n            ")
+    ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/props/memberpick.vue?vue&type=template&id=420ee105&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/props/memberpick.vue?vue&type=template&id=420ee105& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      attrs: { id: "memberpick" },
+      on: {
+        click: function($event) {
+          return _vm.close(0)
+        }
+      }
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "memberpick",
+          on: {
+            click: function($event) {
+              return _vm.close(1)
+            }
+          }
+        },
+        [
+          _c("h4", [_vm._v("Trade With?")]),
+          _vm._v(" "),
+          _c(
+            "ul",
+            _vm._l(_vm.members, function(m) {
+              return _c(
+                "li",
+                {
+                  on: {
+                    click: function($event) {
+                      return _vm.$parent.playMemberPick(m.member)
+                    }
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n                > " +
+                      _vm._s(m.member) +
+                      " <\n            "
+                  )
+                ]
+              )
+            }),
+            0
+          )
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

@@ -62,9 +62,9 @@ class playAPI extends play
      * @param boolean $uno
      * @return array
      */
-    public function playCard($card,$uno=NULL)
+    public function playCard($card,$uno=NULL, $extra=NULL)
     {
-        return ( (new playPlayCard($this->id, $card))->play($uno) ) ?
+        return ( (new playPlayCard($this->id, $card))->play($uno,$extra) ) ?
             ['complete'=>TRUE] :
             $this->error_generic;
     }

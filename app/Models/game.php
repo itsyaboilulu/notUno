@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\settingsController;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
@@ -45,7 +46,8 @@ class game extends Model
             'password'  => $this->password,
             'currcard'  => $this->current_card,
             'turn'      => users::getName($this->turn),
-            'order'     => $this->order
+            'order'     => $this->order,
+            'extreme7'  => (@unserialize($this->setting)['extreme7'])? unserialize($this->setting)['extreme7'] : 0,
         );
     }
 

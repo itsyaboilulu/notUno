@@ -277,7 +277,7 @@ button {
         }
     }
 }
-
+#memberpick,
 #colorPallet {
     height: var(--vh);
     width: 100vw;
@@ -667,10 +667,42 @@ button {
     .home {
         width: 100% !important;
     }
+    #memberpick,
     #colorPallet {
         height: var(--vh);
         width: 100vw;
         background-color: rgba($color: #000, $alpha: 0.4);
+        .memberpick {
+            position: fixed;
+            padding: 0;
+            border-color: black 1px solid;
+            bottom: 0px;
+            width: 100vw;
+            h4 {
+                text-align: center;
+                background-color: $uno_black;
+                color: $fk;
+                border-radius: 15px 15px 0 0;
+                margin: 0;
+                padding: 15px;
+            }
+            ul {
+                margin: 0;
+                padding: 0;
+                li {
+                    background-color: $fk;
+                    text-align: center;
+                    padding: 10px;
+                    border-bottom: 1px solid black;
+                }
+                li:last-child {
+                    border-bottom: 0px solid black;
+                }
+                li:first-child {
+                    border-top: 1px solid black;
+                }
+            }
+        }
         .colorPallet {
             position: fixed;
             top: calc(80vh - 8px);
@@ -778,11 +810,44 @@ button {
             }
         }
     }
+    #memberpick,
     #colorPallet {
         position: fixed;
         height: var(--vh) !important;
         width: 99vw !important;
         background-color: rgba($color: #000, $alpha: 0.4);
+        .memberpick {
+            width: calc(30vh + 6px);
+            position: fixed;
+            top: calc(50% - calc(30vh + 0px));
+            left: calc(50% - calc(20vh + 0px));
+            background-color: $bk;
+            border-radius: 15px;
+            padding: 5px;
+            text-align: center;
+            h4 {
+                margin: 0;
+                background-color: $fk;
+                border-radius: 15px;
+                margin-bottom: 5px;
+                padding: 5px;
+            }
+            ul {
+                border-radius: 15px;
+                background-color: $fk;
+                li {
+                    padding: 10px;
+                    border-bottom: 1px solid black;
+                }
+                li:last-child {
+                    border-bottom: 0px solid black;
+                }
+                li:hover {
+                    cursor: pointer;
+                    font-weight: bold;
+                }
+            }
+        }
         .colorPallet {
             width: calc(30vh + 6px);
             height: calc(30vh + 6px);

@@ -4,6 +4,9 @@
             <img :src="'resources/img/cards/'+display.label+'.png'">
         </div>
         <colorpallet v-if="showPallet"></colorpallet>
+        <memberpick v-if='showMemberPick && number == 7'
+            v-bind:members="$parent.mmhand"
+        ></memberpick>
     </div>
 </template>
 <script>
@@ -31,6 +34,7 @@
                 color:'',
                 isSpecial:0,
                 showPallet:0,
+                showMemberPick:0,
                 highlight:1,
                 display:{
                     colors: {
@@ -65,6 +69,8 @@
                     if ( this.canBePlayed() ) {
                         if (this.isWild()){
                             this.showPallet = 1;
+                        } else if( this.number == 7 && this.$parent.game.extreme7) {
+                            this.showMemberPick = 1;
                         } else {
                             ajax( this.checkResponse, 'api/game', {
                                 action:     'playCard',
@@ -84,6 +90,17 @@
                         card:       $color + this.cardValue,
                         password:   this.$parent.game_settinsg.password,
                         uno_call:   this.$parent.uno,
+                    }, 1 );
+                this.$parent.uno = 0;
+            },
+            playMemberPick($member){
+                this.showMemberPick = 0;
+                ajax( this.checkResponse, 'api/game', {
+                        action:     'playCard',
+                        card:       this.cardValue,
+                        password:   this.$parent.game_settinsg.password,
+                        uno_call:   this.$parent.uno,
+                        extra:      $member,
                     }, 1 );
                 this.$parent.uno = 0;
             },

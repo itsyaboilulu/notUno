@@ -16,6 +16,8 @@ class playPlayCard extends play {
      */
     private $card;
 
+    private $extra;
+
     /**
      * extends play, used fo funtions related to playing a card and its effects
      *
@@ -34,8 +36,9 @@ class playPlayCard extends play {
      * @param boolean $uno
      * @return boolean
      */
-    public function play($uno = null)
+    public function play($uno = null,$extra=NULL)
     {
+        $this->extra = $extra;
         if ( $this->checkTurn() ) {
             if (!$this->card->canBePlayed($this->game()->current_card)) {
                 return FALSE;
@@ -153,9 +156,17 @@ class playPlayCard extends play {
     private function extremeCards(){
         switch ($this->card->basecard()){
             case '4':
-                if ($this->settings('extreme4')){
-                    return $this->extremeFour();
-                }
+                return ($this->settings('extreme4')) ?
+                    $this->extremeFour() :
+                    NULL;
+            case '7':
+                return ($this->settings('extreme7')) ?
+                    $this->extremeSeven() :
+                    NULL;
+            case '0':
+                return ($this->settings('extreme0')) ?
+                $this->extremeZero() :
+                    NULL;
             default:
                 return;
         }
@@ -181,6 +192,48 @@ class playPlayCard extends play {
             $mg->addCard($dr);
         }
         $this->chat->extremeFour($this->game()->turn, $this->checkNextTurn(), count($draw));
+        return;
+    }
+
+    /**
+     * handle the playing of a extreme 7
+     *
+     * @return void
+     */
+    private function extremeSeven()
+    {
+        $target = new ckGameToMember($this->game()->id,users::getId($this->extra));
+        $curr   = $this->gameMember();
+
+        $thand = $target->hand;
+
+        $target->hand   = $curr->hand;
+        $curr->hand     = $thand;
+
+        $curr   ->save();
+        $target ->save();
+
+        $this->chat->extremeSeven($this->extra);
+
+        return;
+    }
+
+    /**
+     * handle the playing of a extreme 0
+     *
+     * @return void
+     */
+    private function extremeZero(){
+        $order  = unserialize($this->game()->order);
+        foreach($order as $o){
+            $ck     = new ckGameToMember($this->game()->id, $o);
+            $d[]    = $ck;
+            $h[]    = $ck->hand;
+        }
+        for($i=0;$i<count($d);$i++){
+            $d[$i]->hand = $h[ (count($h) - ( $i + 1 ) ) ];
+            $d[$i]->save();
+        }
         return;
     }
 

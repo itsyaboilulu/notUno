@@ -93,9 +93,15 @@ class play {
      */
     public function checkWin()
     {
-        return ( $this->getHand() ) ?
-            FALSE :
-            $this->finnishGame();
+        if ( !$this->getHand() ) {
+            return $this->finnishGame();
+        }
+        foreach( gameToMember::handCounts($this->game()->id) as $h ){
+            if ($h['count'] == 0){
+                return TRUE;
+            }
+        }
+        return FALSE;
     }
 
     /**

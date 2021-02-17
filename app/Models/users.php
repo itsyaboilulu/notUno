@@ -31,6 +31,15 @@ class users extends Model
         return (users::find($id))->username;
     }
 
+    public static function getID($username)
+    {
+        $u = users::where('username',$username)->first();
+        if ($u){
+            return $u->id;
+        }
+        return;
+    }
+
     /**
      * returns t/f if username is availble
      *

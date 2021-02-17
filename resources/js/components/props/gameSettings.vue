@@ -63,12 +63,32 @@
             </tr>
             <tr>
                 <td>
+                    <button class="tooltip" title="playing a 0 causes all players to swap cards to the person going after them">?</button>
+                    special 0's
+                </td>
+                <td>
+                    <input  v-on:change='update($event)' type="checkbox" v-model='setting.extreme0'
+                        name="extreme0" >
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <button class="tooltip" title="playing a 4 causes the next player draws cards until they can play">?</button>
                     special 4's
                 </td>
                 <td>
                     <input  v-on:change='update($event)' type="checkbox" v-model='setting.extreme4'
                         name="extreme4" >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="tooltip" title="playing a 7 allows the player to swap hands with another">?</button>
+                    special 7's
+                </td>
+                <td>
+                    <input  v-on:change='update($event)' type="checkbox" v-model='setting.extreme7'
+                        name="extreme7" >
                 </td>
             </tr>
         </table>

@@ -147,4 +147,16 @@ class chatMessages
         return $this->newMessage($this->username($target) . " had to draw $cards cards ");
     }
 
+    public function extremeSeven($target)
+    {
+        $this->newMessage($this->username() . " played an extreme 7 ");
+        return $this->newMessage($this->username() . " swapped hands with " . $this->username($target) );
+    }
+
+    public function extremeZero()
+    {
+        $this->newMessage($this->username() . " played an extreme 0 ");
+        return $this->newMessage("All players hands have beem swapped");
+    }
+
 }

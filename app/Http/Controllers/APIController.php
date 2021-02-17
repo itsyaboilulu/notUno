@@ -27,7 +27,11 @@ class APIController extends Controller
                 session(['game' => $game]);
                 switch( $request->get('action') ){
                     case 'playCard':
-                        return $gameapi->playCard($request->get('card'), $request->get('uno_call'));
+                        return $gameapi->playCard(
+                            $request->get('card'),
+                            $request->get('uno_call'),
+                            $request->get('extra',NULL)
+                        );
                     case 'draw':
                         return $gameapi->APIdrawCard();
                     default:
