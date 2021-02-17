@@ -43,8 +43,3 @@ Route::post('api/settings', [App\Http\Controllers\APIController::class, 'setting
 
 Auth::routes();
 
-Route::get('/test', function(){
-
-    echo useful::getPast((5*60));
-
-});
