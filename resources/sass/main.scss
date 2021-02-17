@@ -499,6 +499,28 @@ button {
 
 //mobile
 @media only screen and (max-width: 800px) {
+    .tooltip {
+        margin: 0 !important;
+    }
+    @media (pointer: coarse), (hover: none) {
+        [title] {
+            position: relative;
+            //display: flex;
+            justify-content: center;
+        }
+        [title]:focus::after {
+            content: attr(title);
+            position: absolute;
+            z-index: 999;
+            top: 90%;
+            left: 10%;
+            color: #000;
+            background-color: #fff;
+            border: 1px solid;
+            width: 40vw;
+            padding: 3px;
+        }
+    }
     .header {
         margin-bottom: 2%;
         .flex {
