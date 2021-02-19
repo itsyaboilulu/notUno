@@ -2226,7 +2226,6 @@ __webpack_require__.r(__webpack_exports__);
     this.yourTurn = this.myturn;
     this.game_settinsg.password = this.game.password;
     this.isuno = this.hand.length == 2 ? true : false;
-    this.extreme7 = this.game.extreme7;
   },
   data: function data() {
     return {
@@ -2239,7 +2238,6 @@ __webpack_require__.r(__webpack_exports__);
       isuno: false,
       stack: false,
       mmhand: '',
-      extreme7: '',
       game_settinsg: {
         password: ''
       },
@@ -2395,7 +2393,7 @@ __webpack_require__.r(__webpack_exports__);
         if (this.canBePlayed()) {
           if (this.isWild()) {
             this.showPallet = 1;
-          } else if (this.number == 7 && this.$parent.extreme7) {
+          } else if (this.number == 7 && this.$parent.game.extreme7) {
             this.showMemberPick = 1;
           } else {
             (0,_ajax_min_js__WEBPACK_IMPORTED_MODULE_0__.ajax)(this.checkResponse, 'api/game', {
@@ -2901,6 +2899,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _ajax_min_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ajax.min.js */ "./resources/js/ajax.min.js");
+//
+//
 //
 //
 //
@@ -41369,11 +41369,7 @@ var render = function() {
     _c("div", { staticClass: "settings" }, [
       _c("h4", [_vm._v("Allow push notifications")]),
       _vm._v(" "),
-      _c("p", [
-        _vm._v(
-          " allows us to send you push notifications when you've been alerted in a game"
-        )
-      ]),
+      _vm._m(0),
       _vm._v(" "),
       _c("div", {
         attrs: { id: "pushpad-subscribe" },
@@ -41387,7 +41383,7 @@ var render = function() {
       _vm.nots
         ? _c("table", [
             _c("tr", [
-              _vm._m(0),
+              _vm._m(1),
               _vm._v(" "),
               _c("td", [_vm._v("Allow Alerts")]),
               _vm._v(" "),
@@ -41449,6 +41445,20 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _vm._v(
+        " allows us to send you push notifications when you've been alerted in a game.\n                (if button does not appear check you are on https  "
+      ),
+      _c("a", { attrs: { href: "https://uno.yaboilulu.co.uk/settings" } }, [
+        _vm._v("Link")
+      ]),
+      _vm._v(" )\n            ")
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

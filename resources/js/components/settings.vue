@@ -2,7 +2,9 @@
     <div id="settings" >
         <div class="settings">
             <h4>Allow push notifications</h4>
-                <p> allows us to send you push notifications when you've been alerted in a game</p>
+                <p> allows us to send you push notifications when you've been alerted in a game.
+                    (if button does not appear check you are on https  <a href="https://uno.yaboilulu.co.uk/settings" >Link</a> )
+                </p>
                 <div id="pushpad-subscribe" v-on:click="updateNotify()"></div>
                 <table v-if="nots">
                     <tr>
