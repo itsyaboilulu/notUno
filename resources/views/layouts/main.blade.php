@@ -80,6 +80,14 @@
     </body>
     <script src="public/js/app.js{{$cache}}"></script>
     @yield('script')
+    @if (app()->environment() != 'local')
+        <script>
+            if (location.protocol !== 'https:') {
+                location.replace(`https:${location.href.substring(location.protocol.length)}`);
+            }
+        </script>
+    @endif
+
     @if (Agent::isMobile())
         <script>
             const appHeight = () => {

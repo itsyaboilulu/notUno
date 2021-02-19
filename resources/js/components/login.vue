@@ -18,10 +18,6 @@
         mounted: function() {
             document.getElementById('login-form').setAttribute('action',this.action);
             document.getElementById('_token').value = this.crf_token;
-
-            if (location.protocol !== 'https:') {
-                location.replace(`https:${location.href.substring(location.protocol.length)}`);
-            }
         },
         name: 'Login',
         data: function() {

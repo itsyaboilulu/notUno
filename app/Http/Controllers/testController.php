@@ -23,6 +23,6 @@ class testController extends Controller
      */
     public function test()
     {
-        return 'test';
+        return env('APP_ENV');
     }
 }

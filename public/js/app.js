@@ -2140,10 +2140,6 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     document.getElementById('login-form').setAttribute('action', this.action);
     document.getElementById('_token').value = this.crf_token;
-
-    if (location.protocol !== 'https:') {
-      location.replace("https:".concat(location.href.substring(location.protocol.length)));
-    }
   },
   name: 'Login',
   data: function data() {
