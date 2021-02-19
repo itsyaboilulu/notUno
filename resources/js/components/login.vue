@@ -5,7 +5,9 @@
             <form id="login-form" method="post">
                 <input id="_token" type="hidden" name="_token" value="">
                 <input type="text" name="username" v-model="input.username" placeholder="Username" /><br>
-                <input type="password" name="password" v-model="input.password" placeholder="Password" />
+                <input type="password" name="password" v-model="input.password" placeholder="Password" /><br>
+                <input id="checkbox-remember" type="checkbox" name="remember" :checked="remember">
+                <label for="remember">Remember me</label>
             </form>
             <button type="button" v-on:click="login()">Login</button><button v-on:click="register()" >Register</button>
         </div>
@@ -14,7 +16,7 @@
 
 <script>
     export default {
-        props:['action','crf_token'],
+        props:['action','crf_token','remember'],
         mounted: function() {
             document.getElementById('login-form').setAttribute('action',this.action);
             document.getElementById('_token').value = this.crf_token;

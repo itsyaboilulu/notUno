@@ -2135,8 +2135,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['action', 'crf_token'],
+  props: ['action', 'crf_token', 'remember'],
   mounted: function mounted() {
     document.getElementById('login-form').setAttribute('action', this.action);
     document.getElementById('_token').value = this.crf_token;
@@ -40213,7 +40215,19 @@ var render = function() {
               _vm.$set(_vm.input, "password", $event.target.value)
             }
           }
-        })
+        }),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          attrs: {
+            id: "checkbox-remember",
+            type: "checkbox",
+            name: "remember"
+          },
+          domProps: { checked: _vm.remember }
+        }),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "remember" } }, [_vm._v("Remember me")])
       ]),
       _vm._v(" "),
       _c(

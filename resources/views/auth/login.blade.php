@@ -9,6 +9,7 @@
         <login
             v-bind:action='{{ json_encode( route('login') ) }}'
             v-bind:crf_token='{{ json_encode(  csrf_token() ) }}'
+            v-bind:login=  '{{json_encode(old('remember'))}}'
         ></login>
 @endsection
 @section('script')

@@ -466,6 +466,10 @@ button {
             padding: 5px;
             width: calc(30% - 10px);
         }
+        label {
+            font-size: medium;
+            font-weight: lighter;
+        }
         .error {
             font-size: medium;
             margin-bottom: 0;
