@@ -1,5 +1,5 @@
 @php
-    $cache = '?v=2.2';
+    $cache = '?v='.App\Models\useful::cssUpdateTime();
 @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">

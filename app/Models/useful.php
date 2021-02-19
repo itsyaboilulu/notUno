@@ -70,4 +70,14 @@ class useful {
         return date("Y-m-d h:i:s", strtotime("-$secs seconds"));
     }
 
+    /**
+     * returns the update time of the css file, used to update page cache when css is changed
+     *
+     * @return time()
+     */
+    public static function cssUpdateTime(){
+        $path_parts = filemtime(dirname(__FILE__). '/../../resources/css/main.min.css');
+        return $path_parts;
+    }
+
 }

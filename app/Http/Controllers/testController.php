@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\pushPad;
+use App\Models\useful;
 use App\Models\userSettings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,6 @@ class testController extends Controller
      */
     public function test()
     {
-        return env('APP_ENV');
+        return useful::cssUpdate();
     }
 }
