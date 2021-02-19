@@ -1,11 +1,9 @@
 <?php
 
-use App\Models\pushPad;
-use App\Models\useful;
-use App\Models\userSettings;
+use App\Http\Controllers\testController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Config;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +38,9 @@ Route::post('api/settings', [App\Http\Controllers\APIController::class, 'setting
 
 Auth::routes();
 
-Route::get('/test', function(){
-    echo app()->environment();
+Route::get('/test',         function()
+{
+    if (app()->environment() == 'local'){
+        return (new testController())->test();
+    }
 });
