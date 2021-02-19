@@ -38,8 +38,8 @@ Route::post('api/chat',     [App\Http\Controllers\APIController::class, 'chat'])
 Route::post('api/register', [App\Http\Controllers\APIController::class, 'register']);
 Route::post('api/settings', [App\Http\Controllers\APIController::class, 'settings']);
 
-
-
-
 Auth::routes();
 
+Route::get('/test', function(){
+    echo app()->environment();
+});
