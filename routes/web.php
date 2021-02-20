@@ -40,7 +40,6 @@ Auth::routes();
 
 Route::get('/test',         function()
 {
-    return (new testController())->test();
     if (app()->environment() == 'local'){
         return (new testController())->test();
     }
