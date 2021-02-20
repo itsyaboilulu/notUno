@@ -38,10 +38,10 @@ class playByPlay extends Model
     }
 
     public function timeOut($id){
-        return $this->newPBP('timeout', NULL, $id);
+        return $this->newPBP('timeout', 1, $id);
     }
 
-    public function uno($uno){
+    public function uno($uno=1){
         return $this->newPBP('uno', $uno);
     }
 
