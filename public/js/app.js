@@ -1873,34 +1873,73 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'chat',
-  props: ['logs', 'user', 'password'],
+  props: ['logs', 'user', 'password', 'pbp'],
   data: function data() {
     return {
       close: 'close',
       message: '',
       log: [1, 2, 3],
+      plays: [1, 2, 3],
       checkTime: 10,
-      showuno: 1,
-      showusers: 1
+      showchat: 1,
+      showpbp: 0,
+      showhelp: 0,
+      prev: ''
     };
   },
   mounted: function mounted() {
     this.log = this.logs;
-    (0,_timer_min_js__WEBPACK_IMPORTED_MODULE_1__.startTimer)(this.scrollBottom, 2);
+    this.plays = this.pbp;
   },
   created: function created() {
     (0,_timer_min_js__WEBPACK_IMPORTED_MODULE_1__.startTimer)(this.check, this.checkTime);
   },
+  updated: function updated() {
+    this.scrollBottom();
+  },
   methods: {
-    getLastId: function getLastId() {
+    getLastId: function getLastId($i) {
       var ret;
-      this.log.map(function (value) {
-        ret = value.id;
-      });
+
+      if ($i == 'c') {
+        this.log.map(function (value) {
+          ret = value.id;
+        });
+      } else {
+        this.plays.map(function (value) {
+          ret = value.id;
+        });
+      }
+
       return ret;
     },
     check: function check() {
@@ -1911,14 +1950,18 @@ __webpack_require__.r(__webpack_exports__);
       (0,_ajax_min_js__WEBPACK_IMPORTED_MODULE_0__.ajax)(this.checkResponse, 'api/chat', {
         action: 'check',
         password: this.password,
-        lastUpdate: this.getLastId()
+        clastUpdate: this.getLastId('c'),
+        plastUpdate: this.getLastId('p')
       }, 1);
     },
     checkResponse: function checkResponse($response) {
       var _this = this;
 
-      $response.forEach(function (element) {
+      $response.chat.forEach(function (element) {
         _this.log.push(element);
+      });
+      $response.pbp.forEach(function (element) {
+        _this.plays.push(element);
       });
       this.scrollBottom();
     },
@@ -1930,10 +1973,17 @@ __webpack_require__.r(__webpack_exports__);
           message: this.message
         }, 1);
         this.message = '';
+        this.scrollBottom();
       }
     },
     scrollBottom: function scrollBottom() {
-      document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+      if (this.showchat) {
+        document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+      }
+
+      if (this.showpbp) {
+        document.getElementById('playByPlay').scrollTop = document.getElementById('playByPlay').scrollHeight;
+      }
     }
   }
 });
@@ -39809,114 +39859,206 @@ var render = function() {
   return _c("div", { staticClass: "close", attrs: { id: "chat" } }, [
     _c("div", { staticClass: "chat" }, [
       _c("div", { staticClass: "options" }, [
-        _vm._v("\n            Mute:\n                "),
         _c(
-          "strong",
+          "a",
           {
-            class: { strickthough: !_vm.showusers },
+            class: { selected: _vm.showchat, button: 1 },
             on: {
               click: function($event) {
-                _vm.showusers = _vm.showusers ? 0 : 1
+                _vm.showchat = 1
+                _vm.showpbp = 0
+                _vm.showhelp = 0
               }
             }
           },
-          [_vm._v("players")]
+          [_vm._v("Chat")]
         ),
         _vm._v(" "),
-        _c(
-          "strong",
-          {
-            class: { strickthough: !_vm.showuno },
-            on: {
-              click: function($event) {
-                _vm.showuno = _vm.showuno ? 0 : 1
-              }
-            }
-          },
-          [_vm._v("unobot")]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "messages", attrs: { id: "messages" } }, [
-        _c(
-          "ul",
-          _vm._l(_vm.log, function(l) {
-            return _c(
-              "li",
+        _vm.plays.length
+          ? _c(
+              "a",
               {
-                class: {
-                  recived: l.username != _vm.user && l.username != "uno",
-                  sent: l.username == _vm.user,
-                  uno: l.username == "uno"
+                class: { selected: _vm.showpbp, button: 1 },
+                on: {
+                  click: function($event) {
+                    _vm.showchat = 0
+                    _vm.showpbp = 1
+                    _vm.showhelp = 0
+                  }
                 }
               },
-              [
-                l.username == "uno" && _vm.showuno
-                  ? _c("div", { domProps: { innerHTML: _vm._s(l.message) } })
-                  : _vm._e(),
-                _vm._v(" "),
-                l.username != "uno" && _vm.showusers
-                  ? _c("div", [
-                      _c("strong", [_vm._v(_vm._s(l.username))]),
-                      _vm._v(
-                        ": " + _vm._s(l.message) + "\n                    "
-                      )
-                    ])
-                  : _vm._e()
-              ]
+              [_vm._v("Plays")]
             )
-          }),
-          0
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "input" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.message,
-              expression: "message"
-            }
-          ],
-          attrs: { type: "text", placeholder: "type..." },
-          domProps: { value: _vm.message },
-          on: {
-            keyup: function($event) {
-              if (
-                !$event.type.indexOf("key") &&
-                _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-              ) {
-                return null
-              }
-              return _vm.send()
-            },
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.message = $event.target.value
-            }
-          }
-        }),
+          : _vm._e(),
         _vm._v(" "),
         _c(
-          "button",
+          "a",
           {
+            class: { selected: _vm.showhelp, button: 1 },
             on: {
               click: function($event) {
-                return _vm.send()
+                _vm.showchat = 0
+                _vm.showpbp = 0
+                _vm.showhelp = 1
               }
             }
           },
-          [_vm._v(">")]
+          [_vm._v("Commands")]
         )
-      ])
+      ]),
+      _vm._v(" "),
+      _vm.showchat
+        ? _c("div", { staticClass: "messages", attrs: { id: "messages" } }, [
+            _c(
+              "ul",
+              _vm._l(_vm.log, function(l) {
+                return _c(
+                  "li",
+                  {
+                    class: {
+                      recived: l.username != _vm.user && l.username != "uno",
+                      sent: l.username == _vm.user,
+                      uno: l.username == "uno"
+                    }
+                  },
+                  [
+                    l.username == "uno"
+                      ? _c("div", {
+                          domProps: { innerHTML: _vm._s(l.message) }
+                        })
+                      : _vm._e(),
+                    _vm._v(" "),
+                    l.username != "uno"
+                      ? _c("div", [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(l.username) +
+                              ": " +
+                              _vm._s(l.message) +
+                              "\n                    "
+                          )
+                        ])
+                      : _vm._e()
+                  ]
+                )
+              }),
+              0
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.showchat
+        ? _c("div", { staticClass: "input" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.message,
+                  expression: "message"
+                }
+              ],
+              attrs: { type: "text", placeholder: "type..." },
+              domProps: { value: _vm.message },
+              on: {
+                keyup: function($event) {
+                  if (
+                    !$event.type.indexOf("key") &&
+                    _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                  ) {
+                    return null
+                  }
+                  return _vm.send()
+                },
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.message = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.send()
+                  }
+                }
+              },
+              [_vm._v(">")]
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.showpbp && _vm.plays.length
+        ? _c("div", { attrs: { id: "playByPlay" } }, [
+            _c(
+              "table",
+              _vm._l(_vm.plays, function(p) {
+                return _c("tr", [
+                  _c("td", [_vm._v(_vm._s(p.username))]),
+                  _vm._v(" "),
+                  p.action == "play"
+                    ? _c("td", [_vm._v(_vm._s(p.data))])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  p.action == "draw" && p.data == 1
+                    ? _c("td", [_vm._v("draw")])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  p.action == "draw" && p.data != 1
+                    ? _c("td", [_vm._v("draw * " + _vm._s(p.data))])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  p.action == "uno" && p.data == 1
+                    ? _c("td", [_vm._v("uno!!")])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  p.action == "timeout"
+                    ? _c("td", [_vm._v("timed out")])
+                    : _vm._e()
+                ])
+              }),
+              0
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.showhelp
+        ? _c("div", { staticClass: "commands" }, [_vm._m(0)])
+        : _vm._e()
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", [
+      _c("li", [
+        _c("h4", [_vm._v("@alert")]),
+        _vm._v(
+          "\n                    If the current player has notifications turned on they\n                    will recieve an alert"
+        ),
+        _c("br"),
+        _vm._v(
+          "\n                    ( limited 1 per 5 mins )\n                "
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", [
+        _c("h4", [_vm._v("@wisper username message ")]),
+        _vm._v(
+          "\n                    Send a priave message to the given username\n                "
+        )
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

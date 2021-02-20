@@ -2,24 +2,49 @@
     <div id='chat' class="close">
         <div class="chat">
             <div class="options">
-                Mute:
-                    <strong :class="{ strickthough:!showusers }" v-on:click=" showusers = (showusers)?0:1" >players</strong>
-                    <strong :class="{ strickthough:!showuno }" v-on:click=" showuno = (showuno)?0:1">unobot</strong>
-
+                <a v-on:click=" showchat = 1; showpbp=0; showhelp=0;" :class="{ selected:showchat, button:1 }" >Chat</a>
+                <a v-if="plays.length" v-on:click=" showchat = 0; showpbp=1; showhelp=0;" :class="{ selected:showpbp, button:1  }" >Plays</a>
+                <a v-on:click=" showchat = 0; showpbp=0; showhelp=1" :class="{ selected:showhelp, button:1  }" >Commands</a>
             </div>
-            <div class="messages" id='messages'>
-                <ul>
+            <div class="messages" id='messages' v-if="showchat">
+                <ul >
                     <li v-for="l in log" :class="{ recived:l.username!=user && l.username!='uno', sent:l.username==user, uno:l.username=='uno' }" >
-                        <div v-if="l.username == 'uno' && showuno" v-html="l.message"></div>
-                        <div v-if="l.username != 'uno' && showusers">
-                                <strong>{{l.username}}</strong>: {{l.message}}
+                        <div v-if="l.username == 'uno'" v-html="l.message" ></div>
+                        <div v-if="l.username != 'uno'">
+                            {{l.username}}: {{l.message}}
                         </div>
                     </li>
                 </ul>
             </div>
-            <div class="input">
+            <div class="input" v-if="showchat">
                 <input type="text" v-model="message" v-on:keyup.enter="send()" placeholder="type...">
                 <button v-on:click="send()">></button>
+            </div>
+            <div id='playByPlay' v-if="showpbp && plays.length">
+                <table>
+                    <tr v-for="p in plays"  >
+                        <td>{{p.username}}</td>
+                        <td v-if="p.action == 'play'" >{{p.data}}</td>
+                        <td v-if="p.action == 'draw' && p.data == 1" >draw</td>
+                        <td v-if="p.action == 'draw' && p.data != 1" >draw * {{p.data}}</td>
+                        <td v-if="p.action == 'uno' && p.data == 1" >uno!!</td>
+                        <td v-if="p.action == 'timeout'">timed out</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="commands" v-if="showhelp">
+                <ul>
+                    <li>
+                        <h4>@alert</h4>
+                        If the current player has notifications turned on they
+                        will recieve an alert<br>
+                        ( limited 1 per 5 mins )
+                    </li>
+                    <li>
+                        <h4>@wisper username message </h4>
+                        Send a priave message to the given username
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -29,30 +54,43 @@
     import { startTimer }   from "../timer.min.js";
     export default {
         name:'chat',
-        props:['logs','user','password'],
+        props:['logs','user','password','pbp'],
         data(){
             return {
                 close       :'close',
                 message     :'',
                 log         :[1,2,3],
+                plays       :[1,2,3],
                 checkTime   :10,
-                showuno     :1,
-                showusers   :1,
+                showchat    :1,
+                showpbp     :0,
+                showhelp    :0,
+                prev        :'',
             }
         },
         mounted(){
-            this.log = this.logs;
-            startTimer(this.scrollBottom,2);
+            this.log    = this.logs;
+            this.plays  = this.pbp;
         },
         created(){
             startTimer(this.check,this.checkTime);
         },
+        updated() {
+            this.scrollBottom();
+        },
         methods:{
-            getLastId(){
+            getLastId($i){
                 var ret;
-                this.log.map(function (value){
-                    ret = value.id;
-                });
+                if ($i=='c'){
+                    this.log.map(function (value){
+                        ret = value.id;
+                    });
+                } else {
+                    this.plays.map(function (value){
+                        ret = value.id;
+                    });
+                }
+
                 return ret;
             },
             check(){
@@ -63,12 +101,16 @@
                 ajax( this.checkResponse, 'api/chat', {
                     action:     'check',
                     password:   this.password,
-                    lastUpdate: this.getLastId(),
+                    clastUpdate: this.getLastId('c'),
+                    plastUpdate: this.getLastId('p'),
                 }, 1 );
             },
             checkResponse($response){
-                $response.forEach(element => {
+                $response.chat.forEach(element => {
                     this.log.push(element);
+                });
+                $response.pbp.forEach(element => {
+                    this.plays.push(element);
                 });
                 this.scrollBottom();
             },
@@ -80,10 +122,16 @@
                         message:    this.message
                     }, 1 );
                     this.message = '';
+                    this.scrollBottom();
                 }
             },
             scrollBottom(){
-                document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+                if (this.showchat){
+                     document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+                }
+                if (this.showpbp){
+                    document.getElementById('playByPlay').scrollTop = document.getElementById('playByPlay').scrollHeight;
+                }
             }
         }
     }

@@ -50,7 +50,7 @@ class playPlayCard extends play {
 
             $this->game()->current_card = $this->card->card();
 
-            $this->chat()->cardPlayed($this->card->card() );
+            $this->playByPlay()->addCard($this->card->card());
 
             return $this->nextTurn($this->special());
         }
@@ -67,6 +67,7 @@ class playPlayCard extends play {
     {
         if ($this->gameMember()->isUno()){
             $this->chat()->uno($uno);
+            $this->playByPlay()->uno($uno);
             return ($uno) ?
                 $uno:
                 $this->drawCard(Auth::id(), $this->settings('unoDrawPenalty'));
@@ -103,6 +104,7 @@ class playPlayCard extends play {
      */
     private function reverseOrder()
     {
+        $this->chat()->reverseOrder();
         $this->game()->order = serialize(array_reverse(unserialize($this->game()->order)));
         return $this->game()->save();
     }

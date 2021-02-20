@@ -11,7 +11,7 @@
     <div class="chatLayout">
         <lobby
             v-bind:game         = "{{json_encode($game)}}"
-            v-bind:admin        = {{json_encode($admin)}}
+            v-bind:admin        = {{json_encode($game->isAdmin())}}
             v-bind:deck         = {{ json_encode($deck) }}
             v-bind:setting      = {{ json_encode($settings) }}
             v-bind:dleaderboard = {{json_encode($leaderboard)}}
@@ -20,6 +20,7 @@
             v-bind:logs=    "{{ json_encode($chat) }}"
             v-bind:user=    "{{ json_encode(Auth::user()->username) }}"
             v-bind:password="{{ json_encode( $game['password'] )}}"
+            v-bind:pbp      = "{{ json_encode( $playbyplay ) }}"
         ></chat>
     </div>
 @endsection

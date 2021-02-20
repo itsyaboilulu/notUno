@@ -23,21 +23,19 @@ class chatMessages
         $this->gid = $gid;
     }
 
-    /**
-     * commits a message into the game chat
-     *
-     * @param string $message
-     * @param integer $id game id
-     * @return boolean
-     */
-    private function newMessage($message,$id=0)
-    {
-        $c          = new chat();
-        $c->gid     = $this->gid;
-        $c->uid     = $id;
-        $c->message = $message;
+    private $game;
 
-        return $c->save();
+    private function game()
+    {
+        if (!$this->game){
+            $this->game =  game::find($this->gid);
+        }
+        return $this->game;
+    }
+
+    private function turn()
+    {
+        return $this->username( $this->game()->turn );
     }
 
     /**
@@ -46,10 +44,92 @@ class chatMessages
      * @var $id id of username to get
      * @return string
      */
-    private function username($id=NULL)
+    private function username($id = NULL)
     {
-        return "<strong>" . ( ($id) ? users::getName($id) : Auth::user()->username ) . "</strong>";
+        return ($id) ? users::getName($id) : Auth::user()->username;
     }
+
+    /**
+     * commits a message into the game chat
+     *
+     * @param string $message
+     * @param integer $id game id
+     * @return boolean
+     */
+    private function newMessage($message,$id=0, $target=NULL)
+    {
+        $c          = new chat();
+        $c->gid     = $this->gid;
+        $c->uid     = $id;
+        $c->message = $message;
+        $c->target  = $target;
+
+        return $c->save();
+    }
+
+    /**
+     * commits a message into the game chat
+     *
+     * @param string $message
+     * @return boolean
+     */
+    public function send($message)
+    {
+        return ($this->checkCommands($message)) ?
+            TRUE:
+            $this->newMessage($message,Auth::id());
+    }
+
+    /**
+     * check the message for any special commands
+     *
+     * @param string $message
+     * @return boolean
+     */
+    private function checkCommands($message)
+    {
+        if (strpos($message, '@alert') !== false) {
+            new alert($this->gid, Auth::id());
+            return $this->alert();
+        }
+
+        if (strpos($message, '@wisper') !== false) {
+            return $this->wisper(ltrim($message));
+        }
+    }
+
+    /**
+     * sends alert message
+     *
+     * @return boolean
+     */
+    private function alert()
+    {
+        return $this->newMessage($this->username()." alerted ".$this->turn());
+    }
+
+    /**
+     * sends a private message to another user
+     *
+     * @param string $message
+     * @return boolean
+     */
+    private function wisper($message)
+    {
+        $wisper  = explode(' ',$message);
+        if ($wisper[0] == '@wisper'){
+            $target = users::getID($wisper[1]);
+            if ($target){
+                $m = " (wispered) ";
+                for($i=2;$i<count($wisper);$i++){
+                    $m = $m.' '.$wisper[$i];
+                }
+                return $this->newMessage($m, Auth::id(), $target);
+            }
+        }
+        return FALSE;
+    }
+
 
     /**
      * generic $user joined game message
@@ -157,6 +237,10 @@ class chatMessages
     {
         $this->newMessage($this->username() . " played an extreme 0 ");
         return $this->newMessage("All players hands have beem swapped");
+    }
+
+    public function reverseOrder(){
+        return $this->newMessage("Order has been reversed");
     }
 
 }

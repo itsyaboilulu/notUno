@@ -7,6 +7,7 @@ use App\Models\game;
 use App\Models\gameLeaderboard;
 use App\Models\playAPI;
 use App\Models\gameToMember;
+use App\Models\playByPlay;
 use App\Models\users;
 use App\Models\userSettings;
 use Illuminate\Http\Request;
@@ -76,7 +77,10 @@ class APIController extends Controller
                     case 'send':
                         return chat::send($game->id, $request->get('message'));
                     default:
-                        return chat::chatlog($game->id, $request->get('lastUpdate'));
+                        return [
+                            'chat'=>chat::chatlog($game->id, $request->get('clastUpdate')),
+                            'pbp' =>playByPlay::plays($game->id,$game->game_no, $request->get('plastUpdate'))
+                        ];
                 }
             }
             return $this->error_data;

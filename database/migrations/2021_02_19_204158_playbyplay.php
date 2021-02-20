@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateChat extends Migration
+class Playbyplay extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateChat extends Migration
      */
     public function up()
     {
-        Schema::create('chat', function (Blueprint $table) {
+        Schema::create('play_by_play', function (Blueprint $table) {
             $table->id();
             $table->integer('gid');
             $table->integer('uid');
-            $table->mediumText('message');
+            $table->text('action');
+            $table->mediumText('data');
             $table->timestamps();
-            $table->integer('target')->nullable();
+            $table->integer('game_no');
         });
     }
 
@@ -30,6 +31,6 @@ class CreateChat extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('chat');
+        Schema::dropIfExists('play_by_play');
     }
 }

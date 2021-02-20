@@ -34,12 +34,15 @@ class chat extends Model
         $from = ($from != 'undefined')?$from:0;
         $dir = ($from)
             ? 'ASC' : 'DESC';
-            $chat =  DB::select("SELECT u.username, c.message, c.id
+            $chat =  DB::select("SELECT u.username, c.message, c.id, u2.username as target
                 FROM chat c
                     INNER JOIN users u
                         ON u.id = c.uid
+                    LEFT JOIN users u2
+                        ON u2.id = c.target
                 WHERE c.gid  = $gid
                     AND c.id > $from
+                    AND ( c.target = 0 || isnull(c.target) || c.target = ".Auth::id()." )
                 ORDER BY c.id $dir
                 LIMIT 100
             ");
@@ -56,16 +59,7 @@ class chat extends Model
      */
     public static function send($gid,$message)
     {
-        $c          = new chat();
-        $c->gid     = $gid;
-        $c->uid     = Auth::id();
-        $c->message = $message;
-
-        if (strpos($message, '@alert') !== false) {
-            new alert($gid, Auth::id());
-        }
-
-        return $c->save();
+        return ( new chatMessages($gid) )->send($message);
     }
 
 

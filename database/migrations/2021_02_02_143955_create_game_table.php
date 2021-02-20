@@ -25,6 +25,7 @@ class CreateGameTable extends Migration
             $table->boolean('started')->default(0);
             $table->mediumText('game_data')->nullable(true);
             $table->timestamp('updated');
+            $table->integer('game_no');
         });
     }
 

@@ -10,6 +10,7 @@ use App\Models\gameLeaderboard;
 use App\Models\gameSettings;
 use App\Models\gameToMember;
 use App\Models\play;
+use App\Models\playByPlay;
 use App\Models\useful;
 use Exception;
 use Illuminate\Http\Request;
@@ -39,10 +40,9 @@ class playController extends Controller
                 view( 'lobby',[
                     'game'          => $game,
                     'settings'      => (new gameSettings($game->id))->settings(),
-                    'members'       => $game->getMembers(),
                     'deck'          => (new deck($game->deck))->deck(),
-                    'admin'         => $game->isAdmin(),
                     'chat'          => chat::chatlog(session('game')->id),
+                    'playbyplay'    => playByPlay::plays(session('game')->id, ( ($game->game_no) ? ( $game->game_no - 1 ) : 0 )),
                     'leaderboard'   => gameLeaderboard::gameLeaderBoard($game->id)
                     ]
                 );
@@ -88,12 +88,11 @@ class playController extends Controller
 
             return (session('game')->started)?
                 view('play', array(
-                    'hand'      => $play->getHand(),
+                    'play'      => $play,
                     'game'      => session('game')->gameData(),
                     'mhand'     => gameToMember::handCounts( session('game')->id ),
                     'chat'      => chat::chatlog(session('game')->id),
-                    //vue cries if we use TRUE/FALSE
-                    'yourturn'  => ($play->checkTurn())?1:0 ,
+                    'playbyplay'=> playByPlay::plays(session('game')->id, session('game')->game_no),
                 )) :
                 redirect('lobby?game='.session('game')->password);
         }

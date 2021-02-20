@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\playByPlay;
 use App\Models\pushPad;
 use App\Models\useful;
 use App\Models\userSettings;
@@ -24,6 +25,6 @@ class testController extends Controller
      */
     public function test()
     {
-        return useful::cssUpdate();
+        return playByPlay::plays(4,0);
     }
 }

@@ -11,6 +11,7 @@ class play {
     private     $settings;
     private     $gameMember;
     protected   $chat;
+    protected   $playByPlay;
 
     function __construct($gid)
     {
@@ -30,6 +31,22 @@ class play {
         return ($s) ?
             $this->settings->{$s} :
             $this->settings;
+    }
+
+
+    /**
+     * return a new instance of playByPlay
+     *
+     * @return object
+     */
+    protected function playByPlay(){
+        if (!$this->playByPlay){
+            $this->playByPlay           = new playByPlay();
+            $this->playByPlay->gid      = $this->game()->id;
+            $this->playByPlay->uid      = Auth::id();
+            $this->playByPlay->game_no  = $this->game()->game_no;
+        }
+        return $this->playByPlay;
     }
 
     /**
@@ -113,6 +130,7 @@ class play {
     {
         (new ckGameLeaderboard($this->id, Auth::id()))->addWin();
         $this->game()->started = 0;
+        $this->game()->game_no = $this->game()->game_no + 1;
         return $this->game()->save();
     }
 
@@ -126,7 +144,6 @@ class play {
         if (!$this->settings('drawUntilPlay')){
             $this->NextTurn();
         }
-        $this->chat()->draw();
         return $this->drawCard(Auth::id());
     }
 
@@ -141,6 +158,7 @@ class play {
     {
         $deck   = new deck(unserialize($this->game()->deck));
         $gtm    = new ckGameToMember($this->id, $target);
+        $this->playByPlay()->draw($no, $target);
         for ($i = 0; $i < ($no); $i++) {
             $gtm->addCard($deck->draw());
         }
@@ -178,6 +196,7 @@ class play {
         if ($this->settings('allowTimeouts')){
             if ( useful::diffMins( $this->game()->updated , date( "Y-m-d H:i:s" ) ) > $this->settings('timeoutsTime') ){
                 $this->chat()->timeOut($this->game()->turn);
+                $this->playByPlay()->timeOut($this->game()->turn);
                 $this->drawCard($this->game()->turn, $this->settings('timeoutsDraw'));
                 return $this->nextTurn();
             }
