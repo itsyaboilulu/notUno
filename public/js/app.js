@@ -1935,7 +1935,7 @@ __webpack_require__.r(__webpack_exports__);
           ret = value.id;
         });
       } else {
-        if (plays.length) {
+        if (this.plays.length) {
           this.plays.map(function (value) {
             ret = value.id;
           });
