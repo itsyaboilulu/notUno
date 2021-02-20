@@ -213,7 +213,7 @@ class chatMessages
      */
     public function timeOut($user=NULL)
     {
-        return $this->newMessage( $this->username($user) . " took too long to play ");
+        return $this->newMessage( $this->username($user) . " took too long to play ",0,$user);
     }
 
     /**
