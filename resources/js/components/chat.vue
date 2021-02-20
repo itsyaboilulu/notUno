@@ -86,7 +86,7 @@
                         ret = value.id;
                     });
                 } else {
-                    if (plays.length){
+                    if (this.plays.length){
                         this.plays.map(function (value){
                             ret = value.id;
                         });
