@@ -106,7 +106,8 @@ class playPlayCard extends play {
     {
         $this->chat()->reverseOrder();
         $this->game()->order = serialize(array_reverse(unserialize($this->game()->order)));
-        return $this->game()->save();
+        $this->game()->save();
+        return;
     }
 
     /**

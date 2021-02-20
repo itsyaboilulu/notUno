@@ -123,7 +123,7 @@ class stats {
             $colors[substr($c, 0, 1)]++;
         }
         foreach($colors as $key=>$value){
-            $ret[$key] = ( $value / $this->cardsPlayedCount() )*100;
+            $ret[$key] = round (( $value / $this->cardsPlayedCount() )*100);
         }
         return $ret;
     }
