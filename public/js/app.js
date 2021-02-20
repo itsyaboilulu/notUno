@@ -1935,9 +1935,13 @@ __webpack_require__.r(__webpack_exports__);
           ret = value.id;
         });
       } else {
-        this.plays.map(function (value) {
-          ret = value.id;
-        });
+        if (plays.length) {
+          this.plays.map(function (value) {
+            ret = value.id;
+          });
+        } else {
+          ret = 0;
+        }
       }
 
       return ret;
