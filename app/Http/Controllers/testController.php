@@ -27,22 +27,6 @@ class testController extends Controller
      */
     public function test()
     {
-
-        $arr = array('t1','t2','t3');
-
-        for($i=0;$i<count($arr);$i++){
-            echo $arr[$i];
-            echo "-";
-            if (($i+1) == count($arr)){
-                echo $arr[0];
-            } else {
-                echo $arr[$i + 1];
-            }
-
-            echo "<br>";
-        }
-
-        exit;
         $s = new stats();
         echo $s->cardsPlayedCount();
         echo "<hr>";

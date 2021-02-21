@@ -29,6 +29,10 @@ class playByPlay extends Model
             ->get();
     }
 
+    public function winner(){
+        return $this->newPBP('winner', 1);
+    }
+
     public function addCard($card){
         return $this->newPBP('play', $card);
     }
