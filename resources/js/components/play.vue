@@ -116,7 +116,8 @@
                 },1 );
             },
             callUno(){
-                this.uno = true;
+                this.isuno  = 0;
+                this.uno    = true;
             },
             sortHand(){
                 this.hand.sort();

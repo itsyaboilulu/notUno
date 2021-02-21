@@ -88,9 +88,10 @@ class playAPI extends play
      */
     private function checkStack()
     {
-        return (isset(unserialize($this->game()->game_data)['stack'])) ?
-            1 :
-            0 ;
+        if (isset(unserialize($this->game()->game_data)['stack'])){
+            return unserialize($this->game()->game_data)['stack'];
+        }
+        return 0;
     }
 
 }

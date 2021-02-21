@@ -2356,6 +2356,7 @@ __webpack_require__.r(__webpack_exports__);
       }, 1);
     },
     callUno: function callUno() {
+      this.isuno = 0;
       this.uno = true;
     },
     sortHand: function sortHand() {
