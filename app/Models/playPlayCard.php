@@ -195,6 +195,7 @@ class playPlayCard extends play {
             $mg->addCard($dr);
         }
         $this->chat()->extremeFour($this->game()->turn, $this->checkNextTurn(), count($draw));
+        $this->playByPlay()->draw(count($draw), $this->checkNextTurn());
         return FALSE;
     }
 
