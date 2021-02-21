@@ -168,7 +168,7 @@ class playPlayCard extends play {
                     NULL;
             case '0':
                 return ($this->settings('extreme0')) ?
-                $this->extremeZero() :
+                    $this->extremeZero() :
                     NULL;
             default:
                 return;
@@ -195,7 +195,7 @@ class playPlayCard extends play {
             $mg->addCard($dr);
         }
         $this->chat->extremeFour($this->game()->turn, $this->checkNextTurn(), count($draw));
-        return;
+        return FALSE;
     }
 
     /**
@@ -218,7 +218,7 @@ class playPlayCard extends play {
 
         $this->chat->extremeSeven($this->extra);
 
-        return;
+        return FALSE;
     }
 
     /**
@@ -237,7 +237,7 @@ class playPlayCard extends play {
             $d[$i]->hand = $h[ (count($h) - ( $i + 1 ) ) ];
             $d[$i]->save();
         }
-        return;
+        return FALSE;
     }
 
 }

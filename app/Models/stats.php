@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\DB;
 
 class stats {
 
+    private $id;
+
+    function __construct($id=NULL)
+    {
+        $this->id = ($id) ? $id : Auth::id();
+    }
+
     /**
      * @see cards()
      *
@@ -23,7 +30,7 @@ class stats {
     private function cards()
     {
         if (!$this->cards){
-            $this->cards = playByPlay::where('uid',Auth::id())->get();
+            $this->cards = playByPlay::where('uid', $this->id)->get();
         }
         return $this->cards;
     }
@@ -50,7 +57,7 @@ class stats {
                 FROM game_leaderboard l
                 WHERE l.uid = ?
                 GROUP BY l.gid;";
-            $this->leaderboards =  DB::select($sql, [Auth::id()]);
+            $this->leaderboards =  DB::select($sql, [$this->id]);
         }
         return $this->leaderboards;
     }
