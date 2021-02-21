@@ -217,7 +217,7 @@ class playPlayCard extends play {
         $curr   ->save();
         $target ->save();
 
-        $this->chat()->extremeSeven($this->extra);
+        $this->chat()->extremeSeven($target->uid);
 
         return FALSE;
     }
