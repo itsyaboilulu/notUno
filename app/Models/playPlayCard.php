@@ -194,7 +194,7 @@ class playPlayCard extends play {
         foreach ($draw as $dr){
             $mg->addCard($dr);
         }
-        $this->chat->extremeFour($this->game()->turn, $this->checkNextTurn(), count($draw));
+        $this->chat()->extremeFour($this->game()->turn, $this->checkNextTurn(), count($draw));
         return FALSE;
     }
 
@@ -216,7 +216,7 @@ class playPlayCard extends play {
         $curr   ->save();
         $target ->save();
 
-        $this->chat->extremeSeven($this->extra);
+        $this->chat()->extremeSeven($this->extra);
 
         return FALSE;
     }
@@ -237,6 +237,7 @@ class playPlayCard extends play {
             $d[$i]->hand = $h[ (count($h) - ( $i + 1 ) ) ];
             $d[$i]->save();
         }
+        $this->chat()->extremeZero($this->extra);
         return FALSE;
     }
 
