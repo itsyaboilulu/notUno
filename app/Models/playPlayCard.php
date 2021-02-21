@@ -146,6 +146,9 @@ class playPlayCard extends play {
                 $this->checkNextTurn(),
                 (unserialize($this->game()->game_data)['stack']['draw'] + $this->card->drawAmount())
             );
+            $this->chat()->toDraw(
+                $this->checkNextTurn(),
+                (unserialize($this->game()->game_data)['stack']['draw'] + $this->card->drawAmount()));
             return $this->game()->clearStack();
         }
         return;
