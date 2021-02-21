@@ -164,6 +164,17 @@ class chatMessages
     }
 
     /**
+     * generic $user drew a card message
+     *
+     * @var int $cards number of cards drawn
+     * @return boolean
+     */
+    public function toDraw($target,$cards = 1)
+    {
+        return $this->newMessage($this->username($target) . " had to draw $cards cards ");
+    }
+
+    /**
      * generic $user called/din't uno message
      *
      * @param boolean $called if uno was called
@@ -224,7 +235,7 @@ class chatMessages
     public function extremeFour($user,$target,$cards)
     {
         $this->newMessage($this->username($user) . " played an extreme 4 ");
-        return $this->newMessage($this->username($target) . " had to draw $cards cards ");
+        return $this->toDraw($target,$cards);
     }
 
     public function extremeSeven($target)
