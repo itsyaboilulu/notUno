@@ -236,7 +236,7 @@ class chatMessages
     public function extremeZero()
     {
         $this->newMessage($this->username() . " played an extreme 0 ");
-        return $this->newMessage("All players hands have beem swapped");
+        return $this->newMessage("All players hands have been swapped");
     }
 
     public function reverseOrder(){
