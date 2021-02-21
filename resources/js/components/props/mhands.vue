@@ -12,7 +12,7 @@ export default {
     props:['hands'],
     computed:{
         hand: function(){
-            return this.hands.slice(0,5);
+            return this.hands;
         }
     }
 }

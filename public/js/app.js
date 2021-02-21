@@ -2863,7 +2863,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ['hands'],
   computed: {
     hand: function hand() {
-      return this.hands.slice(0, 5);
+      return this.hands;
     }
   }
 });
