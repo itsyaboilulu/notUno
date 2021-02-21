@@ -235,7 +235,11 @@ class playPlayCard extends play {
             $h[]    = $ck->hand;
         }
         for($i=0;$i<count($d);$i++){
-            $d[$i]->hand = $h[ (count($h) - ( $i + 1 ) ) ];
+            if (($i + 1) == count($h)){
+                $d[$i]->hand = $h[0];
+            } else {
+                $d[$i]->hand = $h[($i + 1)];
+            }
             $d[$i]->save();
         }
         $this->chat()->extremeZero($this->extra);
