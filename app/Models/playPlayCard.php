@@ -129,7 +129,7 @@ class playPlayCard extends play {
         if (!$stackable){
             return ($this->resolveStack()) ? TRUE : $this->drawCard($this->checkNextTurn(), $this->card->drawAmount()); ;
         }
-        $this->chat()->canStack();
+        $this->chat()->canStack($this->checkNextTurn());
         $this->game()->addStack(Auth::id(),$this->card->Card(),$this->card->drawAmount() );
         return;
     }

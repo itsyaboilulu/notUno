@@ -201,9 +201,9 @@ class chatMessages
      *
      * @return boolean
      */
-    public function canStack()
+    public function canStack($target)
     {
-        return $this->newMessage($this->username() . " can Stack");
+        return $this->newMessage($this->username($target) . " can Stack");
     }
 
     /**
