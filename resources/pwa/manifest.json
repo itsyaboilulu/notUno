@@ -1,7 +1,11 @@
 {
-    "short_name": "Uno",
     "name": "Uno",
     "description": "play uno with friends",
+    "start_url": "../../",
+    "display": "standalone",
+    "orientation": "portrait",
+    "theme_color": "#f14141",
+    "background_color": "#f14141",
     "icons": [
         {
             "src": "maskable_icon_x48.png",
@@ -33,10 +37,5 @@
             "type": "image/png",
             "purpose": "maskable"
         }
-    ],
-    "start_url": "../../",
-    "display": "standalone",
-    "orientation": "portrait",
-    "theme_color": "#f14141",
-    "background_color": "#f14141"
+    ]
 }
