@@ -105,23 +105,6 @@ class play {
         return $this->gameMember()->hand();
     }
 
-    /**
-     * check if conditions are met for the game to be won
-     *
-     * @return boolean
-     */
-    public function checkWin()
-    {
-        if ( !$this->getHand() ) {
-            return $this->finnishGame();
-        }
-        foreach( gameToMember::handCounts($this->game()->id) as $h ){
-            if ($h['count'] == 0){
-                return TRUE;
-            }
-        }
-        return FALSE;
-    }
 
     /**
      * set the game to be finnished and update leaderboards

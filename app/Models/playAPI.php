@@ -27,8 +27,8 @@ class playAPI extends play
     {
         $ret = ['winner'=>$this->winner()];
         if (!$ret['winner']){
-            $this->checkTimeOut();
             $this->checKBot();
+            $this->checkTimeOut();
             $ret = [
                 'yourturn'      => FALSE,
                 'player'        => users::getName($this->game()->turn),
@@ -79,9 +79,15 @@ class playAPI extends play
      */
     private function winner()
     {
-        return ( $this->checkWin() ) ?
-            TRUE :
-            FALSE ;
+        if ( (game::find($this->game()->id))->started ){
+            foreach (gameToMember::handCounts($this->game()->id) as $h) {
+                if ($h['count'] == 0) {
+                    (new play($this->game()->id, users::getID($h['member'])))->finnishGame();
+                    return true;
+                }
+            }
+        }
+        return FALSE;
     }
 
     /**
