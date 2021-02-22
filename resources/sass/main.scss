@@ -312,6 +312,18 @@ button {
             border-radius: 5px;
             padding: 10px;
         }
+        #remove {
+            background-color: $fk;
+            border-radius: 5px;
+            margin-top: 5px;
+            padding: 10px;
+            button {
+                width: 100%;
+                font-family: Minecraft;
+                margin: 0;
+                height: 30px;
+            }
+        }
         .settings {
             background-color: $fk;
             border-radius: 5px;

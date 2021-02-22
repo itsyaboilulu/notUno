@@ -132,7 +132,7 @@ class playController extends Controller
      */
     public function startGame(Request $request){
         $game = game::gameFromPassword($request->get('password'));
-        if ($game && !$game->started){
+        if ($game && !$game->started && $game->isAdmin()){
             $game->name = $request->get('name');
             $game->deck = serialize( ( new deck(useful::strToArray($request->get('deck') ) ))->deck() );
             $game->startGame(useful::uriDecode($request->get('settings')));
@@ -140,6 +140,15 @@ class playController extends Controller
 
         return redirect('/lobby?game='.$game->password);
 
+    }
+
+    public function removeLobby(Request $request)
+    {
+        $game = game::gameFromPassword($request->get('password'));
+        if ($game && $game->isAdmin()) {
+            $game->delete();
+        }
+        return redirect('/lobby?game=' . $game->password);
     }
 
 }

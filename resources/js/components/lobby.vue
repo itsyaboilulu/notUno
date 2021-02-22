@@ -39,6 +39,13 @@
                 <gameSettings  v-if="!hs.deck && admin" v-bind:setting="settings.setting" ></gameSettings>
                 <button v-if="admin" id='start' :disabled="canplay == 0" v-on:click="start()"> start </button>
             </div>
+            <div id='remove'>
+                <button v-if="admin"  v-on:click="remove()" > Delete Lobby </button>
+                <form v-if="admin" id='removeForm' action="lobby/remove" method="post">
+                    <input type="hidden" name="password" v-bind:value="game.password" />
+                    <input type="hidden" name="_token" v-bind:value="crf" />
+                </form>
+            </div>
 
         </div>
     </div>
@@ -74,6 +81,11 @@ export default {
                 deck    :'',
                 setting :'',
             },
+        }
+    },
+    computed:{
+        crf(){
+            return document.querySelector('meta[name="csrf-token"]').content;
         }
     },
     methods: {
@@ -113,7 +125,12 @@ export default {
             if (this.canplay){
                 document.getElementById('startgame').submit();
             }
-        }
+        },
+        remove(){
+            if (confirm('are you sure you want to delete this lobby?')){
+                document.getElementById('removeForm').submit();
+            }
+        },
     }
 }
 </script>

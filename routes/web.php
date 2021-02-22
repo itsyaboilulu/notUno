@@ -26,9 +26,10 @@ Route::get('/lobby',        [App\Http\Controllers\playController::class, 'lobby'
 Route::get('/startgame',    [App\Http\Controllers\playController::class, 'startGame']);
 Route::get('/play',         [App\Http\Controllers\playController::class, 'index']);
 
+Route::post('lobby/remove', [App\Http\Controllers\playController::class, 'removeLobby']);
+
 Route::get( '/settings',    [App\Http\Controllers\settingsController::class, 'index']);
 Route::post('/setSettings', [App\Http\Controllers\settingsController::class, 'setSettings']);
-
 
 Route::post('api/game',     [App\Http\Controllers\APIController::class, 'gameAction'] );
 Route::post('api/lobby',    [App\Http\Controllers\APIController::class, 'lobby']);

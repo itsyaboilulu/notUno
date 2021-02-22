@@ -55,7 +55,7 @@ class chat extends Model
      *
      * @param int $gid
      * @param string $message
-     * @return void
+     * @return boolean
      */
     public static function send($gid,$message)
     {
@@ -63,4 +63,17 @@ class chat extends Model
     }
 
 
+    /**
+     *  delete all messages from a given game
+     *
+     * @param int $gid game id
+     * @return boolean success/fail
+     */
+    public static function deleteAll($gid){
+
+        foreach( chat::where('gid',$gid)->get() as $c){
+            (chat::find($c->id))->delete();
+        }
+        return count(chat::where('gid',$gid)->get());
+    }
 }

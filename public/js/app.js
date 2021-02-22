@@ -2085,6 +2085,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2115,6 +2122,11 @@ __webpack_require__.r(__webpack_exports__);
         setting: ''
       }
     };
+  },
+  computed: {
+    crf: function crf() {
+      return document.querySelector('meta[name="csrf-token"]').content;
+    }
   },
   methods: {
     copy: function copy() {
@@ -2157,6 +2169,11 @@ __webpack_require__.r(__webpack_exports__);
     start: function start() {
       if (this.canplay) {
         document.getElementById('startgame').submit();
+      }
+    },
+    remove: function remove() {
+      if (confirm('are you sure you want to delete this lobby?')) {
+        document.getElementById('removeForm').submit();
       }
     }
   }
@@ -40279,7 +40296,47 @@ var render = function() {
               ],
               1
             )
-          : _vm._e()
+          : _vm._e(),
+        _vm._v(" "),
+        _c("div", { attrs: { id: "remove" } }, [
+          _vm.admin
+            ? _c(
+                "button",
+                {
+                  on: {
+                    click: function($event) {
+                      return _vm.remove()
+                    }
+                  }
+                },
+                [_vm._v(" Delete Lobby ")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.admin
+            ? _c(
+                "form",
+                {
+                  attrs: {
+                    id: "removeForm",
+                    action: "lobby/remove",
+                    method: "post"
+                  }
+                },
+                [
+                  _c("input", {
+                    attrs: { type: "hidden", name: "password" },
+                    domProps: { value: _vm.game.password }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    attrs: { type: "hidden", name: "_token" },
+                    domProps: { value: _vm.crf }
+                  })
+                ]
+              )
+            : _vm._e()
+        ])
       ],
       1
     )

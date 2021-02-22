@@ -25,11 +25,12 @@ class gameToMember extends Model
      * @param int $gid game id
      * @return boolean
      */
-    public static function addMember($id,$gid)
+    public static function addMember($id,$gid,$admin=0)
     {
-        $g = new gameToMember();
-        $g->gid = $gid;
-        $g->uid = $id;
+        $g          = new gameToMember();
+        $g->gid     = $gid;
+        $g->uid     = $id;
+        $g->admin   = $admin;
         return $g->save();
     }
 

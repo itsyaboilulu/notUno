@@ -53,4 +53,19 @@ class users extends Model
             TRUE;
     }
 
+    /**
+     * create a temp user account
+     *
+     * @return int $id
+     */
+    public static function temp(){
+
+        $u = new users();
+        $u->password = 123;
+        $u->username = 'Temp#'.time();
+        $u->save();
+
+        return $u->id;
+    }
+
 }

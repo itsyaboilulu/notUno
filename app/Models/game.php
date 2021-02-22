@@ -177,4 +177,30 @@ class game extends Model
         return $this->save();
     }
 
+    public static function newGame($name, $pass){
+        $game = new game();
+        $game->generatePassword($pass);
+        $game->name = $name;
+        return ($game->save()) ? $game : NULL;
+    }
+
+
+    /**
+     * before deleteing game delete related memberdata
+     *
+     * @return void
+     */
+    public function delete()
+    {
+        //remove members
+        foreach($this->getMembers() as $m){
+            (new ckGameToMember($this->id,$m->id))->delete();
+        }
+        //keep play by play but delete chat
+        chat::deleteAll($this->id);
+
+        //delete
+        return parent::delete();
+    }
+
 }

@@ -111,6 +111,19 @@ class ckModel
     }
 
     /**
+     * remove item from database
+     *
+     * @return boolean
+     */
+    public function delete(){
+
+        $where = $this->createWhere(FALSE);
+        $table = $this->tableName;
+
+        return DB::delete("DELETE FROM $table WHERE $where LIMIT 1");
+    }
+
+    /**
      * query db for table data
      */
     private function searchDB()
@@ -131,12 +144,13 @@ class ckModel
     /**
      * formates and returns data into where statment
      *
+     * @param boolean $useT prefix columns with 't.'
      * @return string
      */
-    private function createWhere()
+    private function createWhere($useT=TRUE)
     {
         for ($i = 0; $i < count($this->ids); $i++) {
-            $where[] = 't.' . $this->ids[$i] . '= "' . $this->search[$i] . '"';
+            $where[] = (($useT)?'t.':'') . $this->ids[$i] . '= "' . $this->search[$i] . '"';
         }
         return implode(' AND ', $where);
     }
