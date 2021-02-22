@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\card;
 use App\Models\chat;
 use App\Models\gameLeaderboard;
 use App\Models\gameToMember;
@@ -30,8 +31,7 @@ class testController extends Controller
      */
     public function test()
     {
-        $ret = array('R' => 3, 'G' => 0, 'B' => 2, 'Y' => 5);
-        asort($ret);
-        return array_keys(array_reverse($ret))[0];
+       $c = new card('W');
+       echo $c->color();
     }
 }

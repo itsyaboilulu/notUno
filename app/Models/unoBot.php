@@ -122,10 +122,12 @@ class unoBot extends Model
      * @return string
      */
     private function wild(){
-        $ret = array('R' => 0, 'G' => 0, 'B' => 0, 'Y' => 0);
+        $ret = array('R' => 0, 'G' => 0, 'B' => 0, 'Y' => 0,);
         foreach ($this->gameToMember()->hand() as $h) {
             $c = new card($h);
-            $ret[$c->color()]++;
+            if ($c->color()){
+                $ret[$c->color()]++;
+            }
         }
         asort($ret);
         return array_keys(array_reverse($ret))[0];
