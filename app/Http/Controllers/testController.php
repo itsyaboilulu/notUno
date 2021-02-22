@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\chat;
+use App\Models\gameLeaderboard;
+use App\Models\gameToMember;
+use App\Models\playAPI;
 use App\Models\playByPlay;
 use App\Models\pushPad;
 use App\Models\stats;
@@ -27,21 +30,8 @@ class testController extends Controller
      */
     public function test()
     {
-        $s = new stats();
-        echo $s->cardsPlayedCount();
-        echo "<hr>";
-        echo $s->cardsDrawn();
-        echo '<hr>';
-        echo $s->gamesWon().'/'.$s->gamesPlayed();
-        echo "<hr>";
-        echo print_r($s->colorBreakdown());
-        echo "<hr>";
-        echo print_r($s->specialCards());
-        echo "<hr>";
-        print_r($s->calledUno());
-        echo "<hr>";
-        echo $s->timeOuts();
-        echo "<hr>";
-        echo $s->favCard();
+        $ret = array('R' => 3, 'G' => 0, 'B' => 2, 'Y' => 5);
+        asort($ret);
+        return array_keys(array_reverse($ret))[0];
     }
 }

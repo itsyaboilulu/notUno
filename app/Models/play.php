@@ -12,10 +12,12 @@ class play {
     private     $gameMember;
     protected   $chat;
     protected   $playByPlay;
+    protected   $uid;
 
-    function __construct($gid)
+    function __construct($gid,$uid=NULL)
     {
         $this->id = $gid;
+        $this->uid = ($uid)?$uid:Auth::id();
     }
 
     /**
@@ -43,7 +45,7 @@ class play {
         if (!$this->playByPlay){
             $this->playByPlay           = new playByPlay();
             $this->playByPlay->gid      = $this->game()->id;
-            $this->playByPlay->uid      = Auth::id();
+            $this->playByPlay->uid      = $this->uid;
             $this->playByPlay->game_no  = $this->game()->game_no;
         }
         return $this->playByPlay;
@@ -80,7 +82,7 @@ class play {
      */
     protected function gameMember(){
         if (!$this->gameMember){
-            $this->gameMember =  new ckGameToMember($this->id,Auth::id());
+            $this->gameMember =  new ckGameToMember($this->id, $this->uid);
         }
         return $this->gameMember;
     }
@@ -92,7 +94,7 @@ class play {
      */
     public function checkTurn()
     {
-        return ($this->game()->turn == Auth::id()) ? TRUE : FALSE;
+        return ($this->game()->turn == $this->uid) ? TRUE : FALSE;
     }
 
     /**
@@ -128,7 +130,7 @@ class play {
      */
     public function finnishGame()
     {
-        (new ckGameLeaderboard($this->id, Auth::id()))->addWin();
+        (new ckGameLeaderboard($this->id, $this->uid))->addWin();
         $this->game()->started = 0;
         $this->game()->game_no = ($this->game()->game_no)? $this->game()->game_no + 1 : 1;
         $this->playByPlay()->winner();
@@ -145,7 +147,7 @@ class play {
         if (!$this->settings('drawUntilPlay')){
             $this->NextTurn();
         }
-        return $this->drawCard(Auth::id());
+        return $this->drawCard($this->uid);
     }
 
     /**

@@ -39,7 +39,7 @@
                 <gameSettings  v-if="!hs.deck && admin" v-bind:setting="settings.setting" ></gameSettings>
                 <button v-if="admin" id='start' :disabled="canplay == 0" v-on:click="start()"> start </button>
             </div>
-            <div id='remove'>
+            <div id='remove' v-if="admin">
                 <button v-if="admin"  v-on:click="remove()" > Delete Lobby </button>
                 <form v-if="admin" id='removeForm' action="lobby/remove" method="post">
                     <input type="hidden" name="password" v-bind:value="game.password" />

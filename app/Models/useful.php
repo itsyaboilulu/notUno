@@ -80,4 +80,15 @@ class useful {
         return $path_parts;
     }
 
+    /**
+     * return random value from array
+     *
+     * @param array $arr
+     * @return mixed
+     */
+    public static function getRandom($arr){
+        shuffle($arr);
+        return $arr[0];
+    }
+
 }

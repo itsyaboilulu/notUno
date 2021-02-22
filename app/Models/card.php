@@ -12,6 +12,8 @@ use phpDocumentor\Reflection\PseudoTypes\False_;
 class card
 {
 
+    private $colors = array('R'=>'red', 'G'=>'green', 'B'=>'blue', 'Y'=>'yellow');
+
     /**
      * model to store and handle single card data
      *
@@ -49,7 +51,9 @@ class card
      */
     public function baseCard()
     {
-        return substr($this->card(), 1);
+        return ( in_array( substr($this->card(), 0, 1 ), array('R','G','B','Y') )  )?
+            substr($this->card(), 1):
+            $this->card();
     }
 
     /**
@@ -69,9 +73,18 @@ class card
      */
     public function isSpecial()
     {
-        return ( in_array( substr( $this->card, 1,1 ), [
-                'W','R','D','S'
+        return ( in_array( $this->baseCard(), [
+                'W','R','D2','S','WD4'
          ]) ) ? $this->baseCard() : NULL;
+    }
+
+    /**
+     * checks if the loaded card is wild
+     *
+     * @return boolean
+     */
+    public function isWild(){
+        return ( substr($this->baseCard(),0, 1) == 'W' )?1:0;
     }
 
     /**
@@ -102,7 +115,7 @@ class card
      */
     private function canBePlayedWild()
     {
-        return (substr($this->card, 1, 1) == 'W') ? TRUE : FALSE;
+        return (substr($this->baseCard(), 0, 1) == 'W') ? TRUE : FALSE;
     }
 
     /**
@@ -155,6 +168,13 @@ class card
                 return 4;
         }
         return 0;
+    }
+
+    public function color($full=FALSE){
+        if (isset($this->colors[substr($this->card(), 0, 1)])){
+            return ($full)? $this->colors[substr($this->card(), 0, 1)] : substr($this->card(), 0, 1);
+        }
+        return NULL;
     }
 
 }

@@ -18,7 +18,7 @@ class unoBot extends Model
 
     private $gameToMember;
     private function gameToMember(){
-        if (!$this->gameToMember()){
+        if (!$this->gameToMember){
             $this->gameToMember = new ckGameToMember($this->gid,$this->id);
         }
         return $this->gameToMember;
@@ -32,6 +32,25 @@ class unoBot extends Model
         return $this->game;
     }
 
+    private $settings;
+
+    /**
+     * returns the game settings, gets specific setting if specified
+     *
+     * @param string $s
+     * @return mixed
+     */
+    protected function settings($s = NULL)
+    {
+        if (!$this->settings) {
+            $this->settings = new gameSettings($this->gid);
+        }
+        return ($s) ?
+            $this->settings->{$s} :
+            $this->settings;
+    }
+
+
     /**
      * get unobot to play a card
      *
@@ -39,7 +58,111 @@ class unoBot extends Model
      */
     public function play(){
 
+        $play = $this->findCard();
+
+        if (!$play){
+            return $this->draw();
+        }
+
+        $extra = NULL;
+        if ($play->isSpecial()) {
+            if ($play->isWild()) {
+                $play = new card($this->wild().$play->card());
+            }
+        }
+        if ($this->game()->card()->baseCard() == '7'){
+            if ($this->settings('extreme7')){
+                foreach($this->game()->getMembers() as $gm){
+                    $m[] = $gm->username;
+                }
+                $extra = useful::getRandom($m);
+            }
+        }
+
+        return (new playPlayCard($this->gid, $play->card(),$this->id))->play(1, $extra);
+
     }
+
+    /**
+     * find a playable card in the bots hand
+     *
+     * @return mixed card object or NULL on fail
+     */
+    public function findCard(){
+
+        $card = $this->game()->card();
+
+        if ($card->drawAmount()) {
+            if (($this->settings('stack'))) {
+
+                foreach ($this->gameToMember()->hand() as $h) {
+                    $c = new card($h);
+                    if ( $c->canBePlayed($card->card()) && $card->stackable($h) ) {
+                        return $c;
+                    }
+                }
+
+            }
+        }
+
+        foreach ($this->gameToMember()->hand() as $h) {
+            $c = new card($h);
+            if ($c->canBePlayed($card->card())) {
+                return new card($h);
+            }
+        }
+
+        return NULL;
+    }
+
+
+    /**
+     * returns the best color for the bot to pick
+     *
+     * @return string
+     */
+    private function wild(){
+        $ret = array('R' => 0, 'G' => 0, 'B' => 0, 'Y' => 0);
+        foreach ($this->gameToMember()->hand() as $h) {
+            $c = new card($h);
+            $ret[$c->color()]++;
+        }
+        asort($ret);
+        return array_keys(array_reverse($ret))[0];
+    }
+
+
+    /**
+     * allow unobot to draw new cards
+     *
+     * @return boolean
+     */
+    private function draw(){
+
+        if ($this->settings('drawUntilPlay')) {
+
+            $deck = new deck(unserialize($this->game()->deck));
+
+            while (true) {
+                $d = $deck->draw();
+                $draw[] = $d;
+                if ($this->game()->card()->canBePlayed($d)) {
+                    break;
+                }
+            }
+            foreach ($draw as $dr) {
+                $this->gameToMember()->addCard($dr);
+            }
+
+            return $this->play();
+
+        }
+
+        return ( new play($this->gid, $this->id) )->draw();
+
+    }
+
+
 
     //----------------- STATIC
 

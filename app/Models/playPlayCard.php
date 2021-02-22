@@ -24,10 +24,10 @@ class playPlayCard extends play {
      * @param int $gid gameid
      * @param string $card card value
      */
-    function __construct($gid,$card)
+    function __construct($gid,$card,$uid=NULL)
     {
         $this->card =  new card($card);
-        parent::__construct($gid);
+        parent::__construct($gid,$uid);
     }
 
     /**
@@ -70,7 +70,7 @@ class playPlayCard extends play {
             $this->playByPlay()->uno($uno);
             return ($uno) ?
                 $uno:
-                $this->drawCard(Auth::id(), $this->settings('unoDrawPenalty'));
+                $this->drawCard($this->uid, $this->settings('unoDrawPenalty'));
         }
     }
 
@@ -130,7 +130,7 @@ class playPlayCard extends play {
             return ($this->resolveStack()) ? TRUE : $this->drawCard($this->checkNextTurn(), $this->card->drawAmount()); ;
         }
         $this->chat()->canStack($this->checkNextTurn());
-        $this->game()->addStack(Auth::id(),$this->card->Card(),$this->card->drawAmount() );
+        $this->game()->addStack($this->uid,$this->card->Card(),$this->card->drawAmount() );
         return;
     }
 

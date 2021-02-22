@@ -40298,45 +40298,47 @@ var render = function() {
             )
           : _vm._e(),
         _vm._v(" "),
-        _c("div", { attrs: { id: "remove" } }, [
-          _vm.admin
-            ? _c(
-                "button",
-                {
-                  on: {
-                    click: function($event) {
-                      return _vm.remove()
-                    }
-                  }
-                },
-                [_vm._v(" Delete Lobby ")]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.admin
-            ? _c(
-                "form",
-                {
-                  attrs: {
-                    id: "removeForm",
-                    action: "lobby/remove",
-                    method: "post"
-                  }
-                },
-                [
-                  _c("input", {
-                    attrs: { type: "hidden", name: "password" },
-                    domProps: { value: _vm.game.password }
-                  }),
-                  _vm._v(" "),
-                  _c("input", {
-                    attrs: { type: "hidden", name: "_token" },
-                    domProps: { value: _vm.crf }
-                  })
-                ]
-              )
-            : _vm._e()
-        ])
+        _vm.admin
+          ? _c("div", { attrs: { id: "remove" } }, [
+              _vm.admin
+                ? _c(
+                    "button",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.remove()
+                        }
+                      }
+                    },
+                    [_vm._v(" Delete Lobby ")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.admin
+                ? _c(
+                    "form",
+                    {
+                      attrs: {
+                        id: "removeForm",
+                        action: "lobby/remove",
+                        method: "post"
+                      }
+                    },
+                    [
+                      _c("input", {
+                        attrs: { type: "hidden", name: "password" },
+                        domProps: { value: _vm.game.password }
+                      }),
+                      _vm._v(" "),
+                      _c("input", {
+                        attrs: { type: "hidden", name: "_token" },
+                        domProps: { value: _vm.crf }
+                      })
+                    ]
+                  )
+                : _vm._e()
+            ])
+          : _vm._e()
       ],
       1
     )

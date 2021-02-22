@@ -203,4 +203,13 @@ class game extends Model
         return parent::delete();
     }
 
+    /**
+     * returns card model for current_card data
+     *
+     * @return object
+     */
+    public function card(){
+        return new card($this->current_card);
+    }
+
 }

@@ -25,18 +25,21 @@ class playAPI extends play
      */
     public function checkTurn()
     {
-        $this->checkTimeOut();
-        $ret = [
+        $ret = ['winner'=>$this->winner()];
+        if (!$ret['winner']){
+            $this->checkTimeOut();
+            $this->checKBot();
+            $ret = [
                 'yourturn'      => FALSE,
                 'player'        => users::getName($this->game()->turn),
                 'current_card'  => $this->game()->current_card,
                 'hand'          => $this->getHand(Auth::id()),
                 'stack'         => $this->checkStack(),
-                'winner'        => $this->winner(),
                 'mhand'         => gameToMember::handCounts($this->id),
             ];
-        if (parent::checkTurn()) {
-            $ret['yourturn']    = TRUE;
+            if ($this->game()->turn == Auth::id()) {
+                $ret['yourturn']    = TRUE;
+            }
         }
         return $ret;
     }
@@ -92,6 +95,12 @@ class playAPI extends play
             return unserialize($this->game()->game_data)['stack'];
         }
         return 0;
+    }
+
+    public function checkBot(){
+        if (unoBot::isBot($this->game()->turn)){
+           return ( new unoBot($this->game()->turn, $this->game()->id) )->play();
+        }
     }
 
 }
