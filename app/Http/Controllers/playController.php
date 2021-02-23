@@ -16,6 +16,9 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * collection for funtions related to game lobby and playing a game of uno
+ */
 class playController extends Controller
 {
 
@@ -28,25 +31,28 @@ class playController extends Controller
      * displays lobby page
      *
      * @todo clean up
-     * @param Request $request
+     * @param Request $request ($game)
      * @return void
      */
-    public function lobby(Request $request){
+    public function lobby(Request $request)
+    {
         try {
-            $game = game::gameFromPassword( $request->get('game'));
-            session(['game'=>$game]);
+            $game = game::gameFromPassword($request->get('game'));
+            session(['game' => $game]);
             return ($game->started) ?
                 redirect('play') :
-                view( 'lobby',[
-                    'game'          => $game,
-                    'settings'      => (new gameSettings($game->id))->settings(),
-                    'deck'          => (new deck($game->deck))->deck(),
-                    'chat'          => chat::chatlog(session('game')->id),
-                    'playbyplay'    => playByPlay::plays(session('game')->id, ( ($game->game_no) ? ( $game->game_no - 1 ) : 0 )),
-                    'leaderboard'   => gameLeaderboard::gameLeaderBoard($game->id)
+                view(
+                    'lobby',
+                    [
+                        'game'          => $game,
+                        'settings'      => (new gameSettings($game->id))->settings(),
+                        'deck'          => (new deck($game->deck))->deck(),
+                        'chat'          => chat::chatlog(session('game')->id),
+                        'playbyplay'    => playByPlay::plays(session('game')->id, (($game->game_no) ? ($game->game_no - 1) : 0)),
+                        'leaderboard'   => gameLeaderboard::gameLeaderBoard($game->id)
                     ]
                 );
-        } catch (Exception $e){
+        } catch (Exception $e) {
             return redirect('/');
         }
     }
@@ -55,14 +61,14 @@ class playController extends Controller
      * allows user to join a game
      *
      * @todo clean up
-     * @param Request $request
+     * @param Request $request ($join)
      * @return void
      */
     public function join(Request $request)
     {
         try {
             $game = game::gameFromPassword($request->get('join'));
-            if (!$game->started){
+            if (!$game->started) {
                 $game->addMember(Auth::id());
                 (new chatMessages($game->id))->joined();
                 return redirect('lobby?game=' . $game->password);
@@ -75,30 +81,27 @@ class playController extends Controller
 
     /**
      * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        if (session()->has('game')){
+        if (session()->has('game')) {
 
             game::refreshSession();
 
             $play = new play(session('game')->id);
 
-            return (session('game')->started)?
+            return (session('game')->started) ?
                 view('play', array(
                     'play'      => $play,
                     'game'      => session('game')->gameData(),
-                    'mhand'     => gameToMember::handCounts( session('game')->id ),
+                    'mhand'     => gameToMember::handCounts(session('game')->id),
                     'chat'      => chat::chatlog(session('game')->id),
-                    'playbyplay'=> playByPlay::plays(session('game')->id, session('game')->game_no),
+                    'playbyplay' => playByPlay::plays(session('game')->id, session('game')->game_no),
                 )) :
-                redirect('lobby?game='.session('game')->password);
+                redirect('lobby?game=' . session('game')->password);
         }
 
         return redirect('/');
-
     }
 
     /**
@@ -106,12 +109,13 @@ class playController extends Controller
      *
      * @return redirect
      */
-    public function hostNew(){
+    public function hostNew()
+    {
         $game = new game();
         $game->generatePassword(Auth::id());
-        $game->name = Auth::user()->username.' lobby';
+        $game->name = Auth::user()->username . ' lobby';
         $game->save();
-        session(['game'=>$game]);
+        session(['game' => $game]);
 
         $gtm = new gameToMember();
         $gtm->gid   = $game->id;
@@ -121,27 +125,33 @@ class playController extends Controller
 
         gameLeaderboard::addMember(Auth::id(), $game->id);
 
-        return redirect('lobby?game='.$game->password);
+        return redirect('lobby?game=' . $game->password);
     }
 
     /**
      * start a new game
      *
-     * @param Request $request
-     * @return void
+     * @param Request $request ($password, $name, $settings, $deck)
+     * @return redirect
      */
-    public function startGame(Request $request){
+    public function startGame(Request $request)
+    {
         $game = game::gameFromPassword($request->get('password'));
-        if ($game && !$game->started && $game->isAdmin()){
-            $game->name = $request->get('name');
-            $game->deck = serialize( ( new deck(useful::strToArray($request->get('deck') ) ))->deck() );
+        if ($game && !$game->started && $game->isAdmin()) {
+            $game->name = $request->get('name', $game->name);
+            $game->deck = serialize((new deck(useful::strToArray($request->get('deck'))))->deck());
             $game->startGame(useful::uriDecode($request->get('settings')));
         }
 
-        return redirect('/lobby?game='.$game->password);
-
+        return redirect('/lobby?game=' . $game->password);
     }
 
+    /**
+     * delete a lobby
+     *
+     * @param Request $request ($password)
+     * @return redirect
+     */
     public function removeLobby(Request $request)
     {
         $game = game::gameFromPassword($request->get('password'));
@@ -150,5 +160,4 @@ class playController extends Controller
         }
         return redirect('/lobby?game=' . $game->password);
     }
-
 }

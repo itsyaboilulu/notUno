@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 /**
- * model for quiz: game_to_member
+ * model for uno: game_to_member
  * @param int gid PRIMARY_KEY
  * @param int uid PRIMARY_KEY
  * @param string hand
@@ -25,7 +25,7 @@ class gameToMember extends Model
      * @param int $gid game id
      * @return boolean
      */
-    public static function addMember($id,$gid,$admin=0)
+    public static function addMember($id, $gid, $admin = 0)
     {
         $g          = new gameToMember();
         $g->gid     = $gid;
@@ -72,17 +72,15 @@ class gameToMember extends Model
      */
     public static function handCounts($gid)
     {
-        foreach( gameToMember::where('gid',$gid)->get() as $g ){
-                $or[ $g->uid ] = array(
-                    'member'=> users::getName($g->uid),
-                    'count' => (useful::unserialize($g->hand)) ? count(useful::unserialize($g->hand)) : 0
-                ) ;
+        foreach (gameToMember::where('gid', $gid)->get() as $g) {
+            $or[$g->uid] = array(
+                'member' => users::getName($g->uid),
+                'count' => (useful::unserialize($g->hand)) ? count(useful::unserialize($g->hand)) : 0
+            );
         }
-        foreach(unserialize((game::find($gid))->order) as $o){
+        foreach (unserialize((game::find($gid))->order) as $o) {
             $ret[] = $or[$o];
         }
         return $ret;
     }
-
 }
-

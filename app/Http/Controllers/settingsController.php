@@ -7,6 +7,9 @@ use App\Models\userSettings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * collection for funtions related to user settings
+ */
 class settingsController extends Controller
 {
 
@@ -16,9 +19,9 @@ class settingsController extends Controller
     }
 
     /**
-    * Show the application dashboard.
+    * show page for user settings
     *
-    * @return \Illuminate\Contracts\Support\Renderable
+    * @return view()
     */
     public function index()
     {

@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Auth;
 
 /**
  * extends play, used fo funtions related to playing a card and its effects
+ *
+ * NOT FINNISHED YET
+ *
  */
 class rep {
 

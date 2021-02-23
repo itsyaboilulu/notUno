@@ -5,20 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * model for quiz: game_leaderboard
+ * model for uno: game_leaderboard
  *
  *@param INT gid PRIMARY_KEY
  *@param INT uid PRIMARY_KEY
- *@param INT wins
+ *
  */
 class ckGameLeaderboard extends ckModel
 {
     /**
-     * model for quiz: game_leaderboard
+     * model for uno: game_leaderboard
      *
      *@param INT gid PRIMARY_KEY
      *@param INT uid PRIMARY_KEY
-     *@param INT wins
+     *
      */
     function __construct($gid, $uid)
     {
@@ -28,15 +28,14 @@ class ckGameLeaderboard extends ckModel
         ]);
     }
 
-
     /**
      * add a win to the loaded leaderboard data and save
      *
      * @return boolean
      */
-    public function addWin(){
-        $this->wins = ($this->wins + 1);
+    public function addWin()
+    {
+        $this->wins = ($this->wins) ? ($this->wins + 1) : 1;
         return $this->save();
     }
-
 }

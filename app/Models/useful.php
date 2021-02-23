@@ -4,7 +4,11 @@ namespace App\Models;
 
 use DateTime;
 
-class useful {
+/**
+ * store of useful static functions i dont have a place for
+ */
+class useful
+{
 
     /**
      * convert uriEncoded data into array
@@ -12,14 +16,15 @@ class useful {
      * @var string $data uriEncoded data
      * @return array
      */
-    public static function uriDecode($data){
+    public static function uriDecode($data)
+    {
         $ret = NULL;
-        if ($data){
-            foreach(explode('&', $data) as $dat){
-                $d = explode('=',$dat);
-                $ret[$d[0]] = ( $d[1] == 'false')?
-                    0 : ( ( $d[1] == 'true')
-                            ? 1 : $d[1] ) ;
+        if ($data) {
+            foreach (explode('&', $data) as $dat) {
+                $d = explode('=', $dat);
+                $ret[$d[0]] = ($d[1] == 'false') ?
+                    0 : (($d[1] == 'true')
+                        ? 1 : $d[1]);
             }
         }
         return $ret;
@@ -31,8 +36,9 @@ class useful {
      * @param string $data
      * @return array
      */
-    public static function strToArray($data) {
-        return (is_array($data))? explode(',',$data) : NULL;
+    public static function strToArray($data)
+    {
+        return (is_array($data)) ? explode(',', $data) : NULL;
     }
 
 
@@ -42,15 +48,17 @@ class useful {
      * @param string $str
      * @return void
      */
-    public static function unserialize($str){
-        return (@unserialize($str))? unserialize($str) : NULL;
+    public static function unserialize($str)
+    {
+        return (@unserialize($str)) ? unserialize($str) : NULL;
     }
 
     /**
      * get mins between 2 dates
      */
-    public static function diffMins($start,$finnish){
-        return ( useful::diffSeconds($start, $finnish) / 60 );
+    public static function diffMins($start, $finnish)
+    {
+        return (useful::diffSeconds($start, $finnish) / 60);
     }
 
     /**
@@ -66,7 +74,8 @@ class useful {
     /**
      * gets the date from past time using seconds
      */
-    public static function getPast($secs){
+    public static function getPast($secs)
+    {
         return date("Y-m-d h:i:s", strtotime("-$secs seconds"));
     }
 
@@ -75,8 +84,9 @@ class useful {
      *
      * @return time()
      */
-    public static function cssUpdateTime(){
-        $path_parts = filemtime(dirname(__FILE__). '/../../resources/css/main.min.css');
+    public static function cssUpdateTime()
+    {
+        $path_parts = filemtime(dirname(__FILE__) . '/../../resources/css/main.min.css');
         return $path_parts;
     }
 
@@ -86,9 +96,9 @@ class useful {
      * @param array $arr
      * @return mixed
      */
-    public static function getRandom($arr){
+    public static function getRandom($arr)
+    {
         shuffle($arr);
         return $arr[0];
     }
-
 }

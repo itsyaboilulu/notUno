@@ -16,7 +16,7 @@ class playAPI extends play
      *
      * @var array
      */
-    private  $error_generic  = [ 'errorNO' => 0, 'error' => 'something went wronge' ];
+    private  $error_generic  = ['errorNO' => 0, 'error' => 'something went wronge'];
 
     /**
      * returns turn, hand, player data to api
@@ -25,8 +25,8 @@ class playAPI extends play
      */
     public function checkTurn()
     {
-        $ret = ['winner'=>$this->winner()];
-        if (!$ret['winner']){
+        $ret = ['winner' => $this->winner()];
+        if (!$ret['winner']) {
             $this->checKBot();
             $this->checkTimeOut();
             $ret = [
@@ -51,8 +51,8 @@ class playAPI extends play
      */
     public function APIdrawCard()
     {
-        if ($this->checkStack()){
-            $this->drawCard( $this->game()->turn, (unserialize($this->game()->game_data)['stack']['draw']) );
+        if ($this->checkStack()) {
+            $this->drawCard($this->game()->turn, (unserialize($this->game()->game_data)['stack']['draw']));
             $this->game()->clearStack();
         }
         return ($this->draw()) ? $this->checkTurn() : $this->error_generic;
@@ -65,10 +65,10 @@ class playAPI extends play
      * @param boolean $uno
      * @return array
      */
-    public function playCard($card,$uno=NULL, $extra=NULL)
+    public function playCard($card, $uno = NULL, $extra = NULL)
     {
-        return ( (new playPlayCard($this->id, $card))->play($uno,$extra) ) ?
-            ['complete'=>TRUE] :
+        return ((new playPlayCard($this->id, $card))->play($uno, $extra)) ?
+            ['complete' => TRUE] :
             $this->error_generic;
     }
 
@@ -79,7 +79,7 @@ class playAPI extends play
      */
     private function winner()
     {
-        if ( (game::find($this->game()->id))->started ){
+        if ((game::find($this->game()->id))->started) {
             foreach (gameToMember::handCounts($this->game()->id) as $h) {
                 if ($h['count'] == 0) {
                     (new play($this->game()->id, users::getID($h['member'])))->finnishGame();
@@ -97,16 +97,21 @@ class playAPI extends play
      */
     private function checkStack()
     {
-        if (isset(unserialize($this->game()->game_data)['stack'])){
+        if (isset(unserialize($this->game()->game_data)['stack'])) {
             return unserialize($this->game()->game_data)['stack'];
         }
         return 0;
     }
 
-    public function checkBot(){
-        if (unoBot::isBot($this->game()->turn)){
-           return ( new unoBot($this->game()->turn, $this->game()->id) )->play();
+    /**
+     * checks if its bots turn to play & plays the turn
+     *
+     * @return boolean
+     */
+    public function checkBot()
+    {
+        if (unoBot::isBot($this->game()->turn)) {
+            return (new unoBot($this->game()->turn, $this->game()->id))->play();
         }
     }
-
 }

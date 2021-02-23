@@ -2,36 +2,85 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-class unoBot extends Model
+/**
+ * model for controlling the automated users (unoBots)
+ *
+ * @param int $id
+ * @param int $gid
+ */
+class unoBot
 {
-
+    /**
+     * user id of bot
+     *
+     * @var int
+     */
     private $id;
+
+    /**
+     * game id
+     *
+     * @var int
+     */
     private $gid;
-    function __construct($id,$gid)
+
+    /**
+     * model for controlling the automated users (unoBots)
+     *
+     * @param int $id
+     * @param int $gid
+     */
+    function __construct($id, $gid)
     {
         $this->id = $id;
         $this->gid = $gid;
     }
 
+    /**
+     * game_to_member model
+     *
+     * @var object
+     */
     private $gameToMember;
-    private function gameToMember(){
-        if (!$this->gameToMember){
-            $this->gameToMember = new ckGameToMember($this->gid,$this->id);
+
+    /**
+     * returns game_to_member model
+     *
+     * @var object
+     */
+    private function gameToMember()
+    {
+        if (!$this->gameToMember) {
+            $this->gameToMember = new ckGameToMember($this->gid, $this->id);
         }
         return $this->gameToMember;
     }
 
+    /**
+     * game model
+     *
+     * @var object
+     */
     private $game;
-    private function game(){
-        if (!$this->game){
+
+    /**
+     * returns game model
+     *
+     * @var object
+     */
+    private function game()
+    {
+        if (!$this->game) {
             $this->game = game::find($this->gid);
         }
         return $this->game;
     }
 
+    /**
+     * game settings
+     *
+     * @return object
+     */
     private $settings;
 
     /**
@@ -54,33 +103,33 @@ class unoBot extends Model
     /**
      * get unobot to play a card
      *
-     * @return void
+     * @return boolean
      */
-    public function play(){
+    public function play()
+    {
 
         $play = $this->findCard();
 
-        if (!$play){
+        if (!$play) {
             return $this->draw();
         }
 
         $extra = NULL;
         if ($play->isSpecial()) {
             if ($play->isWild()) {
-                $play = new card($this->wild().$play->card());
+                $play = new card($this->wild() . $play->card());
             }
         }
-        if ($this->game()->card()->baseCard() == '7'){
-            if ($this->settings('extreme7')){
-                foreach($this->game()->getMembers() as $gm){
+        if ($this->game()->card()->baseCard() == '7') {
+            if ($this->settings('extreme7')) {
+                foreach ($this->game()->getMembers() as $gm) {
                     $m[] = $gm->username;
                 }
                 $extra = useful::getRandom($m);
             }
         }
 
-        return (new playPlayCard($this->gid, $play->card(),$this->id))->play(1, $extra);
-
+        return (new playPlayCard($this->gid, $play->card(), $this->id))->play(1, $extra);
     }
 
     /**
@@ -88,7 +137,8 @@ class unoBot extends Model
      *
      * @return mixed card object or NULL on fail
      */
-    public function findCard(){
+    public function findCard()
+    {
 
         $card = $this->game()->card();
 
@@ -97,11 +147,10 @@ class unoBot extends Model
 
                 foreach ($this->gameToMember()->hand() as $h) {
                     $c = new card($h);
-                    if ( $c->canBePlayed($card->card()) && $card->stackable($h) ) {
+                    if ($c->canBePlayed($card->card()) && $card->stackable($h)) {
                         return $c;
                     }
                 }
-
             }
         }
 
@@ -121,11 +170,12 @@ class unoBot extends Model
      *
      * @return string
      */
-    private function wild(){
+    private function wild()
+    {
         $ret = array('R' => 0, 'G' => 0, 'B' => 0, 'Y' => 0,);
         foreach ($this->gameToMember()->hand() as $h) {
             $c = new card($h);
-            if ($c->color()){
+            if ($c->color()) {
                 $ret[$c->color()]++;
             }
         }
@@ -139,7 +189,8 @@ class unoBot extends Model
      *
      * @return boolean
      */
-    private function draw(){
+    private function draw()
+    {
 
         if ($this->settings('drawUntilPlay')) {
 
@@ -157,16 +208,11 @@ class unoBot extends Model
             }
 
             return $this->play();
-
         }
 
-        return ( new play($this->gid, $this->id) )->draw();
-
+        return (new play($this->gid, $this->id))->draw();
     }
 
-
-
-    //----------------- STATIC
 
     /**
      * returns t/f if given member is a unoBot
@@ -195,15 +241,16 @@ class unoBot extends Model
      * @param integer $bots number of bots to add (Max:5)
      * @return boolean success/fail
      */
-    public static function addBotsToGame($gid, $bots=3){
+    public static function addBotsToGame($gid, $bots = 3)
+    {
 
-        if ($bots > 5){ $bots = 5;}
-        for($i=0;$i<$bots;$i++){
+        if ($bots > 5) {
+            $bots = 5;
+        }
+        for ($i = 0; $i < $bots; $i++) {
             gameToMember::addMember(unoBot::bots()[$i], $gid, 0);
             gameLeaderboard::addMember(unoBot::bots()[$i], $gid);
         }
         return TRUE;
-
     }
-
 }

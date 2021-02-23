@@ -11,8 +11,11 @@ use phpDocumentor\Reflection\PseudoTypes\False_;
  */
 class card
 {
-
-    private $colors = array('R'=>'red', 'G'=>'green', 'B'=>'blue', 'Y'=>'yellow');
+    /**
+     * list of standered uno colors
+     * @var array
+     */
+    private $colors = array('R' => 'red', 'G' => 'green', 'B' => 'blue', 'Y' => 'yellow');
 
     /**
      * model to store and handle single card data
@@ -51,8 +54,8 @@ class card
      */
     public function baseCard()
     {
-        return ( in_array( substr($this->card(), 0, 1 ), array('R','G','B','Y') )  )?
-            substr($this->card(), 1):
+        return (in_array(substr($this->card(), 0, 1), array('R', 'G', 'B', 'Y'))) ?
+            substr($this->card(), 1) :
             $this->card();
     }
 
@@ -73,18 +76,19 @@ class card
      */
     public function isSpecial()
     {
-        return ( in_array( $this->baseCard(), [
-                'W','R','D2','S','WD4'
-         ]) ) ? $this->baseCard() : NULL;
+        return (in_array($this->baseCard(), [
+            'W', 'R', 'D2', 'S', 'WD4'
+        ])) ? $this->baseCard() : NULL;
     }
 
     /**
-     * checks if the loaded card is wild
+     * checks if the loaded card is wild type
      *
      * @return boolean
      */
-    public function isWild(){
-        return ( substr($this->baseCard(),0, 1) == 'W' )?1:0;
+    public function isWild()
+    {
+        return (substr($this->baseCard(), 0, 1) == 'W') ? 1 : 0;
     }
 
     /**
@@ -149,7 +153,7 @@ class card
     public function stackable($card)
     {
         $ret = ($this->basecard() == $card)             ? TRUE : FALSE;
-        $ret = ($this->basecard() == substr($card,1))   ? TRUE : $ret;
+        $ret = ($this->basecard() == substr($card, 1))   ? TRUE : $ret;
         return ($card == 'WD4')                         ? TRUE : $ret;
     }
 
@@ -160,7 +164,7 @@ class card
      */
     public function drawAmount()
     {
-        switch($this->baseCard()){
+        switch ($this->baseCard()) {
             case 'D2':
                 return 2;
             case 'WD4':
@@ -170,11 +174,17 @@ class card
         return 0;
     }
 
-    public function color($full=FALSE){
-        if (isset($this->colors[substr($this->card(), 0, 1)])){
-            return ($full)? $this->colors[substr($this->card(), 0, 1)] : substr($this->card(), 0, 1);
+    /**
+     * returns the color of the loaded card (e.g R/red)
+     *
+     * @param boolean $full return colors full name or abreviated
+     * @return void
+     */
+    public function color($full = FALSE)
+    {
+        if (isset($this->colors[substr($this->card(), 0, 1)])) {
+            return ($full) ? $this->colors[substr($this->card(), 0, 1)] : substr($this->card(), 0, 1);
         }
         return NULL;
     }
-
 }

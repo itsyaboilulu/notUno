@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
-
 use Illuminate\Support\Facades\DB;
 
-
 /**
- * model for quiz: game_to_member
+ * model for uno: game_to_member
+ *
+ * @var int $gid
+ * @var int $uid
+ *
  * @param int gid PRIMARY_KEY
  * @param int uid PRIMARY_KEY
  * @param string hand
@@ -17,15 +19,19 @@ class ckGameToMember extends ckModel
 {
 
     /**
-     * model for quiz: game_to_member
+     * model for uno: game_to_member
+     *
+     * @var int $gid
+     * @var int $uid
+     *
      * @param int gid PRIMARY_KEY
      * @param int uid PRIMARY_KEY
      * @param string hand
      * @param boolean admin
      */
-    function __construct($gid,$uid)
+    function __construct($gid, $uid)
     {
-        parent::__construct('game_to_member',[
+        parent::__construct('game_to_member', [
             'gid'   =>  $gid,
             'uid'   =>  $uid
         ]);
@@ -57,7 +63,7 @@ class ckGameToMember extends ckModel
         if (!$h->removeCard($card)) {
             return False;
         };
-        $this->hand = ( $h->hasEmptyHand() ) ?
+        $this->hand = ($h->hasEmptyHand()) ?
             NULL : serialize($h->hand());
         return $this->save();
     }
@@ -79,12 +85,10 @@ class ckGameToMember extends ckModel
      */
     public function isUno()
     {
-        return ( $this->hand() ) ?
-            ( ( count( $this->hand() ) == 1 ) ?
-                    TRUE :
-                    FALSE ) :
+        return ($this->hand()) ?
+            ((count($this->hand()) == 1) ?
+                TRUE :
+                FALSE) :
             FALSE;
     }
-
 }
-

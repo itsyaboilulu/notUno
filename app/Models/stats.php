@@ -5,7 +5,9 @@ namespace App\Models;
 use DateTime;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+/**
+ * NOT FINNISHED YET
+ */
 class stats {
 
     private $id;

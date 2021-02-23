@@ -56,25 +56,37 @@ class ckModel
      * @param string $table
      * @param array $search array( $key => $value )
      */
-    public function __construct($table,$search)
+    public function __construct($table, $search)
     {
         $this->tableName = $table;
 
-        foreach( $search as $key=>$value){
+        foreach ($search as $key => $value) {
             $this->ids[]    = $key;
             $this->search[]   = $value;
         }
         $this->searchDB();
     }
 
+    /**
+     * return data from related $key, if not found returns null
+     *
+     * @param string $key
+     * @return void
+     */
     public function __get($key)
     {
-        return ( in_array($key, array_keys($this->data)) ) ?
-            $this->data[$key]:
+        return (in_array($key, array_keys($this->data))) ?
+            $this->data[$key] :
             NULL;
     }
 
-    public function __set($key,$value)
+    /**
+     * set value into stored data
+     *
+     * @param string $key
+     * @param mixed $value
+     */
+    public function __set($key, $value)
     {
         if (in_array($key, array_keys($this->data))) {
             $this->hasChanged = TRUE;
@@ -90,16 +102,16 @@ class ckModel
      */
     public function save()
     {
-        if ($this->hasChanged){
+        if ($this->hasChanged) {
 
             $where = $this->createWhere();
             $table = $this->tableName;
 
-            foreach( $this->data as $key=>$val){
-                $set[] = 't.'.$key." = '". $this->prepareValue( $val ) ."'";
+            foreach ($this->data as $key => $val) {
+                $set[] = 't.' . $key . " = '" . $this->prepareValue($val) . "'";
             }
 
-            $set =  implode(',',$set);
+            $set =  implode(',', $set);
 
             $SQL = "UPDATE $table t
                 SET $set
@@ -115,7 +127,8 @@ class ckModel
      *
      * @return boolean
      */
-    public function delete(){
+    public function delete()
+    {
 
         $where = $this->createWhere(FALSE);
         $table = $this->tableName;
@@ -136,7 +149,7 @@ class ckModel
             WHERE $where
             LIMIT 1";
 
-        foreach ((DB::select($sql))[0] as $key=>$value){
+        foreach ((DB::select($sql))[0] as $key => $value) {
             $this->data[$key] = $value;
         }
     }
@@ -147,10 +160,10 @@ class ckModel
      * @param boolean $useT prefix columns with 't.'
      * @return string
      */
-    private function createWhere($useT=TRUE)
+    private function createWhere($useT = TRUE)
     {
         for ($i = 0; $i < count($this->ids); $i++) {
-            $where[] = (($useT)?'t.':'') . $this->ids[$i] . '= "' . $this->search[$i] . '"';
+            $where[] = (($useT) ? 't.' : '') . $this->ids[$i] . '= "' . $this->search[$i] . '"';
         }
         return implode(' AND ', $where);
     }
@@ -163,7 +176,6 @@ class ckModel
      */
     private function prepareValue($val)
     {
-        return str_replace('"','\"',$val);
+        return str_replace('"', '\"', $val);
     }
-
 }

@@ -8,6 +8,9 @@ use App\Models\gameToMember;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * dashboard
+ */
 class homeController extends Controller
 {
 

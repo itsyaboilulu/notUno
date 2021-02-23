@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * model for quiz: game
+ * model for uno: game
+ *
+ * @todo reduce and move some functions
  *
  *@param INT id PRIMARY_KEY
  *@param STRING name
@@ -32,7 +34,7 @@ class game extends Model
      */
     public static function gameFromPassword($password)
     {
-        return game::findOrFail( ( game::where('password', $password)->first() )->id);
+        return game::findOrFail((game::where('password', $password)->first())->id);
     }
 
     /**
@@ -47,7 +49,7 @@ class game extends Model
             'currcard'  => $this->current_card,
             'turn'      => users::getName($this->turn),
             'order'     => $this->order,
-            'extreme7'  => (@unserialize($this->setting)['extreme7'])? unserialize($this->setting)['extreme7'] : 0,
+            'extreme7'  => (@unserialize($this->setting)['extreme7']) ? unserialize($this->setting)['extreme7'] : 0,
         );
     }
 
@@ -56,7 +58,7 @@ class game extends Model
      */
     public static function refreshSession()
     {
-        session(['game'=>game::find(session('game')->id)]);
+        session(['game' => game::find(session('game')->id)]);
     }
 
     /**
@@ -91,7 +93,7 @@ class game extends Model
     {
         return (gameToMember::addMember($id, $this->id)) ?
             gameLeaderboard::addMember($id, $this->id) :
-            FALSE ;
+            FALSE;
     }
 
     /**
@@ -101,7 +103,7 @@ class game extends Model
      */
     public function isAdmin()
     {
-        return ( gameToMember::where('gid',$this->id)->where('uid',Auth::id())->first() )->admin;
+        return (gameToMember::where('gid', $this->id)->where('uid', Auth::id())->first())->admin;
     }
 
     /**
@@ -116,7 +118,7 @@ class game extends Model
         $set->setSettings($settings);
         $set->save();
 
-        $hand = new hand( NULL, useful::unserialize( $this->deck ) );
+        $hand = new hand(NULL, useful::unserialize($this->deck));
 
         foreach ($this->getMembers() as $m) {
             $mg = new ckModel('game_to_member', [
@@ -146,14 +148,14 @@ class game extends Model
      * @param int $draw
      * @return boolean
      */
-    public function addStack($user,$card,$draw)
+    public function addStack($user, $card, $draw)
     {
         $data = unserialize($this->game_data);
-        if (!isset($data['stack'])){
+        if (!isset($data['stack'])) {
             $data['stack'] = array(
-                'user'=>0,
-                'card'=>0,
-                'draw'=>0
+                'user' => 0,
+                'card' => 0,
+                'draw' => 0
             );
         }
         $data['stack']['user'] = $user;
@@ -177,7 +179,15 @@ class game extends Model
         return $this->save();
     }
 
-    public static function newGame($name, $pass){
+    /**
+     * start a new game
+     *
+     * @param string $name
+     * @param string $pass
+     * @return object
+     */
+    public static function newGame($name, $pass)
+    {
         $game = new game();
         $game->generatePassword($pass);
         $game->name = $name;
@@ -193,8 +203,8 @@ class game extends Model
     public function delete()
     {
         //remove members
-        foreach($this->getMembers() as $m){
-            (new ckGameToMember($this->id,$m->id))->delete();
+        foreach ($this->getMembers() as $m) {
+            (new ckGameToMember($this->id, $m->id))->delete();
         }
         //keep play by play but delete chat
         chat::deleteAll($this->id);
@@ -208,8 +218,8 @@ class game extends Model
      *
      * @return object
      */
-    public function card(){
+    public function card()
+    {
         return new card($this->current_card);
     }
-
 }

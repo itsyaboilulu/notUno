@@ -9,6 +9,9 @@ use App\Models\game;
 use App\Models\unoBot;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * collection for funtions related to creating a temparary user
+ */
 class tempUserController extends Controller
 {
 

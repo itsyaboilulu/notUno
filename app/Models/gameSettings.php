@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Auth;
  *
  * @param int $gid game id
  */
-class gameSettings {
+class gameSettings
+{
 
     /**
      * game settings
@@ -36,16 +37,21 @@ class gameSettings {
         $this->game_id  = $gid;
         $game = game::find($gid);
         $this->settings = ($game->setting) ?
-                unserialize($game->setting) :
-                $this->standardSettings()
-            ;
+            unserialize($game->setting) :
+            $this->standardSettings();
     }
 
+    /**
+     * get setting data, if setting isnt set returns base setting from standeredSettings()
+     *
+     * @param string $key
+     * @return mixed
+     */
     function __get($key)
     {
-        if ( isset( $this->settings()[$key] ) ) {
+        if (isset($this->settings()[$key])) {
             return $this->settings()[$key];
-        } else if ( isset( $this->standardSettings()[$key] ) ){
+        } else if (isset($this->standardSettings()[$key])) {
             //incase i add settings mid game, stops game breaking
             $this->__Set($key, $this->standardSettings()[$key]);
             return $this->settings()[$key];
@@ -53,7 +59,14 @@ class gameSettings {
         return;
     }
 
-    function __Set($key,$value)
+    /**
+     * set setting into stored data
+     *
+     * @param string $key
+     * @param string $value
+     * @return mixed
+     */
+    function __Set($key, $value)
     {
         return $this->settings[$key] = $value;
     }
@@ -66,7 +79,7 @@ class gameSettings {
      */
     public function settings()
     {
-        if (!$this->settings){
+        if (!$this->settings) {
             $this->settings = $this->standardSettings();
         }
         return $this->settings;
@@ -92,7 +105,7 @@ class gameSettings {
      */
     public function setSettings($settings)
     {
-        if (is_array($settings)){
+        if (is_array($settings)) {
             $this->settings = $settings;
         }
         return $this->settings;
@@ -110,12 +123,11 @@ class gameSettings {
             'stack'             => 0,
             'drawUntilPlay'     => 0,
             'allowTimeouts'     => 0,
-                'timeoutsTime'      => 30,
-                'timeoutsDraw'      => 2,
+            'timeoutsTime'      => 30,
+            'timeoutsDraw'      => 2,
             'extreme7'          => 0,
             'extreme4'          => 0,
             'extreme0'          => 0,
         );
     }
-
 }

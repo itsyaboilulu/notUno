@@ -9,7 +9,8 @@ namespace App\Models;
  * @param mixed $hand array/string hand data
  * @param array $deck deck data for parent
  */
-class hand extends deck {
+class hand extends deck
+{
 
     /**
      * hand card data
@@ -33,7 +34,7 @@ class hand extends deck {
      * @param mixed $hand array/string hand data
      * @param array $deck deck data for parent
      */
-    function __construct($hand=NULL, $deck=NULL)
+    function __construct($hand = NULL, $deck = NULL)
     {
         if ($deck) {
             parent::__construct($deck);
@@ -64,11 +65,10 @@ class hand extends deck {
      */
     public function hand()
     {
-        if ($this->hand == NULL){
-            for($i = 0; $i< $this->startingHandCount();$i++ ){
+        if ($this->hand == NULL) {
+            for ($i = 0; $i < $this->startingHandCount(); $i++) {
                 $this->hand[] = parent::draw();
             }
-
         }
         return $this->hand;
     }
@@ -91,7 +91,7 @@ class hand extends deck {
      */
     public function setHand($hand)
     {
-        if (!is_array($hand)){
+        if (!is_array($hand)) {
             $hand =  unserialize($hand);
         }
         $this->hand = $hand;
@@ -116,11 +116,13 @@ class hand extends deck {
      */
     public function removeCard($card)
     {
-        $card = ( !strpos($card,'W') ) ? $card : substr($card, 1);
-        if (!$this->inHand($card)){ return FALSE; }
+        $card = (!strpos($card, 'W')) ? $card : substr($card, 1);
+        if (!$this->inHand($card)) {
+            return FALSE;
+        }
         $hand = $this->hand();
-        foreach($hand as $n=>$c){
-            if ($c == $card){
+        foreach ($hand as $n => $c) {
+            if ($c == $card) {
                 unset($this->hand[$n]);
                 break;
             }
@@ -135,9 +137,10 @@ class hand extends deck {
      *
      * @return boolean
      */
-    public function hasEmptyHand(){
-        return (@count($this->hand))? ( (count($this->hand))?
-            FALSE: TRUE) : TRUE;
+    public function hasEmptyHand()
+    {
+        return (@count($this->hand)) ? ((count($this->hand)) ?
+            FALSE : TRUE) : TRUE;
     }
 
     /**
@@ -145,18 +148,18 @@ class hand extends deck {
      *
      * @return array hand()
      */
-    private function sortHand(){
-        $ret = array( 'R' => array(), 'G' => array(), 'B' => array(), 'Y' => array(),'W' => array() );
-        foreach( $this->hand() as $h ){
-            $ret[ $h[0] ][] = $h;
+    private function sortHand()
+    {
+        $ret = array('R' => array(), 'G' => array(), 'B' => array(), 'Y' => array(), 'W' => array());
+        foreach ($this->hand() as $h) {
+            $ret[$h[0]][] = $h;
         }
-        foreach ($ret as $key=>$re){
-            foreach($re as $r){
+        foreach ($ret as $key => $re) {
+            foreach ($re as $r) {
                 $data[] = $r;
             }
         }
         $this->setHand($data);
         return $this->hand();
     }
-
 }

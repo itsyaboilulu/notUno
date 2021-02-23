@@ -7,35 +7,50 @@ use PhpParser\Builder\Function_;
 use PhpParser\Node\Expr\FuncCall;
 
 /**
- * store for pre deturmed chat messages
+ * store for pre-deturmed chat messages
  */
 class chatMessages
 {
     private $gid;
 
     /**
-    * store for pre deturmed chat messages
-    *
-    * @param int $gid game id
-    */
+     * store for pre-deturmed chat messages
+     *
+     * @param int $gid game id
+     */
     function __construct($gid)
     {
         $this->gid = $gid;
     }
 
+    /**
+     * game model
+     *
+     * @var object
+     */
     private $game;
 
+    /**
+     * returns the game model releated to $this->gid
+     *
+     * @return object
+     */
     private function game()
     {
-        if (!$this->game){
+        if (!$this->game) {
             $this->game =  game::find($this->gid);
         }
         return $this->game;
     }
 
+    /**
+     * returns the username of whoes turn it is in loaded game()
+     *
+     * @return string
+     */
     private function turn()
     {
-        return $this->username( $this->game()->turn );
+        return $this->username($this->game()->turn);
     }
 
     /**
@@ -56,7 +71,7 @@ class chatMessages
      * @param integer $id game id
      * @return boolean
      */
-    private function newMessage($message,$id=0, $target=NULL)
+    private function newMessage($message, $id = 0, $target = NULL)
     {
         $c          = new chat();
         $c->gid     = $this->gid;
@@ -76,8 +91,8 @@ class chatMessages
     public function send($message)
     {
         return ($this->checkCommands($message)) ?
-            TRUE:
-            $this->newMessage($message,Auth::id());
+            TRUE :
+            $this->newMessage($message, Auth::id());
     }
 
     /**
@@ -105,7 +120,7 @@ class chatMessages
      */
     private function alert()
     {
-        return $this->newMessage($this->username()." alerted ".$this->turn());
+        return $this->newMessage($this->username() . " alerted " . $this->turn());
     }
 
     /**
@@ -116,13 +131,13 @@ class chatMessages
      */
     private function wisper($message)
     {
-        $wisper  = explode(' ',$message);
-        if ($wisper[0] == '@wisper'){
+        $wisper  = explode(' ', $message);
+        if ($wisper[0] == '@wisper') {
             $target = users::getID($wisper[1]);
-            if ($target){
+            if ($target) {
                 $m = " (wispered) ";
-                for($i=2;$i<count($wisper);$i++){
-                    $m = $m.' '.$wisper[$i];
+                for ($i = 2; $i < count($wisper); $i++) {
+                    $m = $m . ' ' . $wisper[$i];
                 }
                 return $this->newMessage($m, Auth::id(), $target);
             }
@@ -138,7 +153,7 @@ class chatMessages
      */
     public function joined()
     {
-        return $this->newMessage( $this->username() . "has joined the game" );
+        return $this->newMessage($this->username() . "has joined the game");
     }
 
     /**
@@ -149,7 +164,7 @@ class chatMessages
      */
     public function cardPlayed($card)
     {
-        return $this->newMessage($this->username() . " played <strong>$card</strong>" );
+        return $this->newMessage($this->username() . " played <strong>$card</strong>");
     }
 
     /**
@@ -158,9 +173,9 @@ class chatMessages
      * @var int $cards number of cards drawn
      * @return boolean
      */
-    public function draw($cards=1)
+    public function draw($cards = 1)
     {
-        return $this->newMessage( $this->username() . ( ( $cards !== 1 )?" drew $cards card's ":" drew a card" ));
+        return $this->newMessage($this->username() . (($cards !== 1) ? " drew $cards card's " : " drew a card"));
     }
 
     /**
@@ -169,7 +184,7 @@ class chatMessages
      * @var int $cards number of cards drawn
      * @return boolean
      */
-    public function toDraw($target,$cards = 1)
+    public function toDraw($target, $cards = 1)
     {
         return $this->newMessage($this->username($target) . " had to draw $cards cards ");
     }
@@ -194,7 +209,7 @@ class chatMessages
      */
     public function calledUno()
     {
-        return $this->newMessage( $this->username() . " called <strong>uno!</strong>" );
+        return $this->newMessage($this->username() . " called <strong>uno!</strong>");
     }
 
     /**
@@ -204,7 +219,7 @@ class chatMessages
      */
     public function forgotUno()
     {
-        return $this->newMessage( $this->username() . " forgot to call <strong>uno!</strong>" );
+        return $this->newMessage($this->username() . " forgot to call <strong>uno!</strong>");
     }
 
     /**
@@ -222,36 +237,51 @@ class chatMessages
      *
      * @return boolean
      */
-    public function timeOut($user=NULL)
+    public function timeOut($user = NULL)
     {
-        return $this->newMessage( $this->username($user) . " took too long to play ",0,$user);
+        return $this->newMessage($this->username($user) . " took too long to play ", 0, $user);
     }
 
     /**
-     * Undocumented function
+     * chat message for playing extreme 4
      *
-     * @return void
+     * @return boolean
      */
-    public function extremeFour($user,$target,$cards)
+    public function extremeFour($user, $target, $cards)
     {
         $this->newMessage($this->username($user) . " played an extreme 4 ");
-        return $this->toDraw($target,$cards);
+        return $this->toDraw($target, $cards);
     }
 
+    /**
+     * chat message for playing extreme 7
+     *
+     * @return boolean
+     */
     public function extremeSeven($target)
     {
         $this->newMessage($this->username() . " played an extreme 7 ");
-        return $this->newMessage($this->username() . " swapped hands with " . $this->username($target) );
+        return $this->newMessage($this->username() . " swapped hands with " . $this->username($target));
     }
 
+    /**
+     * chat message for playing extreme 0
+     *
+     * @return boolean
+     */
     public function extremeZero()
     {
         $this->newMessage($this->username() . " played an extreme 0 ");
         return $this->newMessage("All players hands have been swapped");
     }
 
-    public function reverseOrder(){
+    /**
+     * chat message for reverseing the game order
+     *
+     * @return boolean
+     */
+    public function reverseOrder()
+    {
         return $this->newMessage("Order has been reversed");
     }
-
 }

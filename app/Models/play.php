@@ -4,20 +4,67 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\Auth;
 
-class play {
+/**
+ * model to handle functions for playing the game
+ *
+ * @param int $gid game id
+ * @param int $uid user id
+ */
+class play
+{
 
-    protected   $id;
-    private     $game;
-    private     $settings;
-    private     $gameMember;
-    protected   $chat;
-    protected   $playByPlay;
-    protected   $uid;
+    /**
+     * game id
+     * @var int
+     */
+    protected $id;
 
-    function __construct($gid,$uid=NULL)
+    /**
+     * game Model
+     * @var object
+     */
+    private $game;
+
+    /**
+     * game settings model
+     * @var object
+     */
+    private $settings;
+
+    /**
+     * game to member model
+     * @var object
+     */
+    private $gameMember;
+
+    /**
+     * chat model
+     * @var object
+     */
+    protected $chat;
+
+    /**
+     * play_by_play model
+     * @var object
+     */
+    protected $playByPlay;
+
+    /**
+     * user id
+     * @var int
+     */
+    protected $uid;
+
+    /**
+     * model to handle functions for playing the game
+     *
+     * @param int $gid game id
+     * @param int $uid user id
+     */
+    function __construct($gid, $uid = NULL)
     {
         $this->id = $gid;
-        $this->uid = ($uid)?$uid:Auth::id();
+        $this->uid = ($uid) ? $uid : Auth::id();
     }
 
     /**
@@ -26,8 +73,9 @@ class play {
      * @param string $s
      * @return mixed
      */
-    protected function settings($s=NULL){
-        if (!$this->settings){
+    protected function settings($s = NULL)
+    {
+        if (!$this->settings) {
             $this->settings = new gameSettings($this->id);
         }
         return ($s) ?
@@ -41,8 +89,9 @@ class play {
      *
      * @return object
      */
-    protected function playByPlay(){
-        if (!$this->playByPlay){
+    protected function playByPlay()
+    {
+        if (!$this->playByPlay) {
             $this->playByPlay           = new playByPlay();
             $this->playByPlay->gid      = $this->game()->id;
             $this->playByPlay->uid      = $this->uid;
@@ -56,8 +105,9 @@ class play {
      *
      * @return object
      */
-    public function chat(){
-        if (!$this->chat){
+    public function chat()
+    {
+        if (!$this->chat) {
             $this->chat = new chatMessages($this->id);
         }
         return $this->chat;
@@ -68,8 +118,9 @@ class play {
      *
      * @return object
      */
-    protected function game(){
-        if (!$this->game){
+    protected function game()
+    {
+        if (!$this->game) {
             $this->game = game::find($this->id);
         }
         return $this->game;
@@ -80,8 +131,9 @@ class play {
      *
      * @return object
      */
-    protected function gameMember(){
-        if (!$this->gameMember){
+    protected function gameMember()
+    {
+        if (!$this->gameMember) {
             $this->gameMember =  new ckGameToMember($this->id, $this->uid);
         }
         return $this->gameMember;
@@ -115,7 +167,7 @@ class play {
     {
         (new ckGameLeaderboard($this->id, $this->uid))->addWin();
         $this->game()->started = 0;
-        $this->game()->game_no = ($this->game()->game_no)? $this->game()->game_no + 1 : 1;
+        $this->game()->game_no = ($this->game()->game_no) ? $this->game()->game_no + 1 : 1;
         $this->playByPlay()->winner();
         return $this->game()->save();
     }
@@ -125,9 +177,10 @@ class play {
      *
      * @return boolean
      */
-    public function draw(){
+    public function draw()
+    {
         //check settings
-        if (!$this->settings('drawUntilPlay')){
+        if (!$this->settings('drawUntilPlay')) {
             $this->NextTurn();
         }
         return $this->drawCard($this->uid);
@@ -169,18 +222,20 @@ class play {
      * @param boolean $skip has next player been skipped
      * @return void
      */
-    protected function checkNextTurn($skip=NULL){
+    protected function checkNextTurn($skip = NULL)
+    {
         $order  = unserialize($this->game()->order);
-        return array_values(array_slice($order, ( ( array_search($this->game()->turn, $order) + (($skip) ? 2 : 1) ) - count($order) ) ) )[0];
+        return array_values(array_slice($order, ((array_search($this->game()->turn, $order) + (($skip) ? 2 : 1)) - count($order))))[0];
     }
 
     /**
      * check if current player has ran out of time to play a card
      * @return boolean T/F
      */
-    protected function checkTimeOut(){
-        if ($this->settings('allowTimeouts')){
-            if ( useful::diffMins( $this->game()->updated , date( "Y-m-d H:i:s" ) ) > $this->settings('timeoutsTime') ){
+    protected function checkTimeOut()
+    {
+        if ($this->settings('allowTimeouts')) {
+            if (useful::diffMins($this->game()->updated, date("Y-m-d H:i:s")) > $this->settings('timeoutsTime')) {
                 $this->chat()->timeOut($this->game()->turn);
                 $this->playByPlay()->timeOut($this->game()->turn);
                 $this->drawCard($this->game()->turn, $this->settings('timeoutsDraw'));
@@ -189,6 +244,4 @@ class play {
         }
         return;
     }
-
-
 }

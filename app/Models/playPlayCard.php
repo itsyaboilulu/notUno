@@ -6,8 +6,13 @@ use Illuminate\Support\Facades\Auth;
 
 /**
  * extends play, used fo funtions related to playing a card and its effects
+ *
+ * @param int $gid gameid
+ * @param string $card card value
+ * @param int $uid user id
  */
-class playPlayCard extends play {
+class playPlayCard extends play
+{
 
     /**
      * @see card()
@@ -16,6 +21,11 @@ class playPlayCard extends play {
      */
     private $card;
 
+    /**
+     * store for any passed extra data
+     *
+     * @var mixed
+     */
     private $extra;
 
     /**
@@ -23,11 +33,12 @@ class playPlayCard extends play {
      *
      * @param int $gid gameid
      * @param string $card card value
+     * @param int $uid user id
      */
-    function __construct($gid,$card,$uid=NULL)
+    function __construct($gid, $card, $uid = NULL)
     {
         $this->card =  new card($card);
-        parent::__construct($gid,$uid);
+        parent::__construct($gid, $uid);
     }
 
     /**
@@ -36,10 +47,10 @@ class playPlayCard extends play {
      * @param boolean $uno
      * @return boolean
      */
-    public function play($uno = null,$extra=NULL)
+    public function play($uno = null, $extra = NULL)
     {
         $this->extra = $extra;
-        if ( $this->checkTurn() ) {
+        if ($this->checkTurn()) {
             if (!$this->card->canBePlayed($this->game()->current_card)) {
                 return FALSE;
             }
@@ -63,13 +74,13 @@ class playPlayCard extends play {
      * @param boolean $uno
      * @return void
      */
-    private function checkUno($uno=NULL)
+    private function checkUno($uno = NULL)
     {
-        if ($this->gameMember()->isUno()){
+        if ($this->gameMember()->isUno()) {
             $this->chat()->uno($uno);
             $this->playByPlay()->uno($uno);
             return ($uno) ?
-                $uno:
+                $uno :
                 $this->drawCard($this->uid, $this->settings('unoDrawPenalty'));
         }
     }
@@ -82,7 +93,7 @@ class playPlayCard extends play {
     private function special()
     {
 
-        switch($this->card->isSpecial()){
+        switch ($this->card->isSpecial()) {
             case 'S':
                 return TRUE;
             case 'D2':
@@ -120,17 +131,17 @@ class playPlayCard extends play {
         //check if next player can stack
         $player = $this->checkNextTurn();
         $stackable = FALSE;
-        foreach( ( new ckGameToMember($this->id, $player ) )->hand() as $h){
-            if ( $this->card->stackable($h) ){
+        foreach ((new ckGameToMember($this->id, $player))->hand() as $h) {
+            if ($this->card->stackable($h)) {
                 $stackable = TRUE;
                 break;
             }
         }
-        if (!$stackable){
-            return ($this->resolveStack()) ? TRUE : $this->drawCard($this->checkNextTurn(), $this->card->drawAmount()); ;
+        if (!$stackable) {
+            return ($this->resolveStack()) ? TRUE : $this->drawCard($this->checkNextTurn(), $this->card->drawAmount());;
         }
         $this->chat()->canStack($this->checkNextTurn());
-        $this->game()->addStack($this->uid,$this->card->Card(),$this->card->drawAmount() );
+        $this->game()->addStack($this->uid, $this->card->Card(), $this->card->drawAmount());
         return;
     }
 
@@ -148,7 +159,8 @@ class playPlayCard extends play {
             );
             $this->chat()->toDraw(
                 $this->checkNextTurn(),
-                (unserialize($this->game()->game_data)['stack']['draw'] + $this->card->drawAmount()));
+                (unserialize($this->game()->game_data)['stack']['draw'] + $this->card->drawAmount())
+            );
             return $this->game()->clearStack();
         }
         return;
@@ -159,8 +171,9 @@ class playPlayCard extends play {
      *
      * @return void
      */
-    private function extremeCards(){
-        switch ($this->card->basecard()){
+    private function extremeCards()
+    {
+        switch ($this->card->basecard()) {
             case '4':
                 return ($this->settings('extreme4')) ?
                     $this->extremeFour() :
@@ -189,12 +202,12 @@ class playPlayCard extends play {
         while (true) {
             $d = $deck->draw();
             $draw[] = $d;
-            if ( $this->card->canBePlayed($d) ){
+            if ($this->card->canBePlayed($d)) {
                 break;
             }
         }
         $mg = new ckGameToMember($this->game()->id, $this->checkNextTurn());
-        foreach ($draw as $dr){
+        foreach ($draw as $dr) {
             $mg->addCard($dr);
         }
         $this->chat()->extremeFour($this->game()->turn, $this->checkNextTurn(), count($draw));
@@ -209,7 +222,7 @@ class playPlayCard extends play {
      */
     private function extremeSeven()
     {
-        $target = new ckGameToMember($this->game()->id,users::getId($this->extra));
+        $target = new ckGameToMember($this->game()->id, users::getId($this->extra));
         $curr   = $this->gameMember();
 
         $thand = $target->hand;
@@ -217,8 +230,8 @@ class playPlayCard extends play {
         $target->hand   = $curr->hand;
         $curr->hand     = $thand;
 
-        $curr   ->save();
-        $target ->save();
+        $curr->save();
+        $target->save();
 
         $this->chat()->extremeSeven($target->uid);
 
@@ -230,15 +243,16 @@ class playPlayCard extends play {
      *
      * @return void
      */
-    private function extremeZero(){
+    private function extremeZero()
+    {
         $order  = unserialize($this->game()->order);
-        foreach($order as $o){
+        foreach ($order as $o) {
             $ck     = new ckGameToMember($this->game()->id, $o);
             $d[]    = $ck;
             $h[]    = $ck->hand;
         }
-        for($i=0;$i<count($d);$i++){
-            if (($i + 1) == count($h)){
+        for ($i = 0; $i < count($d); $i++) {
+            if (($i + 1) == count($h)) {
                 $d[$i]->hand = $h[0];
             } else {
                 $d[$i]->hand = $h[($i + 1)];
@@ -248,7 +262,4 @@ class playPlayCard extends play {
         $this->chat()->extremeZero($this->extra);
         return FALSE;
     }
-
 }
-
-

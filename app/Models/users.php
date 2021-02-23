@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
 
- * model for quiz: users
+ * model for uno: users
  *
  *@param INT id PRIMARY_KEY
  *@param STRING username
@@ -31,10 +31,16 @@ class users extends Model
         return (users::find($id))->username;
     }
 
+    /**
+     * returns the id of given users username
+     *
+     * @param string $username
+     * @return int
+     */
     public static function getID($username)
     {
-        $u = users::where('username',$username)->first();
-        if ($u){
+        $u = users::where('username', $username)->first();
+        if ($u) {
             return $u->id;
         }
         return;
@@ -48,8 +54,8 @@ class users extends Model
      */
     public static function available($name)
     {
-        return (count(users::where('username',$name)->get()) > 0)?
-            FALSE:
+        return (count(users::where('username', $name)->get()) > 0) ?
+            FALSE :
             TRUE;
     }
 
@@ -58,14 +64,14 @@ class users extends Model
      *
      * @return int $id
      */
-    public static function temp(){
+    public static function temp()
+    {
 
         $u = new users();
         $u->password = 123;
-        $u->username = 'Temp#'.time();
+        $u->username = 'Temp#' . time();
         $u->save();
 
         return $u->id;
     }
-
 }

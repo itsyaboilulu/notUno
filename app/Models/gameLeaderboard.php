@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 /**
 
- * model for quiz: game_leaderboard
+ * model for uno: game_leaderboard
  *
  *@param INT gid PRIMARY_KEY
  *@param INT uid PRIMARY_KEY
@@ -25,7 +25,7 @@ class gameLeaderboard extends Model
      * @param int $gid game id
      * @return boolean
      */
-    public static function addMember($uid,$gid)
+    public static function addMember($uid, $gid)
     {
         $l = new gameLeaderboard();
         $l->gid     = $gid;

@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Config;
 
 Route::redirect('/dashboard', '/', 301);
 
-Route::get('/',         [App\Http\Controllers\homeController::class, 'index']);
+Route::get('/',             [App\Http\Controllers\homeController::class, 'index']);
 
 Route::get('/hostnew',      [App\Http\Controllers\playController::class, 'hostNew']);
 Route::get('/join',         [App\Http\Controllers\playController::class, 'join']);
@@ -27,6 +27,8 @@ Route::get('/startgame',    [App\Http\Controllers\playController::class, 'startG
 Route::get('/play',         [App\Http\Controllers\playController::class, 'index']);
 
 Route::post('lobby/remove', [App\Http\Controllers\playController::class, 'removeLobby']);
+
+Route::get('/temp',         [App\Http\Controllers\tempUserController::class, 'tempUser']);
 
 Route::get( '/settings',    [App\Http\Controllers\settingsController::class, 'index']);
 Route::post('/setSettings', [App\Http\Controllers\settingsController::class, 'setSettings']);
