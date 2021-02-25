@@ -87,7 +87,7 @@ class stats
     private function chat()
     {
         if (!$this->chat) {
-            $this->chat = DB::select('SELECT gid, uid, message, target FROM notuno.chat c WHERE uid = ? OR target = ? OR uid = 0', [$this->id, $this->id]);
+            $this->chat = DB::select('SELECT gid, uid, message, target FROM chat c WHERE uid = ? OR target = ? OR uid = 0', [$this->id, $this->id]);
         }
         return $this->chat;
     }

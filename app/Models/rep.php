@@ -96,15 +96,4 @@ class rep {
         ];
     }
 
-
-    /**
-     * checks each time user was last to play in a day
-     *
-     * @return int
-     */
-    private function lastPlay(){
-
-    }
-
-
 }

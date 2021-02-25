@@ -107,7 +107,6 @@ export default {
     name:'stats',
     props:['stats','rep'],
     mounted(){
-        console.log(this.stats);
     },
     computed:{
         days(){
