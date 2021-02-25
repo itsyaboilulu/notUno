@@ -85,7 +85,7 @@ class ckGameToMember extends ckModel
      */
     public function isUno()
     {
-        return ($this->hand() && @count($this->hand())) ?
+        return ($this->hand()) ?
             ((count($this->hand()) == 1) ?
                 TRUE :
                 FALSE) :

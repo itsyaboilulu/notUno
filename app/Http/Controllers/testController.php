@@ -30,9 +30,8 @@ class testController extends Controller
 
     public function test()
     {
-        foreach((game::find(4))->getMembers() as $m){
-            echo users::getName($m->id).' -> <br>'. (new stats($m->id))->timeOuts().'<br>'.( new rep($m->id) )->rep();
-            echo '<hr>';
-        }
+        $order  = unserialize('a:3:{i:0;i:3;i:1;i:1;i:2;i:8;}');
+        shuffle($order);
+        echo serialize($order);
     }
 }

@@ -296,7 +296,9 @@ class playPlayCard extends play
      */
     private function extremeNine()
     {
-        $this->game()->order = serialize(array_rand(unserialize($this->game()->order)));
+        $order = unserialize($this->game()->order);
+        shuffle($order);
+        $this->game()->order = serialize($order);
         $this->game()->save();
         $this->chat()->extremeNine();
         return FALSE;
