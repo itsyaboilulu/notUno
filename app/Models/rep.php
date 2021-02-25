@@ -39,25 +39,72 @@ class rep {
        return $this->plusRep() -  $this->minusRep();
     }
 
-    private function plusRep(){
+    public function plusRep(){
         //revrse battles, mirror cards
         return array_sum(
             array(
                 $this->stats()->gamesPlayed(),
                 $this->stats()->gamesWon(),
                 $this->stats()->calledUno()['called'],
+                $this->golf()['plus'],
             )
         );
     }
 
-    private function minusRep(){
+    public function minusRep(){
         //reverse battle loss, breaking chains, first to play damage card
          return array_sum(
             array(
-                $this->stats()->timeOuts(),
+                ($this->stats()->timeOuts()*5),
                 $this->stats()->calledUno()['failed'],
+                $this->golf()['lost'],
             )
         );
     }
+
+
+    /**
+     * returns the number of reverse battles
+     *
+     * @return int
+     */
+    private function golf() {
+        $points         = 0;
+        $minus          = 0;
+        foreach ($this->stats()->cardsByGame() as $key => $g) {
+            foreach ($g as $key => $gn) {
+                for ($i = 0; $i < count($gn); $i++) {
+                    $n = $gn[$i];
+                    if ($n->action == 'play') {
+                        if (substr($n->data, 1, 1) == 'R') {
+                            if ($n->uid == $this->id || (isset($gn[($i + 1)]) && $gn[($i + 1)]->uid == $this->id)) {
+                                $points++;
+                                if ((isset($gn[($i + 1)]) && $gn[($i + 1)]->uid == $this->id)){
+                                    if (substr($gn[($i + 1)]->data, 1, 1) != 'R'){
+                                        $minus++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return [
+            'plus'  => $points,
+            'lost'  => ($minus*2),
+        ];
+    }
+
+
+    /**
+     * checks each time user was last to play in a day
+     *
+     * @return int
+     */
+    private function lastPlay(){
+
+    }
+
 
 }

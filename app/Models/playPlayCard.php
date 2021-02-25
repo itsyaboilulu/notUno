@@ -186,10 +186,19 @@ class playPlayCard extends play
                 return ($this->settings('extreme0')) ?
                     $this->extremeZero() :
                     NULL;
+            case '1':
+                return ($this->settings('extreme1')) ?
+                $this->extremeOne() :
+                    NULL;
+            case '9':
+                return ($this->settings('extreme9')) ?
+                $this->extremeNine() :
+                    NULL;
             default:
                 return;
         }
     }
+
 
     /**
      * handle the playing of a extreme 4
@@ -260,6 +269,36 @@ class playPlayCard extends play
             $d[$i]->save();
         }
         $this->chat()->extremeZero($this->extra);
+        return FALSE;
+    }
+
+    /**
+     * handle the playing of a extreme 1
+     *
+     * @return void
+     */
+    private function extremeOne()
+    {
+        foreach (unserialize($this->game()->order) as $u){
+            if ($u != $this->uid){
+                $this->drawCard($u,1);
+                $this->playByPlay()->draw(1, $u);
+            }
+        }
+        $this->chat()->extremeOne();
+        return False;
+    }
+
+    /**
+     * handle the playing of a extreme 9
+     *
+     * @return void
+     */
+    private function extremeNine()
+    {
+        $this->game()->order = serialize(array_rand(unserialize($this->game()->order)));
+        $this->game()->save();
+        $this->chat()->extremeNine();
         return FALSE;
     }
 }

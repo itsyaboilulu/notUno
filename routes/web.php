@@ -28,6 +28,8 @@ Route::get('/play',         [App\Http\Controllers\playController::class, 'index'
 
 Route::post('lobby/remove', [App\Http\Controllers\playController::class, 'removeLobby']);
 
+Route::get('/stats',        [App\Http\Controllers\statsController::class, 'index']);
+
 Route::get('/temp',         [App\Http\Controllers\tempUserController::class, 'tempUser']);
 
 Route::get( '/settings',    [App\Http\Controllers\settingsController::class, 'index']);

@@ -31,6 +31,8 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "async-counter": "^1.1.0"
+        "async-counter": "^1.1.0",
+        "chart.js": "^2.9.4",
+        "vue-chartjs": "^3.5.1"
     }
 }

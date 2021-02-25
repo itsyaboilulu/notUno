@@ -73,6 +73,16 @@
             </tr>
             <tr>
                 <td>
+                    <button class="tooltip" title="playing a 1 causes everyone to draw a card">?</button>
+                    special 1's
+                </td>
+                <td>
+                    <input  v-on:change='update($event)' type="checkbox" v-model='setting.extreme1'
+                        name="extreme1" >
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <button class="tooltip" title="playing a 4 causes the next player draws cards until they can play">?</button>
                     special 4's
                 </td>
@@ -89,6 +99,16 @@
                 <td>
                     <input  v-on:change='update($event)' type="checkbox" v-model='setting.extreme7'
                         name="extreme7" >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="tooltip" title="playing a 9 randomises the game order">?</button>
+                    special 9's
+                </td>
+                <td>
+                    <input  v-on:change='update($event)' type="checkbox" v-model='setting.extreme9'
+                        name="extreme9" >
                 </td>
             </tr>
         </table>

@@ -59,7 +59,7 @@ body {
     background-color: $fk;
     width: 100%;
     height: calc(100% - 100px);
-    border-radius: 5px;
+    border-radius: $border-radius;
     max-height: 80vh;
 }
 table {
@@ -72,7 +72,7 @@ table tr td div {
     display: flex;
 }
 button {
-    border-radius: 5px;
+    border-radius: $border-radius;
 }
 .chatLayout {
     background-color: $bk;
@@ -81,7 +81,7 @@ button {
     #play,
     #lobby,
     #chat {
-        border-radius: 5px;
+        border-radius: $border-radius;
         background-color: $bk;
         min-width: 300px;
     }
@@ -123,7 +123,7 @@ button {
     .top,
     .handcont,
     .actions {
-        border-radius: 5px;
+        border-radius: $border-radius;
         background-color: $fk;
     }
     .handcont {
@@ -222,7 +222,7 @@ button {
     color: white;
     font-weight: bolder;
     text-align: center;
-    border-radius: 5px;
+    border-radius: $border-radius;
     margin: 5px;
 
     width: 100px !important;
@@ -269,7 +269,7 @@ button {
     .leaderboard {
         margin-top: 26px;
         background-color: $fk;
-        border-radius: 5px;
+        border-radius: $border-radius;
         text-align: center;
         h4 {
             padding-top: 20px !important;
@@ -309,12 +309,12 @@ button {
         .players {
             height: 100%;
             background-color: $fk;
-            border-radius: 5px;
+            border-radius: $border-radius;
             padding: 10px;
         }
         #remove {
             background-color: $fk;
-            border-radius: 5px;
+            border-radius: $border-radius;
             margin-top: 5px;
             padding: 10px;
             button {
@@ -326,7 +326,7 @@ button {
         }
         .settings {
             background-color: $fk;
-            border-radius: 5px;
+            border-radius: $border-radius;
             margin-top: 5px;
             padding: 10px;
             #start {
@@ -357,7 +357,7 @@ button {
                 margin: 5px 0;
                 margin-top: 10px;
                 border: 1px solid black;
-                border-radius: 5px;
+                border-radius: $border-radius;
                 button {
                     background-color: $fk;
                     border: 0px;
@@ -381,7 +381,7 @@ button {
 
     .login {
         display: "";
-        border-radius: 5px;
+        border-radius: $border-radius;
         width: 300px;
         margin: auto;
         background-color: $fk;
@@ -421,7 +421,7 @@ button {
         margin: auto;
         background-color: $fk;
         width: 100%;
-        border-radius: 5px;
+        border-radius: $border-radius;
         padding: 10px;
         text-align: center;
         h4 {
@@ -444,7 +444,7 @@ button {
         height: 100%;
         width: 100%;
         background-color: $bk;
-        border-radius: 2px;
+        border-radius: $border-radius;
         .options {
             height: 30px;
             border-bottom: 0 black solid;
@@ -475,15 +475,19 @@ button {
             }
             a.button:first-child {
                 border-left: 0px solid black;
-                border-radius: 5px 0 0 0;
+                border-radius: $border-radius 0 0 0;
             }
             a.button:last-child {
-                border-radius: 0 5px 0 0;
+                border-radius: 0 $border-radius 0 0;
+            }
+            a.button:hover {
+                cursor: pointer;
+                font-weight: bold;
             }
         }
         #playByPlay {
             background-color: $fk;
-            border-radius: 0 5px 5px 5px;
+            border-radius: 0 $border-radius $border-radius $border-radius;
             height: calc(80vh - 13px);
             overflow-y: scroll;
             overflow-x: hidden;
@@ -504,7 +508,7 @@ button {
         .commands {
             background-color: $fk;
             padding: 6px;
-            border-radius: 5px;
+            border-radius: $border-radius;
             text-align: center;
             ul {
                 li {
@@ -562,7 +566,7 @@ button {
             height: 25px;
             border-top: 1px solid black;
             padding: 5px;
-            border-radius: 0 0 5px 5px;
+            border-radius: 0 0 $border-radius $border-radius;
             input {
                 width: calc(100% - 45px);
                 height: 25px;
@@ -591,7 +595,92 @@ button {
         }
     }
 }
+#stats {
+    .playMessage {
+        text-align: center;
+        padding: 10px;
+    }
+    .stats {
+        background-color: $bk;
 
+        .chat,
+        .cards,
+        .playTime {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            .stat-item {
+                width: calc(50% - 30px) !important;
+            }
+        }
+
+        .chat {
+            justify-content: center;
+            .stat-item {
+                width: calc(33% - 29.5px) !important;
+                justify-content: center;
+            }
+        }
+
+        .stat-item {
+            display: flex;
+            background-color: $fk;
+            border-radius: $border-radius;
+            margin: 5px;
+            padding: 10px;
+            text-align: center;
+            table {
+                margin-top: auto;
+                margin-bottom: auto;
+                border-spacing: 0;
+                tr {
+                    td {
+                        border-bottom: 1px solid black !important;
+                    }
+                }
+            }
+            &.block {
+                display: block !important;
+            }
+            &.stat-2 {
+                width: 50% !important;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                background-color: $bk;
+                .stat-lower {
+                    background-color: $fk;
+                    margin: 5px;
+                    padding: 10px;
+                    width: 50%;
+                    border-radius: $border-radius;
+                    .uno-card {
+                        margin-top: 10px !important;
+                        text-align: center;
+                        margin: auto;
+                    }
+                }
+            }
+            h4 {
+                margin: 3px;
+                width: 100% !important;
+                font-weight: normal;
+            }
+
+            .divide {
+                margin-top: auto;
+                margin-bottom: auto;
+                padding: 0 20%;
+            }
+        }
+        .chat,
+        .playTime {
+            .stat-item {
+                display: block !important;
+            }
+        }
+    }
+}
 //mobile
 @media only screen and (max-width: 800px) {
     .tooltip {
@@ -789,7 +878,7 @@ button {
                 text-align: center;
                 background-color: $uno_black;
                 color: $fk;
-                border-radius: 15px 15px 0 0;
+                border-radius: $border-radius $border-radius 0 0;
                 margin: 0;
                 padding: 15px;
             }
@@ -819,7 +908,7 @@ button {
             display: flex;
             flex-wrap: wrap;
             div {
-                border-radius: 5px;
+                border-radius: $border-radius;
                 width: calc(50vw - 12px);
                 height: calc(10vh - 8px);
                 margin: 4px;
@@ -854,6 +943,26 @@ button {
     .logo {
         height: 10px !important;
         width: 100%;
+    }
+    #stats {
+        .stats {
+            .cards {
+                .stat-item {
+                    width: 100% !important;
+                    &.block {
+                        width: calc(100% - 30px) !important;
+                    }
+                    &.stat-2 {
+                        width: 100% !important;
+                    }
+                }
+            }
+            .playTime {
+                .stat-item {
+                    width: calc(100% - 30px) !important;
+                }
+            }
+        }
     }
 }
 
@@ -890,15 +999,16 @@ button {
                 text-decoration: none;
                 color: inherit;
             }
+            .active,
             a :hover {
                 font-weight: bold;
                 cursor: pointer;
             }
             a:first-child li {
-                border-radius: 5px 0 0 5px;
+                border-radius: $border-radius 0 0 $border-radius;
             }
             a:nth-last-child(2) li {
-                border-radius: 0 5px 5px 0;
+                border-radius: 0 $border-radius $border-radius 0;
                 border-width: 0;
             }
             li {
@@ -910,7 +1020,7 @@ button {
             form {
                 flex-grow: 1;
                 a li {
-                    border-radius: 5px;
+                    border-radius: $border-radius;
                     float: right;
                     border-width: 0;
                 }
@@ -929,18 +1039,18 @@ button {
             top: calc(50% - calc(30vh + 0px));
             left: calc(50% - calc(20vh + 0px));
             background-color: $bk;
-            border-radius: 15px;
+            border-radius: $border-radius;
             padding: 5px;
             text-align: center;
             h4 {
                 margin: 0;
                 background-color: $fk;
-                border-radius: 15px;
+                border-radius: $border-radius;
                 margin-bottom: 5px;
                 padding: 5px;
             }
             ul {
-                border-radius: 15px;
+                border-radius: $border-radius;
                 background-color: $fk;
                 li {
                     padding: 10px;

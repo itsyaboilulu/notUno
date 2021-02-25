@@ -27,10 +27,10 @@
                     onclick="showNav()"
                 >
                 <a href="/"><img class="logo" src="resources/img/logo.png" height="20px" ></a>
-                @if ($page != 'home')
-                    <img src="resources/img/chat.png" onclick="showChat()" height="40px" width="40px" >
+                @if ($page != 'home' && $page !='stats' && $page != 'settings')
+                    <img src="resources/img/chat.png" onclick="showChat()" height="32px" width="32px" >
                 @else
-                    <div style="width: 40px; height:40px;">&nbsp;</div>
+                    <div style="width: 23px; height:32px;">&nbsp;</div>
                 @endif
             </div>
         @else
@@ -50,6 +50,7 @@
                     </a>
                     <a href="/"><li> Home </li></a>
                     <a href="hostnew"><li> Host new game </li></a>
+                    <a href="stats"><li> Stats </li></a>
                     <a href="settings"><li> Settings </li></a>
                     <form method="POST" id='logout' action="{{ route('logout') }}">
                         @csrf
@@ -62,9 +63,10 @@
         @if ($page != 'login')
             <div id="navigation">
                 <ul>
-                    <a href="/"><li> Home </li></a>
+                    <a href="/" @if($page =='home') class="active" @endif ><li> Home </li></a>
                     <a href="hostnew"><li> Host new game </li></a>
-                    <a href="settings"><li> Settings </li></a>
+                    <a href="stats" @if($page =='stats') class="active" @endif ><li> Stats </li></a>
+                    <a href="settings" @if($page =='settings') class="active" @endif ><li> Settings </li></a>
                     <form method="POST" id='logout' action="{{ route('logout') }}">
                         @csrf
                         <a onclick="document.getElementById('logout').submit()"><li>Logout</li></a>
@@ -96,7 +98,7 @@
             }
             window.addEventListener('resize', appHeight);
             appHeight();
-            @if ($page != 'home')
+            @if ($page != 'home' && $page !='stats' && $page != 'settings')
                 function showChat (){
                     document.getElementById('chat').classList.toggle('close');
                     document.getElementById('chat').classList.toggle('open');

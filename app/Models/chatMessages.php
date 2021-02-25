@@ -276,6 +276,28 @@ class chatMessages
     }
 
     /**
+     * chat message for playing extreme 0
+     *
+     * @return boolean
+     */
+    public function extremeOne()
+    {
+        $this->newMessage($this->username() . " played an extreme 1 ");
+        return $this->newMessage("All players have drawn a card");
+    }
+
+    /**
+     * chat message for playing extreme 0
+     *
+     * @return boolean
+     */
+    public function extremeNine()
+    {
+        $this->newMessage($this->username() . " played an extreme 9");
+        return $this->newMessage("The order has been randomised");
+    }
+
+    /**
      * chat message for reverseing the game order
      *
      * @return boolean

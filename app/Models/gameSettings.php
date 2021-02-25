@@ -128,6 +128,8 @@ class gameSettings
             'extreme7'          => 0,
             'extreme4'          => 0,
             'extreme0'          => 0,
+            'extreme9'          => 0,
+            'extreme1'          => 0
         );
     }
 }
