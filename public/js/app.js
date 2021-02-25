@@ -3299,9 +3299,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'stats',
   props: ['stats', 'rep'],
-  mounted: function mounted() {
-    console.log(this.stats);
-  },
+  mounted: function mounted() {},
   computed: {
     days: function days() {
       var colors = [];
