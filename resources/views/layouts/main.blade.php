@@ -23,7 +23,7 @@
             <title>Uno - {{$page}}</title>
         @endif
         <link rel="manifest" href="resources/pwa/manifest.json">
-        <link rel="icon" href="resources/img/logo.png">
+        <link rel="icon" href="resources/pwa/maskable_icon.png">
     </head>
     <div class="header">
         @if (Agent::isMobile() && $page != 'login' )
