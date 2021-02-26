@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\chat;
+use App\Models\ckGameToMember;
 use App\Models\game;
 use App\Models\gameLeaderboard;
 use App\Models\gameToMember;
@@ -30,8 +31,9 @@ class testController extends Controller
 
     public function test()
     {
-        $order  = unserialize('a:3:{i:0;i:3;i:1;i:1;i:2;i:8;}');
-        shuffle($order);
-        echo serialize($order);
+        foreach(gameToMember::getMembers(4) as $m){
+            echo $m->username.' -> '.(new rep($m->id))->rep();
+            echo '<hr>';
+        }
     }
 }

@@ -3296,6 +3296,26 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'stats',
   props: ['stats', 'rep'],
@@ -80357,6 +80377,12 @@ var render = function() {
                     ])
                   : _vm._e(),
                 _vm._v(" "),
+                _c("tr", [
+                  _c("td", [_vm._v("Skips Played")]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(_vm.stats.plays.skip))])
+                ]),
+                _vm._v(" "),
                 _vm.stats.timeout
                   ? _c("tr", [
                       _c("td", [_vm._v(" Ran out of Time")]),
@@ -80378,6 +80404,32 @@ var render = function() {
                       _c("td", [_vm._v(_vm._s(_vm.stats.uno.failed))])
                     ])
                   : _vm._e()
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "chat" }, [
+              _c("div", { staticClass: "stat-item" }, [
+                _c("div", [
+                  _vm._v("Mirror Cards Played "),
+                  _c("br"),
+                  _vm._v(" " + _vm._s(_vm.stats.plays.mirror))
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "stat-item" }, [
+                _c("div", [
+                  _vm._v("Reputation Score "),
+                  _c("br"),
+                  _vm._v(_vm._s(_vm.rep))
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "stat-item" }, [
+                _c("div", [
+                  _vm._v("First Blood"),
+                  _c("br"),
+                  _vm._v(" " + _vm._s(_vm.stats.plays.first))
+                ])
               ])
             ]),
             _vm._v(" "),
@@ -80415,47 +80467,41 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "chat" }, [
-            _vm.stats.chat.wisper
-              ? _c("div", { staticClass: "stat-item" }, [
-                  _c("div", [
-                    _vm._v(
-                      "\n                    Sent " +
-                        _vm._s(_vm.stats.chat.sent) +
-                        " messages\n                "
-                    )
-                  ])
-                ])
-              : _vm._e(),
+            _c("div", { staticClass: "stat-item" }, [
+              _c("div", [
+                _vm._v(
+                  "\n                    Sent " +
+                    _vm._s(_vm.stats.chat.sent) +
+                    " messages\n                "
+                )
+              ])
+            ]),
             _vm._v(" "),
-            _vm.stats.chat.wisper
-              ? _c("div", { staticClass: "stat-item" }, [
-                  _c("div", [
-                    _vm._v(
-                      "\n                    Whispered another player " +
-                        _vm._s(_vm.stats.chat.wisper) +
-                        " times\n                "
-                    )
-                  ])
-                ])
-              : _vm._e(),
+            _c("div", { staticClass: "stat-item" }, [
+              _c("div", [
+                _vm._v(
+                  "\n                    Whispered another player " +
+                    _vm._s(_vm.stats.chat.wisper) +
+                    " times\n                "
+                )
+              ])
+            ]),
             _vm._v(" "),
-            _vm.stats.chat.alerts.given || _vm.stats.chat.alerts.recived
-              ? _c("div", { staticClass: "stat-item" }, [
-                  _c("div", [
-                    _vm._v(
-                      "\n                    Sent " +
-                        _vm._s(_vm.stats.chat.alerts.given) +
-                        " alerts "
-                    ),
-                    _c("br"),
-                    _vm._v(
-                      " Recived " +
-                        _vm._s(_vm.stats.chat.alerts.recived) +
-                        "\n                "
-                    )
-                  ])
-                ])
-              : _vm._e()
+            _c("div", { staticClass: "stat-item" }, [
+              _c("div", [
+                _vm._v(
+                  "\n                    Sent " +
+                    _vm._s(_vm.stats.chat.alerts.given) +
+                    " alerts "
+                ),
+                _c("br"),
+                _vm._v(
+                  " Recived " +
+                    _vm._s(_vm.stats.chat.alerts.recived) +
+                    "\n                "
+                )
+              ])
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "playTime" }, [

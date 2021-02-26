@@ -187,4 +187,14 @@ class card
         }
         return NULL;
     }
+
+    /**
+     * returns t/f if card is a damage card
+     *
+     * @return boolean
+     */
+    public function damage()
+    {
+        return in_array($this->baseCard(),array('D2','WD4','S'));
+    }
 }

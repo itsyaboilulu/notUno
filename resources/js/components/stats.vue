@@ -42,6 +42,10 @@
                             <td>Longest Reverse Streak</td>
                             <td>{{stats.plays.reverse.streak}} With {{stats.plays.reverse.with}}</td>
                         </tr>
+                        <tr >
+                            <td>Skips Played</td>
+                            <td>{{stats.plays.skip}}</td>
+                        </tr>
                         <tr v-if="stats.timeout">
                             <td> Ran out of Time</td>
                             <td>{{stats.timeout}}</td>
@@ -54,8 +58,24 @@
                             <td>Forgot To Call UNO</td>
                             <td>{{stats.uno.failed}}</td>
                         </tr>
+
                     </table>
                 </div>
+
+                <div class="chat" >
+                    <div class="stat-item" >
+                        <div >Mirror Cards Played <br> {{ stats.plays.mirror }}</div>
+                    </div>
+
+                    <div class="stat-item"  >
+                        <div >Reputation Score <br>{{ rep }}</div>
+                    </div>
+
+                    <div class="stat-item">
+                        <div>First Blood<br> {{ stats.plays.first }}</div>
+                    </div>
+                </div>
+
                 <div class="stat-item block">
                     <h4>Colors Played</h4>
                     <pieChart :labels="colors.labels" :dataset="colors.dataset" ></pieChart>
@@ -68,19 +88,19 @@
             </div>
 
             <div class="chat" >
-                <div class="stat-item" v-if="stats.chat.wisper" >
+                <div class="stat-item"  >
                     <div >
                         Sent {{ stats.chat.sent }} messages
                     </div>
                 </div>
 
-                <div class="stat-item" v-if="stats.chat.wisper" >
+                <div class="stat-item"  >
                     <div >
                         Whispered another player {{ stats.chat.wisper }} times
                     </div>
                 </div>
 
-                <div class="stat-item" v-if="stats.chat.alerts.given || stats.chat.alerts.recived" >
+                <div class="stat-item"  >
                     <div >
                         Sent {{ stats.chat.alerts.given }} alerts <br> Recived {{ stats.chat.alerts.recived }}
                     </div>

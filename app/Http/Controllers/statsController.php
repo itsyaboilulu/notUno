@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\stats;
+use App\Models\rep;
+use App\Models\users;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * collection for funtions related to user settings
@@ -20,11 +23,13 @@ class statsController extends Controller
      *
      * @return view()
      */
-    public function index()
+    public function index( Request $request)
     {
+        $rep = new rep( ( ($request->get('user'))? users::getID($request->get('user')) : Auth::id() ) );
         return view('stats',
             array(
-                'stats'=> new stats(),
+                'stats'=> $rep->pageData(),
+                'rep'  => $rep->rep(),
             )
         );
     }

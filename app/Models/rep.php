@@ -5,73 +5,87 @@ namespace App\Models;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * extends play, used fo funtions related to playing a card and its effects
+ * calculates the users repuation score
  *
- * NOT FINNISHED YET
- *
+ * @todofull score isnt fully calulted yet
  */
-class rep {
+class rep extends stats
+{
 
+    /**
+     * userid
+     *
+     * @var int
+     */
     private $id;
 
+    /**
+     * calculates the users repuation score
+     *
+     * @todofull score isnt fully calulted yet
+     */
     function __construct($id = NULL)
     {
         $this->id = ($id) ? $id : Auth::id();
+        parent::__construct($id);
     }
 
-    private $stats;
-    private function stats(){
-        if (!$this->stats){
-            $this->stats = new stats($this->id);
-        }
-        return $this->stats;
+    /**
+     * return users repulatation score
+     *
+     * @return int
+     */
+    public function rep()
+    {
+        return $this->plusRep() -  $this->minusRep();
     }
 
-    private $cards;
-    private function cards(){
-        if(!$this->cards){
-            $this->cards = new playByPlay();
-        }
-        return $this->cards;
-    }
-
-    public function rep(){
-       return $this->plusRep() -  $this->minusRep();
-    }
-
-    public function plusRep(){
-        //revrse battles, mirror cards
+    /**
+     * calculate posative repulatation score
+     *
+     * @return int
+     */
+    private function plusRep()
+    {
         return array_sum(
             array(
-                $this->stats()->gamesPlayed(),
-                $this->stats()->gamesWon(),
-                $this->stats()->calledUno()['called'],
+                $this->gamesPlayed(),
+                ($this->gamesWon() * 5),
+                $this->calledUno()['called'],
                 $this->golf()['plus'],
+                $this->mirror(),
             )
         );
     }
 
-    public function minusRep(){
-        //reverse battle loss, breaking chains, first to play damage card
-         return array_sum(
+    /**
+     * calculate negaive repulatation score
+     *
+     * @return int
+     */
+    private function minusRep()
+    {
+        //add breaking chains
+        return array_sum(
             array(
-                ($this->stats()->timeOuts()*5),
-                $this->stats()->calledUno()['failed'],
+                ($this->timeOuts() * 5),
+                $this->calledUno()['failed'],
                 $this->golf()['lost'],
+                $this->firstBlood(),
             )
         );
     }
-
 
     /**
      * returns the number of reverse battles
      *
      * @return int
      */
-    private function golf() {
+    private function golf()
+    {
         $points         = 0;
         $minus          = 0;
-        foreach ($this->stats()->cardsByGame() as $key => $g) {
+        foreach ($this->cardsByGame() as $key => $g) {
             foreach ($g as $key => $gn) {
                 for ($i = 0; $i < count($gn); $i++) {
                     $n = $gn[$i];
@@ -79,8 +93,8 @@ class rep {
                         if (substr($n->data, 1, 1) == 'R') {
                             if ($n->uid == $this->id || (isset($gn[($i + 1)]) && $gn[($i + 1)]->uid == $this->id)) {
                                 $points++;
-                                if ((isset($gn[($i + 1)]) && $gn[($i + 1)]->uid == $this->id)){
-                                    if (substr($gn[($i + 1)]->data, 1, 1) != 'R'){
+                                if ((isset($gn[($i + 1)]) && $gn[($i + 1)]->uid == $this->id)) {
+                                    if (substr($gn[($i + 1)]->data, 1, 1) != 'R') {
                                         $minus++;
                                     }
                                 }
@@ -92,8 +106,7 @@ class rep {
         }
         return [
             'plus'  => $points,
-            'lost'  => ($minus*2),
+            'lost'  => ($minus * 2),
         ];
     }
-
 }

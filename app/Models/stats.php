@@ -7,13 +7,25 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 /**
- * NOT FINNISHED YET
+ * display given players stats
+ *
+ * @param int $id userid
  */
 class stats
 {
 
+    /**
+     * user id
+     *
+     * @var int
+     */
     private $id;
 
+    /**
+     * display given players stats
+     *
+     * @param int $id userid
+     */
     function __construct($id = NULL)
     {
         $this->id = ($id) ? $id : Auth::id();
@@ -31,7 +43,7 @@ class stats
      *
      * @return object
      */
-    private function cards()
+    protected function cards()
     {
         if (!$this->cards) {
             $this->cards = playByPlay::where('uid', $this->id)->get();
@@ -48,7 +60,7 @@ class stats
      *
      * @return array
      */
-    public function cardsByGame($gid = NULL, $game_no = NULL)
+    protected function cardsByGame($gid = NULL, $game_no = NULL)
     {
         if (!$this->cardByGame) {
             $games = [];
@@ -84,7 +96,7 @@ class stats
      *
      * @var object
      */
-    private function chat()
+    protected function chat()
     {
         if (!$this->chat) {
             $this->chat = DB::select('SELECT gid, uid, message, target FROM chat c WHERE uid = ? OR target = ? OR uid = 0', [$this->id, $this->id]);
@@ -103,7 +115,7 @@ class stats
      *
      * @return object
      */
-    private function leaderboards()
+    protected function leaderboards()
     {
         if (!$this->leaderboards) {
             $sql = "SELECT l.gid, sum(l.wins) as wins,
@@ -151,6 +163,9 @@ class stats
                 ],
                 'plays'         => [
                     'reverse'   => $this->longestGolf(),
+                    'mirror'    => $this->mirror(),
+                    'skip'      => $this->skips(),
+                    'first'     => $this->firstBlood(),
                 ]
 
             );
@@ -164,7 +179,7 @@ class stats
      *
      * @return array
      */
-    private function cardsPlayed()
+    protected function cardsPlayed()
     {
         $ret = [];
         foreach ($this->cards() as $c) {
@@ -175,12 +190,13 @@ class stats
         return $ret;
     }
 
+
     /**
      * returns the users most played card
      *
      * @return string
      */
-    public function favCard()
+    protected function favCard()
     {
         $ret = array();
         foreach ($this->cardsPlayed() as $c) {
@@ -197,7 +213,7 @@ class stats
      *
      * @return int
      */
-    public function cardsPlayedCount()
+    protected function cardsPlayedCount()
     {
         return count($this->cardsPlayed());
     }
@@ -207,7 +223,7 @@ class stats
      *
      * @return int
      */
-    public function cardsDrawn()
+    protected function cardsDrawn()
     {
         $count = 0;
         foreach ($this->cards() as $c) {
@@ -223,7 +239,7 @@ class stats
      *
      * @return array
      */
-    public function colorBreakdown()
+    protected function colorBreakdown()
     {
         $colors = array('R' => 0, 'G' => 0, 'B' => 0, 'Y' => 0);
         foreach ($this->cardsPlayed() as $c) {
@@ -235,7 +251,7 @@ class stats
         return $ret;
     }
 
-    public function specialCards()
+    protected function specialCards()
     {
         $arr = array('D2' => 0, 'WD4' => 0, 'R' => 0, 'S' => 0, 'W' => 0);
         foreach ($this->cardsPlayed() as $c) {
@@ -251,7 +267,7 @@ class stats
      *
      * @return int
      */
-    public function gamesPlayed()
+    protected function gamesPlayed()
     {
         $p = 0;
         foreach ($this->leaderboards() as $l) {
@@ -265,7 +281,7 @@ class stats
      *
      * @return int
      */
-    public function gamesWon()
+    protected function gamesWon()
     {
         $p = 0;
         foreach ($this->leaderboards() as $l) {
@@ -279,7 +295,7 @@ class stats
      *
      * @return array
      */
-    public function calledUno()
+    protected function calledUno()
     {
         $uno = array('called' => 0, 'failed' => 0);
         foreach ($this->cards() as $c) {
@@ -299,7 +315,7 @@ class stats
      *
      * @return int
      */
-    public function timeOuts()
+    protected function timeOuts()
     {
         $ret = 0;
         foreach ($this->cards() as $c) {
@@ -402,7 +418,7 @@ class stats
      *
      * @return void
      */
-    public function longestGolf()
+    protected function longestGolf()
     {
         $maxstreak      = 1;
         $streak         = 0;
@@ -435,5 +451,76 @@ class stats
             }
         }
         return ['streak' => $maxstreak, 'with' => users::getName($with)];
+    }
+
+    /**
+     * returns the number of skips the user has played
+     *
+     * @return int
+     */
+    protected function skips()
+    {
+        $skip = 0;
+        foreach ($this->cardsPlayed() as $c) {
+            if (substr($c, 1, 1) == 'S') {
+                $skip++;
+            }
+        }
+        return $skip;
+    }
+
+    /**
+     * returns the number of mirror cards (playing same card) the user has played
+     *
+     * @return int
+     */
+    protected function mirror()
+    {
+        $mirror = 0;
+        foreach ($this->cardsByGame() as $key => $p) {
+            foreach ($p as $key => $c) {
+                for ($i = 1; $i < count($c); $i++) {
+                    if (($c[$i]->uid == $this->id)
+                        && ($c[$i]->action == 'play' && $c[$i - 1]->action == 'play')
+                        && ($c[$i]->data === $c[$i - 1]->data)
+                    ) {
+                        $mirror++;
+                    }
+                }
+            }
+        }
+        return $mirror;
+    }
+
+    /**
+     * returns the number of games user was first to play a damage card
+     *
+     * @return int
+     */
+    protected function firstBlood()
+    {
+        $fb = 0;
+        foreach ($this->cardsByGame() as $key => $p) {
+            foreach ($p as $key => $c) {
+                for ($i = 1; $i < count($c); $i++) {
+                    if ($c[$i]->action == 'play'){
+                        if((new card($c[$i]->data))->damage()){
+                            if ($c[$i]->uid == $this->id){
+                                $fb++;
+                            }
+                            break;
+                        }
+                    } else if ($c[$i]->action == 'draw') {
+                        if ((new card($c[$i-1]->data))->damage()) {
+                            if ($c[$i - 1]->uid == $this->id) {
+                                $fb++;
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return $fb;
     }
 }

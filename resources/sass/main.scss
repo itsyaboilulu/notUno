@@ -615,7 +615,7 @@ button {
         }
 
         .chat {
-            justify-content: center;
+            justify-content: space-between;
             .stat-item {
                 width: calc(33% - 29.5px) !important;
                 justify-content: center;
@@ -981,6 +981,7 @@ button {
     }
 }
 
+//desktop
 @media only screen and (min-width: 800px) {
     #chat {
         width: 300px !important;

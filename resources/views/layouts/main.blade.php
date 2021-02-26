@@ -17,8 +17,13 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="stylesheet" href="resources/css/main.min.css{{$cache}}" />
         @yield('head')
-        <title>Uno</title>
+        @if ($page == 'play')
+            <title>Uno - {{session('game')->name}}</title>
+        @else
+            <title>Uno - {{$page}}</title>
+        @endif
         <link rel="manifest" href="resources/pwa/manifest.json">
+        <link rel="icon" href="resources/img/logo.png">
     </head>
     <div class="header">
         @if (Agent::isMobile() && $page != 'login' )
