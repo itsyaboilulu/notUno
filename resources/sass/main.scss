@@ -506,10 +506,13 @@ button {
             }
         }
         .commands {
+            height: calc(80vh - 13px);
             background-color: $fk;
             padding: 6px;
             border-radius: $border-radius;
             text-align: center;
+            overflow-y: scroll;
+            overflow-x: hidden;
             ul {
                 li {
                     border-bottom: 1px solid black;
@@ -520,6 +523,21 @@ button {
                         font-size: 20px;
                         padding: 0;
                         margin: 6px;
+                    }
+                    .card-help {
+                        display: flex;
+                        border-bottom: 1px solid black;
+                        align-items: center;
+                        .card {
+                            width: 50px;
+                            padding-right: 10px;
+                            img {
+                                width: 50px;
+                            }
+                        }
+                    }
+                    .card-help:last-child {
+                        border-bottom: 0px solid black;
                     }
                 }
                 li:last-child {

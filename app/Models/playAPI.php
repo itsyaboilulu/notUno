@@ -86,8 +86,9 @@ class playAPI extends play
                     return true;
                 }
             }
+            return FALSE;
         }
-        return FALSE;
+        return TRUE;
     }
 
     /**

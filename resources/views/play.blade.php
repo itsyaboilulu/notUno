@@ -18,6 +18,7 @@
             v-bind:user     = "{{ json_encode(Auth::user()->username) }}"
             v-bind:password = "{{ json_encode( $game['password'] )}}"
             v-bind:pbp      = "{{ json_encode( $playbyplay ) }}"
+            v-bind:settings = "{{ json_encode( $settings ) }}"
         ></chat>
     </div>
 

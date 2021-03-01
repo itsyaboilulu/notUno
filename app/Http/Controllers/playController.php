@@ -92,11 +92,12 @@ class playController extends Controller
 
             return (session('game')->started) ?
                 view('play', array(
-                    'play'      => $play,
-                    'game'      => session('game')->gameData(),
-                    'mhand'     => gameToMember::handCounts(session('game')->id),
-                    'chat'      => chat::chatlog(session('game')->id),
-                    'playbyplay' => playByPlay::plays(session('game')->id, session('game')->game_no),
+                    'play'          => $play,
+                    'game'          => session('game')->gameData(),
+                    'mhand'         => gameToMember::handCounts(session('game')->id),
+                    'chat'          => chat::chatlog(session('game')->id),
+                    'playbyplay'    => playByPlay::plays(session('game')->id, session('game')->game_no),
+                    'settings'      => (new gameSettings(session('game')->id))->settings(),
                 )) :
                 redirect('lobby?game=' . session('game')->password);
         }

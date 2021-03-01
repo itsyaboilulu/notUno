@@ -1898,11 +1898,125 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'chat',
-  props: ['logs', 'user', 'password', 'pbp'],
+  props: ['logs', 'user', 'password', 'pbp', 'settings'],
   data: function data() {
     return {
       close: 'close',
@@ -78381,7 +78495,7 @@ var render = function() {
               }
             }
           },
-          [_vm._v("Commands")]
+          [_vm._v("Help")]
         )
       ]),
       _vm._v(" "),
@@ -78491,8 +78605,8 @@ var render = function() {
                     ? _c("td", [_vm._v("draw * " + _vm._s(p.data))])
                     : _vm._e(),
                   _vm._v(" "),
-                  p.action == "uno" && p.data == 1
-                    ? _c("td", [_vm._v("uno!!")])
+                  p.action == "uno" && p.data
+                    ? _c("td", [_vm._v("UNO!!")])
                     : _vm._e(),
                   _vm._v(" "),
                   p.action == "timeout"
@@ -78506,7 +78620,146 @@ var render = function() {
         : _vm._e(),
       _vm._v(" "),
       _vm.showhelp
-        ? _c("div", { staticClass: "commands" }, [_vm._m(0)])
+        ? _c("div", { staticClass: "commands" }, [
+            _c("ul", [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("li", [
+                _vm._m(1),
+                _vm._v(" "),
+                _vm._m(2),
+                _vm._v(" "),
+                _vm._m(3),
+                _vm._v(" "),
+                _vm._m(4),
+                _vm._v(" "),
+                _vm._m(5),
+                _vm._v(" "),
+                _vm.settings.extreme0
+                  ? _c("div", { staticClass: "card-help" }, [
+                      _vm._m(6),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "\n                            Every player gives there hand to the player next to them\n                        "
+                        )
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.settings.extreme1
+                  ? _c("div", { staticClass: "card-help" }, [
+                      _vm._m(7),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "\n                            Every other player picks up 1 card\n                        "
+                        )
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.settings.extreme2
+                  ? _c("div", { staticClass: "card-help" }, [
+                      _vm._m(8),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "\n                            Next player loses a random card from there hand\n                        "
+                        )
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.settings.extreme4
+                  ? _c("div", { staticClass: "card-help" }, [
+                      _vm._m(9),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "\n                            the next player draws cards until they can play\n                        "
+                        )
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.settings.extreme6
+                  ? _c("div", { staticClass: "card-help" }, [
+                      _vm._m(10),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "\n                            When played has a random effect, some are good, some are bad\n                        "
+                        )
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.settings.extreme7
+                  ? _c("div", { staticClass: "card-help" }, [
+                      _vm._m(11),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "\n                            choose another player to swap hands with\n                        "
+                        )
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.settings.extreme9
+                  ? _c("div", { staticClass: "card-help" }, [
+                      _vm._m(12),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "\n                            randomise the order of play\n                        "
+                        )
+                      ])
+                    ])
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _vm._m(13),
+              _vm._v(" "),
+              _vm.settings.allowTimeouts
+                ? _c("li", [
+                    _c("h4", [_vm._v("Allow Timeouts")]),
+                    _vm._v(
+                      "\n                    Not playing in " +
+                        _vm._s(_vm.settings.timeoutsTime) +
+                        " mins caused the current player to draw " +
+                        _vm._s(_vm.settings.timeoutsDraw) +
+                        " cards\n                "
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.settings.stack
+                ? _c("li", [
+                    _c("h4", [_vm._v("Stacking")]),
+                    _vm._v(
+                      "\n                    Allows players to chain/stack draw 2's and draw 4's\n                "
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.settings.drawUntilPlay
+                ? _c("li", [
+                    _c("h4", [_vm._v("Draw Until Play")]),
+                    _vm._v(
+                      "\n                    Drawing no longer ends the turn, players will have to draw cards until they can play\n                "
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm._m(14),
+              _vm._v(" "),
+              _vm._m(15),
+              _vm._v(" "),
+              _vm._m(16)
+            ])
+          ])
         : _vm._e()
     ])
   ])
@@ -78516,24 +78769,178 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("ul", [
-      _c("li", [
-        _c("h4", [_vm._v("@alert")]),
-        _vm._v(
-          "\n                    If the current player has notifications turned on they\n                    will recieve an alert"
-        ),
-        _c("br"),
-        _vm._v(
-          "\n                    ( limited 1 per 5 mins )\n                "
-        )
+    return _c("li", [_c("h4", [_c("strong", [_vm._v("Cards")])])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-help" }, [
+      _c("div", { staticClass: "card" }, [
+        _c("img", { attrs: { src: "resources/img/cards/S.png" } })
       ]),
       _vm._v(" "),
-      _c("li", [
-        _c("h4", [_vm._v("@wisper username message ")]),
+      _c("p", [
         _vm._v(
-          "\n                    Send a priave message to the given username\n                "
+          "\n                            Skips the next players turn\n                        "
         )
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-help" }, [
+      _c("div", { staticClass: "card" }, [
+        _c("img", { attrs: { src: "resources/img/cards/R.png" } })
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "\n                            Reverses the order of play\n                        "
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-help" }, [
+      _c("div", { staticClass: "card" }, [
+        _c("img", { attrs: { src: "resources/img/cards/D2.png" } })
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "\n                            next player draws 2 cards\n                        "
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-help" }, [
+      _c("div", { staticClass: "card" }, [
+        _c("img", { attrs: { src: "resources/img/cards/W.png" } })
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "\n                                Set the color to either red, green, blue or yelllow\n                        "
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-help" }, [
+      _c("div", { staticClass: "card" }, [
+        _c("img", { attrs: { src: "resources/img/cards/WD4.png" } })
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "\n                            Set the color to either red, green, blue or yelllow and next player draws 4 cards\n                        "
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card" }, [
+      _c("img", { attrs: { src: "resources/img/cards/0.png" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card" }, [
+      _c("img", { attrs: { src: "resources/img/cards/1.png" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card" }, [
+      _c("img", { attrs: { src: "resources/img/cards/2.png" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card" }, [
+      _c("img", { attrs: { src: "resources/img/cards/4.png" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card" }, [
+      _c("img", { attrs: { src: "resources/img/cards/6.png" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card" }, [
+      _c("img", { attrs: { src: "resources/img/cards/7.png" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card" }, [
+      _c("img", { attrs: { src: "resources/img/cards/9.png" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [_c("h4", [_c("strong", [_vm._v("Settings")])])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [_c("h4", [_c("strong", [_vm._v("Chat commands")])])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("h4", [_vm._v("@alert")]),
+      _vm._v(
+        "\n                    If the current player has notifications turned on they\n                    will recieve an alert"
+      ),
+      _c("br"),
+      _vm._v("\n                    ( limited 1 per 5 mins )\n                ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("h4", [_vm._v("@wisper username message ")]),
+      _vm._v(
+        "\n                    Send a priave message to the given username\n                "
+      )
     ])
   }
 ]
