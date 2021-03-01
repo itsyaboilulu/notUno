@@ -11,6 +11,23 @@ class useful
 {
 
     /**
+     * remove a specific item from an array
+     *
+     * @param array $arr
+     * @param mixed $item
+     * @return array
+     */
+    public static function removeFromArray($arr,$item){
+        $ret = [];
+        foreach($arr as $a){
+            if ($a != $item){
+                $ret[] = $a;
+            }
+        }
+        return $ret;
+    }
+
+    /**
      * convert uriEncoded data into array
      *
      * @var string $data uriEncoded data
@@ -38,7 +55,7 @@ class useful
      */
     public static function strToArray($data)
     {
-        return (is_array($data)) ? explode(',', $data) : NULL;
+        return (!is_array($data)) ? explode(',', $data) : NULL;
     }
 
 

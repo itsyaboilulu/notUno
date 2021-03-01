@@ -175,7 +175,7 @@
                 message     :'',
                 log         :[1,2,3],
                 plays       :[1,2,3],
-                checkTime   :10,
+                checkTime   :5,
                 showchat    :1,
                 showpbp     :0,
                 showhelp    :0,

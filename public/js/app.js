@@ -2023,7 +2023,7 @@ __webpack_require__.r(__webpack_exports__);
       message: '',
       log: [1, 2, 3],
       plays: [1, 2, 3],
-      checkTime: 10,
+      checkTime: 5,
       showchat: 1,
       showpbp: 0,
       showhelp: 0,
@@ -2854,6 +2854,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -80005,6 +80025,58 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
+                value: _vm.setting.extreme2,
+                expression: "setting.extreme2"
+              }
+            ],
+            attrs: { type: "checkbox", name: "extreme2" },
+            domProps: {
+              checked: Array.isArray(_vm.setting.extreme2)
+                ? _vm._i(_vm.setting.extreme2, null) > -1
+                : _vm.setting.extreme2
+            },
+            on: {
+              change: [
+                function($event) {
+                  var $$a = _vm.setting.extreme2,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = null,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 &&
+                        _vm.$set(_vm.setting, "extreme2", $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        _vm.$set(
+                          _vm.setting,
+                          "extreme2",
+                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                        )
+                    }
+                  } else {
+                    _vm.$set(_vm.setting, "extreme2", $$c)
+                  }
+                },
+                function($event) {
+                  return _vm.update($event)
+                }
+              ]
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("tr", [
+        _vm._m(8),
+        _vm._v(" "),
+        _c("td", [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
                 value: _vm.setting.extreme4,
                 expression: "setting.extreme4"
               }
@@ -80049,7 +80121,59 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("tr", [
-        _vm._m(8),
+        _vm._m(9),
+        _vm._v(" "),
+        _c("td", [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.setting.extreme6,
+                expression: "setting.extreme6"
+              }
+            ],
+            attrs: { type: "checkbox", name: "extreme6" },
+            domProps: {
+              checked: Array.isArray(_vm.setting.extreme6)
+                ? _vm._i(_vm.setting.extreme6, null) > -1
+                : _vm.setting.extreme6
+            },
+            on: {
+              change: [
+                function($event) {
+                  var $$a = _vm.setting.extreme6,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = null,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 &&
+                        _vm.$set(_vm.setting, "extreme6", $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        _vm.$set(
+                          _vm.setting,
+                          "extreme6",
+                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                        )
+                    }
+                  } else {
+                    _vm.$set(_vm.setting, "extreme6", $$c)
+                  }
+                },
+                function($event) {
+                  return _vm.update($event)
+                }
+              ]
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("tr", [
+        _vm._m(10),
         _vm._v(" "),
         _c("td", [
           _c("input", {
@@ -80101,7 +80225,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("tr", [
-        _vm._m(9),
+        _vm._m(11),
         _vm._v(" "),
         _c("td", [
           _c("input", {
@@ -80280,12 +80404,47 @@ var staticRenderFns = [
           staticClass: "tooltip",
           attrs: {
             title:
+              "playing a 2 will cause the next player to lose a random card from there hand"
+          }
+        },
+        [_vm._v("?")]
+      ),
+      _vm._v("\n                special 2's\n            ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c(
+        "button",
+        {
+          staticClass: "tooltip",
+          attrs: {
+            title:
               "playing a 4 causes the next player draws cards until they can play"
           }
         },
         [_vm._v("?")]
       ),
       _vm._v("\n                special 4's\n            ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c(
+        "button",
+        {
+          staticClass: "tooltip",
+          attrs: { title: "playing a 6 has a ranome effect, good or bad" }
+        },
+        [_vm._v("?")]
+      ),
+      _vm._v("\n                special 6's\n            ")
     ])
   },
   function() {

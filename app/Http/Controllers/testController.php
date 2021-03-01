@@ -10,8 +10,8 @@ use App\Models\gameToMember;
 use App\Models\playByPlay;
 use App\Models\pushPad;
 use App\Models\rep;
-use App\Models\stats;
-use App\Models\useful;
+use App\Models\deck;
+use App\Models\hand;
 use App\Models\users;
 use App\Models\userSettings;
 use Illuminate\Http\Request;
@@ -29,11 +29,14 @@ class testController extends Controller
         $this->middleware('auth');
     }
 
+    protected function game()
+    {
+        return game::find(22);
+    }
+
+
     public function test()
     {
-        foreach(gameToMember::getMembers(4) as $m){
-            echo $m->username.' -> '.(new rep($m->id))->rep();
-            echo '<hr>';
-        }
+        return unserialize($this->game()->order)[array_rand(unserialize($this->game()->order), 1)];
     }
 }

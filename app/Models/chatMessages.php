@@ -12,15 +12,16 @@ use PhpParser\Node\Expr\FuncCall;
 class chatMessages
 {
     private $gid;
-
+    private $uid;
     /**
      * store for pre-deturmed chat messages
      *
      * @param int $gid game id
      */
-    function __construct($gid)
+    function __construct($gid,$uid=NUll)
     {
         $this->gid = $gid;
+        $this->uid = ($uid)?$uid:Auth::id();
     }
 
     /**
@@ -61,7 +62,7 @@ class chatMessages
      */
     private function username($id = NULL)
     {
-        return ($id) ? users::getName($id) : Auth::user()->username;
+        return ($id) ? users::getName($id) : users::getName($this->uid);
     }
 
     /**
@@ -306,4 +307,49 @@ class chatMessages
     {
         return $this->newMessage("Order has been reversed");
     }
+
+    /**
+     * chat message for playing extreme 0
+     *
+     * @return boolean
+     */
+    public function extremeTwo($user)
+    {
+        $this->newMessage($this->username() . " played an extreme 2");
+        return $this->newMessage($this->username( $user ) . " lost a card");
+    }
+
+    /**
+     * chat message for playing extreme 0
+     *
+     * @return boolean
+     */
+    public function extremeSix($rand,$data=NULL)
+    {
+        $this->newMessage($this->username() . " played an extreme 6");
+        if ($rand == 1000) {
+            return $this->newMessage($this->username() . " has 1 card left");
+        } else if ($rand > 888) {
+            return $this->newMessage("Played card has changed");
+        } else if ($rand > 777) {
+            return $this->newMessage("The order has been randomised");
+        } else if ($rand > 666) {
+            return $this->newMessage("$data players have been skipped");
+        } else if ($rand > 555) {
+            $this->reverseOrder();
+        } else if ($rand > 444) {
+            return $this->draw($data);
+        } else if ($rand > 333) {
+            return $this->newMessage($this->username() . " lost $data cards");
+        } else if ($rand > 222) {
+            return $this->newMessage($this->username() . " hand was randomised");
+        } else if ($rand > 111) {
+            return $this->newMessage($this->username() . " swapped hands with " . $this->username($data));
+        } else {
+            return $this->newMessage($this->username() . " drew a new hand");
+        }
+
+
+    }
+
 }

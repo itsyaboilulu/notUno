@@ -113,9 +113,10 @@ class playPlayCard extends play
      *
      * @return boolean
      */
-    private function checkStack(){
-        if ($this->settings('stack')){
-            if (!in_array($this->card->isSpecial(),array('D2','WD4'))){
+    private function checkStack()
+    {
+        if ($this->settings('stack')) {
+            if (!in_array($this->card->isSpecial(), array('D2', 'WD4'))) {
                 return $this->resolveStack($this->game()->turn);
             }
         }
@@ -164,7 +165,7 @@ class playPlayCard extends play
      *
      * @return boolean
      */
-    private function resolveStack($turn=NULL)
+    private function resolveStack($turn = NULL)
     {
         if (isset(unserialize($this->game()->game_data)['stack'])) {
             $this->drawCard(
@@ -180,10 +181,10 @@ class playPlayCard extends play
         return;
     }
 
-/**
- * extreme cards
- * @todo getting to big move to another model
- */
+    /**
+     * extreme cards
+     * @todo getting to big move to another model
+     */
 
     /**
      * check and act upon the playing of special cards
@@ -207,17 +208,101 @@ class playPlayCard extends play
                     NULL;
             case '1':
                 return ($this->settings('extreme1')) ?
-                $this->extremeOne() :
+                    $this->extremeOne() :
                     NULL;
             case '9':
                 return ($this->settings('extreme9')) ?
-                $this->extremeNine() :
+                    $this->extremeNine() :
+                    NULL;
+            case '2':
+                return ($this->settings('extreme2')) ?
+                    $this->extremeTwo() :
+                    NULL;
+            case '6':
+                return ($this->settings('extreme6')) ?
+                    $this->extremeSix() :
                     NULL;
             default:
                 return;
         }
     }
 
+    /**
+     * handle the playing of a extreme 6 (random card effect applied)
+     *
+     * @return boolean
+     */
+    private function extremeSix()
+    {
+        //roll to deturmin effect
+        $rand = rand(0, 1001);
+        $data = NULL;
+        if ($rand == 1000) {
+            //set hand to uno
+            $this->gameMember()->hand = serialize(unserialize($this->gameMember()->hand)[array_rand($this->gameMember()->hand())]);
+            $this->gameMember()->save();
+        } else if ($rand > 888) {
+            //change current card
+            $data = $this->deck()->draw(TRUE);
+            $this->game()->current_card = $data;
+        } else if ($rand > 777) {
+            $this->extremeNine(FALSE);
+        } else if ($rand > 666) {
+            //skip random players
+            $data = rand(0, 6);
+            for ($i = 1; $i < $data; $i++) {
+                $this->nextTurn();
+            }
+        } else if ($rand > 555) {
+            //reverse
+            $this->reverseOrder();
+        } else if ($rand > 444) {
+            //draw random number of cards
+            $data = rand(1, 11);
+            $this->drawCard($this->uid, $data);
+        } else if ($rand > 333) {
+            //remove random cards
+            $hand = $this->gameMember()->hand();
+            $data = rand(1, (count($hand)-1));
+            for ($i = 0; $i < $data; $i++) {
+                $hand = useful::removeFromArray($hand, $hand[array_rand($hand,1)]);
+            }
+            $this->gameMember()->hand = serialize($hand);
+            $this->gameMember()->save();
+        } else if ($rand > 222) {
+            //randomise hand
+            for ($i = 0; $i < count($this->gameMember()->hand()); $i++) {
+                $new[]  = $this->deck()->draw();
+            }
+            $this->gameMember()->hand = serialize($new);
+            $this->gameMember()->save();
+        } else if ($rand > 111) {
+            //chnage hands with a ranom player
+            $data = unserialize($this->game()->order)[array_rand( unserialize($this->game()->order),1)];
+            $this->extra = users::getName($data);
+            $this->extremeSeven(FALSE);
+        } else {
+            //reset hand
+            $this->gameMember()->hand = serialize((new hand(NULL, $this->deck()->deck()))->newHand());
+            $this->gameMember()->save();
+        }
+        $this->chat()->extremeSix($rand, $data);
+        return FALSE;
+    }
+
+    /**
+     * handle the playing of a extreme 2
+     *
+     * @return boolean
+     */
+    private function extremeTwo()
+    {
+        $target = new ckGameToMember($this->game()->id, $this->checkNextTurn());
+        $target->hand = serialize(useful::removeFromArray(unserialize($target->hand), unserialize($target->hand)[array_rand(unserialize($target->hand))]));
+        $target->save();
+        $this->chat()->extremeTwo( $this->checkNextTurn() );
+        return FALSE;
+    }
 
     /**
      * handle the playing of a extreme 4
@@ -226,9 +311,8 @@ class playPlayCard extends play
      */
     private function extremeFour()
     {
-        $deck = new deck(unserialize($this->game()->deck));
         while (true) {
-            $d = $deck->draw();
+            $d = $this->deck()->draw();
             $draw[] = $d;
             if ($this->card->canBePlayed($d)) {
                 break;
@@ -248,7 +332,7 @@ class playPlayCard extends play
      *
      * @return void
      */
-    private function extremeSeven()
+    private function extremeSeven($chat = true)
     {
         $target = new ckGameToMember($this->game()->id, users::getId($this->extra));
         $curr   = $this->gameMember();
@@ -261,8 +345,9 @@ class playPlayCard extends play
         $curr->save();
         $target->save();
 
-        $this->chat()->extremeSeven($target->uid);
-
+        if ($chat) {
+            $this->chat()->extremeSeven($target->uid);
+        }
         return FALSE;
     }
 
@@ -298,9 +383,9 @@ class playPlayCard extends play
      */
     private function extremeOne()
     {
-        foreach (unserialize($this->game()->order) as $u){
-            if ($u != $this->uid){
-                $this->drawCard($u,1);
+        foreach (unserialize($this->game()->order) as $u) {
+            if ($u != $this->uid) {
+                $this->drawCard($u, 1);
                 $this->playByPlay()->draw(1, $u);
             }
         }
@@ -313,13 +398,15 @@ class playPlayCard extends play
      *
      * @return void
      */
-    private function extremeNine()
+    private function extremeNine($chat = true)
     {
         $order = unserialize($this->game()->order);
         shuffle($order);
         $this->game()->order = serialize($order);
         $this->game()->save();
-        $this->chat()->extremeNine();
+        if ($chat) {
+            $this->chat()->extremeNine();
+        }
         return FALSE;
     }
 }

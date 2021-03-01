@@ -68,6 +68,25 @@ class play
     }
 
     /**
+     * returns related deck object
+     *
+     * @var object
+     */
+    protected $deck;
+
+    /**
+     * returns related deck object
+     *
+     * @var object
+     */
+    protected function deck(){
+        if (!$this->deck){
+            $this->deck = new deck(unserialize($this->game()->deck));
+        }
+        return $this->deck;
+    }
+
+    /**
      * returns the game settings, gets specific setting if specified
      *
      * @param string $s
@@ -108,7 +127,7 @@ class play
     public function chat()
     {
         if (!$this->chat) {
-            $this->chat = new chatMessages($this->id);
+            $this->chat = new chatMessages($this->id,$this->uid);
         }
         return $this->chat;
     }
@@ -195,11 +214,10 @@ class play
      */
     public function drawCard($target, $no = 1)
     {
-        $deck   = new deck(unserialize($this->game()->deck));
         $gtm    = new ckGameToMember($this->id, $target);
         $this->playByPlay()->draw($no, $target);
         for ($i = 0; $i < ($no); $i++) {
-            $gtm->addCard($deck->draw());
+            $gtm->addCard($this->deck()->draw());
         }
         return TRUE;
     }

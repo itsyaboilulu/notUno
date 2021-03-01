@@ -140,7 +140,7 @@ class playController extends Controller
         $game = game::gameFromPassword($request->get('password'));
         if ($game && !$game->started && $game->isAdmin()) {
             $game->name = $request->get('name', $game->name);
-            $game->deck = serialize((new deck(useful::strToArray($request->get('deck'))))->deck());
+            $game->deck = serialize( ( new deck( useful::strToArray( $request->get( 'deck' ) ) ) )->deck());
             $game->startGame(useful::uriDecode($request->get('settings')));
         }
 

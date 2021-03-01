@@ -83,12 +83,32 @@
             </tr>
             <tr>
                 <td>
+                    <button class="tooltip" title="playing a 2 will cause the next player to lose a random card from there hand">?</button>
+                    special 2's
+                </td>
+                <td>
+                    <input  v-on:change='update($event)' type="checkbox" v-model='setting.extreme2'
+                        name="extreme2" >
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <button class="tooltip" title="playing a 4 causes the next player draws cards until they can play">?</button>
                     special 4's
                 </td>
                 <td>
                     <input  v-on:change='update($event)' type="checkbox" v-model='setting.extreme4'
                         name="extreme4" >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="tooltip" title="playing a 6 has a ranome effect, good or bad">?</button>
+                    special 6's
+                </td>
+                <td>
+                    <input  v-on:change='update($event)' type="checkbox" v-model='setting.extreme6'
+                        name="extreme6" >
                 </td>
             </tr>
             <tr>
