@@ -7,7 +7,7 @@
                         Uno penalty
                     </td>
                 <td>
-                    <input v-on:change='update($event)' type="number" min="1" step="1" v-model='setting.unoDrawPenalty' name="unoDrawPenalty" >
+                    <input v-on:change='update($event)' type="number" min="1" step="1" max="10" v-model='setting.unoDrawPenalty' name="unoDrawPenalty" >
                 </td>
             </tr>
             <tr>
@@ -46,7 +46,7 @@
                 </td>
                 <td>
                     <input  v-on:change='update($event)' type="number" v-model='setting.timeoutsTime'
-                        name="timeoutsTime" min="5" step="5" >
+                        name="timeoutsTime" min="5" step="5" max="1440" >
                 </td>
             </tr>
             <tr v-if="setting.allowTimeouts">
@@ -55,7 +55,7 @@
                 </td>
                 <td>
                     <input  v-on:change='update($event)' type="number" v-model='setting.timeoutsDraw'
-                        name="timeoutsDraw" min="1" step="1" >
+                        name="timeoutsDraw" min="1" step="1" max="10" >
                 </td>
             </tr>
             <tr>

@@ -92,7 +92,7 @@ class playPlayCard extends play
      */
     private function special()
     {
-
+        $this->checkStack();
         switch ($this->card->isSpecial()) {
             case 'S':
                 return TRUE;
@@ -106,6 +106,20 @@ class playPlayCard extends play
             default:
                 return $this->extremeCards();
         }
+    }
+
+    /**
+     * check if active stack, and resolve if stack is ignored
+     *
+     * @return boolean
+     */
+    private function checkStack(){
+        if ($this->settings('stack')){
+            if (!in_array($this->card->isSpecial(),array('D2','WD4'))){
+                return $this->resolveStack($this->game()->turn);
+            }
+        }
+        return FALSE;
     }
 
     /**
@@ -150,21 +164,26 @@ class playPlayCard extends play
      *
      * @return boolean
      */
-    private function resolveStack()
+    private function resolveStack($turn=NULL)
     {
         if (isset(unserialize($this->game()->game_data)['stack'])) {
             $this->drawCard(
-                $this->checkNextTurn(),
+                (($turn) ? $turn : $this->checkNextTurn()),
                 (unserialize($this->game()->game_data)['stack']['draw'] + $this->card->drawAmount())
             );
             $this->chat()->toDraw(
-                $this->checkNextTurn(),
+                (($turn) ? $turn : $this->checkNextTurn()),
                 (unserialize($this->game()->game_data)['stack']['draw'] + $this->card->drawAmount())
             );
             return $this->game()->clearStack();
         }
         return;
     }
+
+/**
+ * extreme cards
+ * @todo getting to big move to another model
+ */
 
     /**
      * check and act upon the playing of special cards
