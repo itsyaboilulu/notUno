@@ -79675,6 +79675,7 @@ var render = function() {
               type: "number",
               min: "1",
               step: "1",
+              max: "10",
               name: "unoDrawPenalty"
             },
             domProps: { value: _vm.setting.unoDrawPenalty },
@@ -79829,7 +79830,8 @@ var render = function() {
                   type: "number",
                   name: "timeoutsTime",
                   min: "5",
-                  step: "5"
+                  step: "5",
+                  max: "1440"
                 },
                 domProps: { value: _vm.setting.timeoutsTime },
                 on: {
@@ -79868,7 +79870,8 @@ var render = function() {
                   type: "number",
                   name: "timeoutsDraw",
                   min: "1",
-                  step: "1"
+                  step: "1",
+                  max: "10"
                 },
                 domProps: { value: _vm.setting.timeoutsDraw },
                 on: {
