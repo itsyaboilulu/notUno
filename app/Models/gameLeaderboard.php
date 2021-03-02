@@ -41,7 +41,7 @@ class gameLeaderboard extends Model
      */
     public static function globalLeaderBoard()
     {
-        $sql = "SELECT  u.id, u.username,
+        $sql = "SELECT u.username,
                 (
                     SELECT sum(n.wins)
                     FROM game_leaderboard n
