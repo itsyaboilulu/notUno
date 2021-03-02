@@ -55,7 +55,7 @@ class useful
      */
     public static function strToArray($data)
     {
-        return (!is_array($data)) ? explode(',', $data) : NULL;
+        return (!is_array($data) && $data != NULL) ? explode(',', $data) : NULL;
     }
 
 

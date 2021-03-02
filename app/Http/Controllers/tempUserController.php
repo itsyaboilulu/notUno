@@ -7,6 +7,7 @@ use App\Models\gameLeaderboard;
 use App\Models\gameToMember;
 use App\Models\game;
 use App\Models\unoBot;
+use App\Models\deck;
 use Illuminate\Support\Facades\Auth;
 
 /**
