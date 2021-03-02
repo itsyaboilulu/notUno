@@ -59,7 +59,7 @@ class gameLeaderboard extends Model
             $ret[] = (object) array(
                 'username'  => $l->username,
                 'wins'      => $l->wins,
-                'rep'       => (new rep($l->id))->rep(),
+                //'rep'       => (new rep($l->id))->rep(),
             );
         };
         return $ret;
@@ -83,7 +83,7 @@ class gameLeaderboard extends Model
             $ret[] = (object) array(
                 'username'  => $l->username,
                 'wins'      => $l->wins,
-                'rep'       => (new rep($l->id))->rep(),
+                //'rep'       => (new rep($l->id))->rep(),
             );
         };
         return $ret;
