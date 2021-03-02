@@ -32,7 +32,7 @@
                     onclick="showNav()"
                 >
                 <a href="/"><img class="logo" src="resources/img/logo.png" height="20px" ></a>
-                @if ($page != 'home' && $page !='stats' && $page != 'settings')
+                @if ($page != 'home' && $page !='stats' && $page != 'settings' && $page != 'achievement')
                     <img src="resources/img/chat.png" onclick="showChat()" height="32px" width="32px" >
                 @else
                     <div style="width: 23px; height:32px;">&nbsp;</div>
@@ -56,6 +56,7 @@
                     <a href="/"><li> Home </li></a>
                     <a href="hostnew"><li> Host new game </li></a>
                     <a href="stats"><li> Stats </li></a>
+                    <a href="achievements"><li> Achievements</li> </a>
                     <a href="settings"><li> Settings </li></a>
                     <form method="POST" id='logout' action="{{ route('logout') }}">
                         @csrf
@@ -71,6 +72,7 @@
                     <a href="/" @if($page =='home') class="active" @endif ><li> Home </li></a>
                     <a href="hostnew"><li> Host new game </li></a>
                     <a href="stats" @if($page =='stats') class="active" @endif ><li> Stats </li></a>
+                    <a href="achievements" @if($page =='achievement') class="active" @endif ><li> Achievements </li> </a>
                     <a href="settings" @if($page =='settings') class="active" @endif ><li> Settings </li></a>
                     <form method="POST" id='logout' action="{{ route('logout') }}">
                         @csrf
@@ -103,7 +105,7 @@
             }
             window.addEventListener('resize', appHeight);
             appHeight();
-            @if ($page != 'home' && $page !='stats' && $page != 'settings')
+            @if ($page != 'home' && $page !='stats' && $page != 'settings' && $page != 'achievement')
                 function showChat (){
                     document.getElementById('chat').classList.toggle('close');
                     document.getElementById('chat').classList.toggle('open');

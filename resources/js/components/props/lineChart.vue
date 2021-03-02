@@ -5,8 +5,6 @@ export default {
     extends: Line,
     props:[ 'labels','dataset'],
     mounted() {
-        console.log(this.dataset);
-        console.log(this.labels);
         this.renderChart(
             {
                 labels: this.labels,

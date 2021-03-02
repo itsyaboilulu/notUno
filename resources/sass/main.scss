@@ -999,6 +999,43 @@ button {
     }
 }
 
+#achievments {
+    height: 100%;
+    padding-bottom: 15px;
+    background-color: $bk;
+    ul {
+        background-color: $fk;
+        border-radius: $border-radius;
+        li {
+            padding: 5px;
+            display: flex;
+            border-bottom: 1px solid black;
+            align-items: center;
+            h4,
+            p {
+                margin: 0;
+            }
+            div div {
+                margin: 1px;
+                font-size: small;
+            }
+            img {
+                width: 100px;
+                height: 100px;
+                margin: 5px;
+                margin-right: 10px;
+                background-color: $fk;
+            }
+            &.achievment {
+                filter: brightness(50%);
+            }
+            &.achieved {
+                filter: brightness(100%);
+            }
+        }
+    }
+}
+
 //desktop
 @media only screen and (min-width: 800px) {
     #chat {

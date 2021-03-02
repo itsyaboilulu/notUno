@@ -41,7 +41,7 @@ class gameLeaderboard extends Model
      */
     public static function globalLeaderBoard()
     {
-        $sql = "SELECT  u.username,
+        $sql = "SELECT  u.id, u.username,
                 (
                     SELECT sum(n.wins)
                     FROM game_leaderboard n
@@ -54,7 +54,15 @@ class gameLeaderboard extends Model
             GROUP BY l.uid,u.username
             ORDER BY wins DESC
             LIMIT 10;";
-        return DB::select($sql);
+        $ret=[];
+        foreach(DB::select($sql) as $l){
+            $ret[] = (object) array(
+                'username'  => $l->username,
+                'wins'      => $l->wins,
+                'rep'       => (new rep($l->id))->rep(),
+            );
+        };
+        return $ret;
     }
 
     /**
@@ -64,12 +72,20 @@ class gameLeaderboard extends Model
      */
     public static function gameLeaderBoard($gid)
     {
-        $sql = "SELECT u.username, l.wins
+        $sql = "SELECT u.id, u.username, l.wins
             FROM game_leaderboard l
                 INNER JOIN users u
                     ON u.id = l.uid
             WHERE l.gid = $gid
             ORDER BY l.wins DESC;";
-        return DB::select($sql);
+        $ret = [];
+        foreach (DB::select($sql) as $l) {
+            $ret[] = (object) array(
+                'username'  => $l->username,
+                'wins'      => $l->wins,
+                'rep'       => (new rep($l->id))->rep(),
+            );
+        };
+        return $ret;
     }
 }

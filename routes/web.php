@@ -30,6 +30,8 @@ Route::post('lobby/remove', [App\Http\Controllers\playController::class, 'remove
 
 Route::get('/stats',        [App\Http\Controllers\statsController::class, 'index']);
 
+Route::get('/achievements', [App\Http\Controllers\achievmentController::class, 'index']);
+
 Route::get('/temp',         [App\Http\Controllers\tempUserController::class, 'tempUser']);
 
 Route::get( '/settings',    [App\Http\Controllers\settingsController::class, 'index']);

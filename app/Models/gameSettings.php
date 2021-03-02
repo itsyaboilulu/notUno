@@ -134,4 +134,28 @@ class gameSettings
             'extreme6'          => 0
         );
     }
+
+    /**
+     * returns array of standered settings
+     *
+     * @return array
+     */
+    public function maxSettings()
+    {
+        return array(
+            'unoDrawPenalty'    => 10,
+            'stack'             => 1,
+            'drawUntilPlay'     => 1,
+            'allowTimeouts'     => 1,
+            'timeoutsTime'      => 1440,
+            'timeoutsDraw'      => 10,
+            'extreme7'          => 1,
+            'extreme4'          => 1,
+            'extreme0'          => 1,
+            'extreme9'          => 1,
+            'extreme1'          => 1,
+            'extreme2'          => 1,
+            'extreme6'          => 1
+        );
+    }
 }

@@ -132,6 +132,24 @@ class stats
         return $this->leaderboards;
     }
 
+    private $pageData;
+
+    private $data;
+    /**
+     * package functions for esayer use in other models
+     *
+     * @return object
+     */
+    public function data()
+    {
+        if (!$this->data) {
+            $d = $this->pageData();
+            $d['cardsByGame'] = $this->cardsByGame();
+            $this->data = (object)  $d;
+        }
+        return $this->data;
+    }
+
     /**
      * package page data (esayer to pass data to vue)
      *
@@ -139,39 +157,44 @@ class stats
      */
     public function pageData()
     {
-        if ($this->cardsPlayed()) {
-            return array(
-                'favCard'   => $this->favCard(),
-                'colors'    => $this->colorBreakdown(),
-                'wins'      => $this->gamesWon(),
-                'played'    => $this->gamesPlayed(),
-                'cards'     => [
-                    'played'    => $this->cardsPlayedCount(),
-                    'drawn'     => $this->cardsDrawn(),
-                    'special'   => $this->specialCards()
-                ],
-                'uno'       => $this->calledUno(),
-                'timeout'   => $this->timeOuts(),
-                'chat'          => [
-                    'alerts'    => $this->alerts(),
-                    'sent'      => $this->messagesSent(),
-                    'wisper'    => $this->wispers(),
-                ],
-                'playTime'      => [
-                    'days'      => $this->activeDays(),
-                    'hours'     => $this->activeHours(),
-                ],
-                'plays'         => [
-                    'reverse'   => $this->longestGolf(),
-                    'mirror'    => $this->mirror(),
-                    'skip'      => $this->skips(),
-                    'first'     => $this->firstBlood(),
-                ]
+        if (!$this->pageData) {
+            if ($this->cardsPlayed()) {
+                $this->pageData = array(
+                    'favCard'   => $this->favCard(),
+                    'colors'    => $this->colorBreakdown(),
+                    'wins'      => $this->gamesWon(),
+                    'played'    => $this->gamesPlayed(),
+                    'cards'     => [
+                        'played'    => $this->cardsPlayedCount(),
+                        'drawn'     => $this->cardsDrawn(),
+                        'special'   => $this->specialCards()
+                    ],
+                    'uno'       => $this->calledUno(),
+                    'timeout'   => $this->timeOuts(),
+                    'chat'          => [
+                        'alerts'    => $this->alerts(),
+                        'sent'      => $this->messagesSent(),
+                        'wisper'    => $this->wispers(),
+                    ],
+                    'playTime'      => [
+                        'days'      => $this->activeDays(),
+                        'hours'     => $this->activeHours(),
+                    ],
+                    'plays'         => [
+                        'reverse'   => $this->longestGolf(),
+                        'mirror'    => $this->mirror(),
+                        'skip'      => $this->skips(),
+                        'first'     => $this->firstBlood(),
+                        'dom'       => $this->drawCause(),
+                        'perfect'   => $this->perfectGame(),
+                    ]
 
-            );
-        } else {
-            return ['cards' => ['played' => 0]];
+                );
+            } else {
+                $this->pageData = ['cards' => ['played' => 0]];
+            }
         }
+        return $this->pageData;
     }
 
     /**
@@ -503,15 +526,15 @@ class stats
         foreach ($this->cardsByGame() as $key => $p) {
             foreach ($p as $key => $c) {
                 for ($i = 1; $i < count($c); $i++) {
-                    if ($c[$i]->action == 'play'){
-                        if((new card($c[$i]->data))->damage()){
-                            if ($c[$i]->uid == $this->id){
+                    if ($c[$i]->action == 'play') {
+                        if ((new card($c[$i]->data))->damage()) {
+                            if ($c[$i]->uid == $this->id) {
                                 $fb++;
                             }
                             break;
                         }
                     } else if ($c[$i]->action == 'draw') {
-                        if ((new card($c[$i-1]->data))->damage()) {
+                        if ((new card($c[$i - 1]->data))->damage()) {
                             if ($c[$i - 1]->uid == $this->id) {
                                 $fb++;
                             }
@@ -522,5 +545,55 @@ class stats
             }
         }
         return $fb;
+    }
+
+    /**
+     * returns the most cards the user has managed to make another player draw
+     *
+     * @return integer
+     */
+    protected function drawCause()
+    {
+        $maxdraw    = 0;
+        foreach ($this->cardsByGame() as $key => $g) {
+            foreach ($g as $key => $gn) {
+                for ($i = 0; $i < count($gn); $i++) {
+                    $n = $gn[$i];
+                    if ($n->action == 'draw') {
+                        if (isset($gn[($i - 1)]) && ($gn[($i - 1)])->uid == $this->id) {
+                            $maxdraw = ($n->data > $maxdraw) ? $n->data : $maxdraw;
+                        }
+                    }
+                }
+            }
+        }
+        return $maxdraw;
+    }
+
+    /**
+     * returns number of games user has won without drawing a card
+     * @return  int
+     */
+    protected function perfectGame()
+    {
+        $won = 0;
+        $draw = FALSE;
+        foreach ($this->cardsByGame() as $key => $g) {
+            foreach ($g as $key => $gn) {
+                for ($i = 0; $i < count($gn); $i++) {
+                    $n = $gn[$i];
+                    if ($n->action == 'draw' && $n->uid == $this->id) {
+                        $draw = TRUE;
+                    }
+                    if ($n->action == 'winner' && $n->uid == $this->id) {
+                        if (!$draw) {
+                            $won++;
+                        }
+                    }
+                }
+                $draw = FALSE;
+            }
+        }
+        return $won;
     }
 }

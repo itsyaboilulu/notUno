@@ -241,6 +241,7 @@ class playPlayCard extends play
             //set hand to uno
             $this->gameMember()->hand = serialize(unserialize($this->gameMember()->hand)[array_rand($this->gameMember()->hand())]);
             $this->gameMember()->save();
+            ( new achievement($this->uid) )->checkOneInaThousand();
         } else if ($rand > 888) {
             //change current card
             $data = $this->deck()->draw(TRUE);
@@ -301,6 +302,9 @@ class playPlayCard extends play
         $target->hand = serialize(useful::removeFromArray(unserialize($target->hand), unserialize($target->hand)[array_rand(unserialize($target->hand))]));
         $target->save();
         $this->chat()->extremeTwo( $this->checkNextTurn() );
+        if (count( unserialize($target->hand)) == 0){
+            (new achievement($target->uid))->checkANiceSuprise();
+        }
         return FALSE;
     }
 
@@ -345,6 +349,9 @@ class playPlayCard extends play
         $curr->save();
         $target->save();
 
+        if (count(unserialize($target->hand)) == 0) {
+            (new achievement($target->uid))->checkANiceSuprise();
+        }
         if ($chat) {
             $this->chat()->extremeSeven($target->uid);
         }
@@ -371,6 +378,9 @@ class playPlayCard extends play
                 $d[$i]->hand = $h[($i + 1)];
             }
             $d[$i]->save();
+            if ( count(unserialize($h[$i])) == 0){
+                (new achievement($d[$i]->uid))->checkANiceSuprise();
+            }
         }
         $this->chat()->extremeZero($this->extra);
         return FALSE;

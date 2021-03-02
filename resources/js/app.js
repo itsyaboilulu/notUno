@@ -12,6 +12,7 @@ Vue.component('chat',           require('./components/chat.vue').default);
 Vue.component('leaderboard',    require('./components/leaderboard.vue').default);
 Vue.component('settings',       require('./components/settings.vue').default);
 Vue.component('stats',          require('./components/stats.vue').default);
+Vue.component('achievments',    require('./components/achievments.vue').default);
 
 Vue.component('unoCard',        require('./components/props/card.vue').default);
 Vue.component('deckBreakDown',  require('./components/props/deckBreakDown.vue').default);

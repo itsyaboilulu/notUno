@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 /**
  * calculates the users repuation score
@@ -54,6 +55,8 @@ class rep extends stats
                 $this->calledUno()['called'],
                 $this->golf()['plus'],
                 $this->mirror(),
+                ($this->perfectGame() * 5),
+                $this->achievments(),
             )
         );
     }
@@ -72,6 +75,7 @@ class rep extends stats
                 $this->calledUno()['failed'],
                 $this->golf()['lost'],
                 $this->firstBlood(),
+                $this->ignoredTimeouts(),
             )
         );
     }
@@ -108,5 +112,57 @@ class rep extends stats
             'plus'  => $points,
             'lost'  => ($minus * 2),
         ];
+    }
+
+    /**
+     * returns the number of rep points generated from achievments
+     *
+     * @return int
+     */
+    private function achievments()
+    {
+        $data = memberToAchievement::where('member_to_achievement.uid', '=', $this->id)
+            ->join('achievements', 'achievements.id', '=', 'member_to_achievement.aid')
+            ->select('achievements.rep')
+            ->get();
+        $ret = 0;
+        foreach ($data as $rep) {
+            $ret = $ret + $rep->rep;
+        }
+        return $ret;
+    }
+
+    /**
+     * returns the number of times a user has been alerted and timed out
+     *
+     * @return integer
+     */
+    public function ignoredTimeouts()
+    {
+        $points = 0;
+        foreach ($this->cardsByGame() as $key => $g) {
+            foreach ($g as $key => $gn) {
+                for ($i = 0; $i < count($gn); $i++) {
+                    $n = $gn[$i];
+                    if ($n->action == 'timeout' && $n->uid == $this->id) {
+                        $time1 = $n->created_at;
+                        $j = $i;
+                        while (true) {
+                            $j--;
+                            if ($gn[$j]->action == 'play') {
+                                $time2 = $gn[$j]->created_at;
+                                break;
+                            }
+                        }
+                        $points = $points + count(DB::select("SELECT *
+                            FROM chat
+                            WHERE message like '%alerted%'
+                                AND uid = 0
+                                AND ( created_at < ? AND created_at > ? );", [$time1, $time2]));
+                    }
+                }
+            }
+        }
+        return $points;
     }
 }

@@ -1834,6 +1834,54 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/achievments.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/achievments.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'achievments',
+  props: ['all', 'got'],
+  methods: {
+    achieved: function achieved($id) {
+      for (var j = 0; j < this.got.length; j++) {
+        if ($id == this.got[j].aid) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/chat.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/chat.vue?vue&type=script&lang=js& ***!
@@ -3020,8 +3068,6 @@ __webpack_require__.r(__webpack_exports__);
   "extends": vue_chartjs__WEBPACK_IMPORTED_MODULE_0__.Line,
   props: ['labels', 'dataset'],
   mounted: function mounted() {
-    console.log(this.dataset);
-    console.log(this.labels);
     this.renderChart({
       labels: this.labels,
       datasets: [{
@@ -3277,7 +3323,6 @@ __webpack_require__.r(__webpack_exports__);
       }, 1);
     },
     checkResponse: function checkResponse($r) {
-      console.log($r);
       this.checkNots();
     },
     checkNots: function checkNots() {
@@ -3557,6 +3602,7 @@ Vue.component('chat', __webpack_require__(/*! ./components/chat.vue */ "./resour
 Vue.component('leaderboard', __webpack_require__(/*! ./components/leaderboard.vue */ "./resources/js/components/leaderboard.vue").default);
 Vue.component('settings', __webpack_require__(/*! ./components/settings.vue */ "./resources/js/components/settings.vue").default);
 Vue.component('stats', __webpack_require__(/*! ./components/stats.vue */ "./resources/js/components/stats.vue").default);
+Vue.component('achievments', __webpack_require__(/*! ./components/achievments.vue */ "./resources/js/components/achievments.vue").default);
 Vue.component('unoCard', __webpack_require__(/*! ./components/props/card.vue */ "./resources/js/components/props/card.vue").default);
 Vue.component('deckBreakDown', __webpack_require__(/*! ./components/props/deckBreakDown.vue */ "./resources/js/components/props/deckBreakDown.vue").default);
 Vue.component('gameSettings', __webpack_require__(/*! ./components/props/gameSettings.vue */ "./resources/js/components/props/gameSettings.vue").default);
@@ -77267,6 +77313,45 @@ var reactiveProp = {
 
 /***/ }),
 
+/***/ "./resources/js/components/achievments.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/achievments.vue ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _achievments_vue_vue_type_template_id_d71a7574___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./achievments.vue?vue&type=template&id=d71a7574& */ "./resources/js/components/achievments.vue?vue&type=template&id=d71a7574&");
+/* harmony import */ var _achievments_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./achievments.vue?vue&type=script&lang=js& */ "./resources/js/components/achievments.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _achievments_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _achievments_vue_vue_type_template_id_d71a7574___WEBPACK_IMPORTED_MODULE_0__.render,
+  _achievments_vue_vue_type_template_id_d71a7574___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/achievments.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/chat.vue":
 /*!******************************************!*\
   !*** ./resources/js/components/chat.vue ***!
@@ -77929,6 +78014,22 @@ component.options.__file = "resources/js/components/stats.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/achievments.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/achievments.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_achievments_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./achievments.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/achievments.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_achievments_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/chat.vue?vue&type=script&lang=js&":
 /*!*******************************************************************!*\
   !*** ./resources/js/components/chat.vue?vue&type=script&lang=js& ***!
@@ -78214,6 +78315,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/achievments.vue?vue&type=template&id=d71a7574&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/achievments.vue?vue&type=template&id=d71a7574& ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_achievments_vue_vue_type_template_id_d71a7574___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_achievments_vue_vue_type_template_id_d71a7574___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_achievments_vue_vue_type_template_id_d71a7574___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./achievments.vue?vue&type=template&id=d71a7574& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/achievments.vue?vue&type=template&id=d71a7574&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/chat.vue?vue&type=template&id=151b8bba&":
 /*!*************************************************************************!*\
   !*** ./resources/js/components/chat.vue?vue&type=template&id=151b8bba& ***!
@@ -78448,6 +78566,69 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_stats_vue_vue_type_template_id_41549438___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_stats_vue_vue_type_template_id_41549438___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./stats.vue?vue&type=template&id=41549438& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/stats.vue?vue&type=template&id=41549438&");
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/achievments.vue?vue&type=template&id=d71a7574&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/achievments.vue?vue&type=template&id=d71a7574& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { attrs: { id: "achievments" } }, [
+    _c(
+      "ul",
+      _vm._l(_vm.all, function(l) {
+        return _c(
+          "li",
+          { key: l.id, class: { achieved: _vm.achieved(l.id), achievment: 1 } },
+          [
+            _c("img", {
+              attrs: { src: "resources/img/achievments/" + l.id + ".png" }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "desc" }, [
+              _c("h4", [_vm._v(_vm._s(l.name))]),
+              _vm._v(" "),
+              _c("p", [_vm._v(_vm._s(l.desc))]),
+              _vm._v(" "),
+              _c("div", [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s((l.achieved / l.users) * 100) +
+                    "% of players have this achievement\n                "
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _vm._v(
+                  "\n                    +" +
+                    _vm._s(l.rep) +
+                    " RP\n                "
+                )
+              ])
+            ])
+          ]
+        )
+      }),
+      0
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
 
 
 /***/ }),

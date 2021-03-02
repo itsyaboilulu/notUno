@@ -48,7 +48,6 @@ export default {
             ajax( this.checkResponse, 'api/settings', { action: 'updateNotify' }, 1 );
         },
         checkResponse($r){
-            console.log($r);
             this.checkNots();
         },
         checkNots(){

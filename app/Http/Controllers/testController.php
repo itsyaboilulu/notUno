@@ -12,8 +12,9 @@ use App\Models\pushPad;
 use App\Models\rep;
 use App\Models\deck;
 use App\Models\hand;
+use App\Models\stats;
 use App\Models\users;
-use App\Models\userSettings;
+use App\Models\achievement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -29,14 +30,10 @@ class testController extends Controller
         $this->middleware('auth');
     }
 
-    protected function game()
-    {
-        return game::find(22);
-    }
-
 
     public function test()
     {
-        return unserialize($this->game()->order)[array_rand(unserialize($this->game()->order), 1)];
+        $achievement = new achievement(Auth::id());
+        return $achievement->check();
     }
 }

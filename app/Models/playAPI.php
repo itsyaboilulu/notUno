@@ -33,7 +33,7 @@ class playAPI extends play
                 'yourturn'      => FALSE,
                 'player'        => users::getName($this->game()->turn),
                 'current_card'  => $this->game()->current_card,
-                'hand'          => $this->getHand(Auth::id()),
+                'hand'          => $this->getHand(),
                 'stack'         => $this->checkStack(),
                 'mhand'         => gameToMember::handCounts($this->id),
             ];

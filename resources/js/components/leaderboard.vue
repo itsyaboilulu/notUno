@@ -7,7 +7,7 @@
                     <td>#{{(index + 1)}}</td>
                     <td>{{l.username}}</td>
                     <td>{{l.wins}} Wins</td>
-
+                    <!-- <td>{{l.rep}} RP</td> -->
                 </tr>
             </table>
         </div>
