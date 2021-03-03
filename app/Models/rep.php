@@ -76,6 +76,7 @@ class rep extends stats
                 $this->golf()['lost'],
                 $this->firstBlood(),
                 $this->ignoredTimeouts(),
+                $this->spamming(),
             )
         );
     }
@@ -154,12 +155,36 @@ class rep extends stats
                                 break;
                             }
                         }
-                        $points = $points + count(DB::select("SELECT *
-                            FROM chat
-                            WHERE message like '%alerted%'
-                                AND uid = 0
-                                AND ( created_at < ? AND created_at > ? );", [$time1, $time2]));
+                        $count = count(DB::select("SELECT * FROM chat WHERE message like '%alerted%'
+                            AND uid = 0 AND ( created_at < ? AND created_at > ? );", [$time1, $time2]));
+                        $points = $points + (($count > 5)?5:$count);
                     }
+                }
+            }
+        }
+        return $points;
+    }
+
+    /**
+     * penalise users for spamming the chat with alerts
+     *
+     * @return int
+     */
+    private function spamming()
+    {
+        $points = 0;
+        $user = users::getName($this->id);
+        $chat = DB::select("SELECT * FROM chat WHERE message like '$user alerted%' AND uid = 0 ORDER BY id DESC");
+
+        if (count($chat)> 1){
+            $t1 = $chat[0];
+            foreach ($chat as $c) {
+                if (useful::diffMins($c->created_at, $t1->created_at) < 5
+                    && $t1->created_at != $c->created_at
+                    && $t1->message == $c->message ) {
+                    $points++;
+                } else if ($t1->created_at != $c->created_at){
+                    $t1 = $c;
                 }
             }
         }

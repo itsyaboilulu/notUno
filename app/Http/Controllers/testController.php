@@ -33,7 +33,7 @@ class testController extends Controller
 
     public function test()
     {
-        $achievement = new achievement(Auth::id());
-        return $achievement->check();
+        $achievement = new rep(Auth::id());
+        return $achievement->spamming();
     }
 }
