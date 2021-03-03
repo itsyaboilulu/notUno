@@ -78606,7 +78606,7 @@ var render = function() {
               _c("div", [
                 _vm._v(
                   "\n                    " +
-                    _vm._s((l.achieved / l.users) * 100) +
+                    _vm._s(Math.round((l.achieved / l.users) * 100)) +
                     "% of players have this achievement\n                "
                 )
               ]),

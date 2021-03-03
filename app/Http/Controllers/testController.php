@@ -12,7 +12,7 @@ use App\Models\pushPad;
 use App\Models\rep;
 use App\Models\deck;
 use App\Models\hand;
-use App\Models\stats;
+use App\Models\card;
 use App\Models\users;
 use App\Models\achievement;
 use Illuminate\Http\Request;
@@ -33,6 +33,8 @@ class testController extends Controller
 
     public function test()
     {
-
+        $hand = (new ckGameToMember(4,8))->hand();
+        $a = new achievement(8);
+        return $a->checkHand($hand);
     }
 }

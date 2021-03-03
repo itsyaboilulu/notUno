@@ -585,11 +585,14 @@ class achievement
         foreach ($this->unAchieved() as $u) {
             switch ($u->id) {
                 case 10:
-                    return $this->checkExploreTheSevenSeas($hand);
+                    $this->checkExploreTheSevenSeas($hand);
+                    break;
                 case 22:
-                    return $this->checkCentury($hand);
+                    $this->checkCentury($hand);
+                    break;
                 case 23:
-                    return $this->checkWeFiving($hand);
+                    $this->checkWeFiving($hand);
+                    break;
             }
         }
     }

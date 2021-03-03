@@ -7,7 +7,7 @@
                     <h4>{{l.name}}</h4>
                     <p>{{l.desc}}</p>
                     <div>
-                        {{ (l.achieved/l.users)*100 }}% of players have this achievement
+                        {{ Math.round((l.achieved/l.users)*100) }}% of players have this achievement
                     </div>
                     <div>
                         +{{l.rep}} RP
