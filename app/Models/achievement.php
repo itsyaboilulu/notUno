@@ -367,7 +367,7 @@ class achievement
     {
         $seven = 0;
         foreach ($hand as $h) {
-            if ((new card($h))->baseCard() == 7) {
+            if ((new card($h))->Card() == 'B7') {
                 $seven++;
             }
         }
