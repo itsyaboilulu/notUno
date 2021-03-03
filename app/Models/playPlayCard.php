@@ -396,7 +396,6 @@ class playPlayCard extends play
         foreach (unserialize($this->game()->order) as $u) {
             if ($u != $this->uid) {
                 $this->drawCard($u, 1);
-                $this->playByPlay()->draw(1, $u);
             }
         }
         $this->chat()->extremeOne();
