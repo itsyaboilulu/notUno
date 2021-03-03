@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\rep;
 use App\Models\users;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,12 +26,16 @@ class statsController extends Controller
      */
     public function index( Request $request)
     {
-        $rep = new rep( ( ($request->get('user'))? users::getID($request->get('user')) : Auth::id() ) );
-        return view('stats',
-            array(
-                'stats'=> $rep->pageData(),
-                'rep'  => $rep->rep(),
-            )
-        );
+        try {
+            $rep = new rep( ( ($request->get('user'))? users::getID($request->get('user')) : Auth::id() ) );
+            return view('stats',
+                array(
+                    'stats'=> $rep->pageData(),
+                    'rep'  => $rep->rep(),
+                )
+            );
+        } catch (Exception $e){
+            return redirect('/stats');
+        }
     }
 }
