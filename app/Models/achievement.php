@@ -397,11 +397,11 @@ class achievement
      */
     private function checkPerfectlyBalanced()
     {
-        if (
-            $this->stats()->colors['R'] == 25 &&
-            $this->stats()->colors['G'] == 25 &&
-            $this->stats()->colors['B'] == 25
-        ) {
+        $colors = array('R' => 0, 'G' => 0, 'B' => 0, 'Y' => 0);
+        foreach ($this->stats()->colors as $key => $value) {
+            $colors[$key] = round(($value / $this->stats()->cards['played']) * 100);
+        }
+        if ( $colors['R'] == 25 && $colors['G'] == 25 && $colors['B'] == 25 ) {
             return $this->addAchievment(12);
         }
     }

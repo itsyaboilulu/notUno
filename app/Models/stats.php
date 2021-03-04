@@ -258,7 +258,7 @@ class stats
     }
 
     /**
-     * returns array of the % of each color player has played
+     * returns array of the number of each color player has played
      *
      * @return array
      */
@@ -268,10 +268,8 @@ class stats
         foreach ($this->cardsPlayed() as $c) {
             $colors[substr($c, 0, 1)]++;
         }
-        foreach ($colors as $key => $value) {
-            $ret[$key] = round(($value / $this->cardsPlayedCount()) * 100);
-        }
-        return $ret;
+
+        return $colors;
     }
 
     protected function specialCards()
