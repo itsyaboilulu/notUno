@@ -327,29 +327,28 @@ class chatMessages
     public function extremeSix($rand,$data=NULL)
     {
         $this->newMessage($this->username() . " played an extreme 6");
-        if ($rand == 1000) {
-            return $this->newMessage($this->username() . " has 1 card left");
-        } else if ($rand > 888) {
-            return $this->newMessage("Played card has changed");
-        } else if ($rand > 777) {
-            return $this->newMessage("The order has been randomised");
-        } else if ($rand > 666) {
-            return $this->newMessage("$data players have been skipped");
-        } else if ($rand > 555) {
-            $this->reverseOrder();
-        } else if ($rand > 444) {
-            return $this->draw($data);
-        } else if ($rand > 333) {
-            return $this->newMessage($this->username() . " lost $data cards");
-        } else if ($rand > 222) {
-            return $this->newMessage($this->username() . " hand was randomised");
-        } else if ($rand > 111) {
-            return $this->newMessage($this->username() . " swapped hands with " . $this->username($data));
-        } else {
-            return $this->newMessage($this->username() . " drew a new hand");
+        switch ($rand){
+            case 1000:
+                return $this->newMessage($this->username() . " has 1 card left");
+            case 0:
+                return $this->newMessage("Played card has changed");
+            case 1:
+                return $this->newMessage("The order has been randomised");
+            case 2:
+                return $this->newMessage("$data players have been skipped");
+            case 3:
+                $this->reverseOrder();
+            case 4:
+                return $this->draw($data);
+            case 5:
+                return $this->newMessage($this->username() . " lost $data cards");
+            case 6:
+                return $this->newMessage($this->username() . " hand was randomised");
+            case 7:
+                return $this->newMessage($this->username() . " swapped hands with " . $this->username($data));
+            case 8:
+                return $this->newMessage($this->username() . " drew a new hand");
         }
-
-
     }
 
 }

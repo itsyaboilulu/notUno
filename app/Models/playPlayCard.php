@@ -234,58 +234,76 @@ class playPlayCard extends play
      */
     private function extremeSix()
     {
-        //roll to deturmin effect
-        $rand = rand(0, 1001);
         $data = NULL;
-        if ($rand == 1000) {
+        if (rand(0, 1001) == 1000){
+            $rand = 1000;
             //set hand to uno
             $this->gameMember()->hand = serialize(unserialize($this->gameMember()->hand)[array_rand($this->gameMember()->hand())]);
             $this->gameMember()->save();
-            ( new achievement($this->uid) )->checkOneInaThousand();
-        } else if ($rand > 888) {
-            //change current card
-            $data = $this->deck()->draw(TRUE);
-            $this->game()->current_card = $data;
-        } else if ($rand > 777) {
-            $this->extremeNine(FALSE);
-        } else if ($rand > 666) {
-            //skip random players
-            $data = rand(0, 6);
-            for ($i = 1; $i < $data; $i++) {
-                $this->nextTurn();
-            }
-        } else if ($rand > 555) {
-            //reverse
-            $this->reverseOrder();
-        } else if ($rand > 444) {
-            //draw random number of cards
-            $data = rand(1, 11);
-            $this->drawCard($this->uid, $data);
-        } else if ($rand > 333) {
-            //remove random cards
-            $hand = $this->gameMember()->hand();
-            $data = rand(1, (count($hand)-1));
-            for ($i = 0; $i < $data; $i++) {
-                $hand = useful::removeFromArray($hand, $hand[array_rand($hand,1)]);
-            }
-            $this->gameMember()->hand = serialize($hand);
-            $this->gameMember()->save();
-        } else if ($rand > 222) {
-            //randomise hand
-            for ($i = 0; $i < count($this->gameMember()->hand()); $i++) {
-                $new[]  = $this->deck()->draw();
-            }
-            $this->gameMember()->hand = serialize($new);
-            $this->gameMember()->save();
-        } else if ($rand > 111) {
-            //chnage hands with a ranom player
-            $data = unserialize($this->game()->order)[array_rand( unserialize($this->game()->order),1)];
-            $this->extra = users::getName($data);
-            $this->extremeSeven(FALSE);
+            (new achievement($this->uid))->checkOneInaThousand();
         } else {
-            //reset hand
-            $this->gameMember()->hand = serialize((new hand(NULL, $this->deck()->deck()))->newHand());
-            $this->gameMember()->save();
+            $arr = array(
+                call_user_func( function (){
+                    //change current card
+                    $data = $this->deck()->draw(TRUE);
+                    $this->game()->current_card = $data;
+                    return $data;
+                }),
+                $this->extremeNine(FALSE) ,
+                call_user_func( function (){
+                    //skip random players
+                    $data = rand(0, 6);
+                    for ($i = 1; $i < $data; $i++) {
+                        $this->nextTurn();
+                    }
+                    return $data;
+                }),
+                $this->reverseOrder() ,
+                call_user_func(
+                    function () {
+                    //draw random number of cards
+                    $data = rand(1, 11);
+                    $this->drawCard($this->uid, $data);
+                    return $data;
+                }),
+                call_user_func(
+                    function () {
+                    //remove random cards
+                    $hand = $this->gameMember()->hand();
+                    $data = rand(1, (count($hand) - 2));
+                    for ($i = 1; $i < $data; $i++) {
+                        $hand = useful::removeFromArray($hand, $hand[array_rand($hand, 1)]);
+                    }
+                    $this->gameMember()->hand = serialize($hand);
+                    $this->gameMember()->save();
+                    return $data;
+                }),
+                call_user_func(
+                    function () {
+                    //randomise hand
+                    for ($i = 0; $i < count($this->gameMember()->hand()); $i++) {
+                        $new[]  = $this->deck()->draw();
+                    }
+                    $this->gameMember()->hand = serialize($new);
+                    $this->gameMember()->save();
+                    return NULL;
+                }),
+                call_user_func( function (){
+                    //chnage hands with a ranom player
+                    $data = unserialize($this->game()->order)[array_rand(unserialize($this->game()->order), 1)];
+                    $this->extra = users::getName($data);
+                    $this->extremeSeven(FALSE);
+                    return $data;
+                }),
+                call_user_func( function () {
+                    //reset hand
+                    $this->gameMember()->hand = serialize((new hand(NULL, $this->deck()->deck()))->newHand());
+                    $this->gameMember()->save();
+                    return NULL;
+                }),
+            );
+            $rand = array_rand($arr);
+            $data = $arr[$rand];
         }
         $this->chat()->extremeSix($rand, $data);
         return FALSE;

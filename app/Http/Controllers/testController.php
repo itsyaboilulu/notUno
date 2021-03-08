@@ -15,6 +15,7 @@ use App\Models\hand;
 use App\Models\card;
 use App\Models\users;
 use App\Models\achievement;
+use App\Models\gameSettings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -33,8 +34,13 @@ class testController extends Controller
 
     public function test()
     {
-        $hand = (new ckGameToMember(4,8))->hand();
-        $a = new achievement(8);
-        return $a->checkHand($hand);
+        $setting = new gameSettings(22);
+        $t1 = $setting->settings();
+        $t2 = $setting->maxSettings();
+        $t1['timeoutsTime'] = 60;
+        $t2['timeoutsTime'] = 60;
+        if ($t1 == $t2){
+            echo 1;
+        }
     }
 }

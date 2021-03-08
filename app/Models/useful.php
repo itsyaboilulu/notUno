@@ -19,9 +19,13 @@ class useful
      */
     public static function removeFromArray($arr,$item){
         $ret = [];
+        $i = 0;
         foreach($arr as $a){
-            if ($a != $item){
+            if ($a != $item || $i == 1){
                 $ret[] = $a;
+            }
+            if ($a == $item){
+                $i = 1;
             }
         }
         return $ret;

@@ -253,7 +253,7 @@ class achievement
         $t2 = $setting->maxSettings();
         $t1['timeoutsTime'] = 60;
         $t2['timeoutsTime'] = 60;
-        if (serialize($t1) == serialize($t2)) {
+        if ($t1 == $t2) {
             return $this->addAchievment(5);
         }
     }
