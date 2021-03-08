@@ -575,6 +575,45 @@ class achievement
     }
 
     /**
+     * check if achievement is complete
+     *
+     * @return boolean
+     */
+    private function checkFourElements($hand){
+        $r=0;$g=0;$b=0;$y=0;
+        foreach ($hand as $h) {
+            switch($h){
+                case 'R4':
+                    $r++;
+                    break;
+                case 'G4':
+                    $g++;
+                    break;
+                case 'B4':
+                    $b++;
+                    break;
+                case 'Y4':
+                    $y++;
+                    break;
+            }
+        }
+        if ($r>0 && $b>0 && $g>0 && $y>0){
+            return $this->addAchievment(25);
+        }
+    }
+
+    /**
+     * check if achievement is complete
+     *
+     * @return boolean
+     */
+    public function checkUnoSquared($card){
+        if ((new card($card))->baseCard() == 1){
+            return $this->addAchievment(26);
+        }
+    }
+
+    /**
      * chech hand based achivements
      *
      * @param array $hand
@@ -592,6 +631,9 @@ class achievement
                     break;
                 case 23:
                     $this->checkWeFiving($hand);
+                    break;
+                case 25:
+                    $this->checkFourElements($hand);
                     break;
             }
         }

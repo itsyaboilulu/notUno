@@ -79,9 +79,11 @@ class playPlayCard extends play
         if ($this->gameMember()->isUno()) {
             $this->chat()->uno($uno);
             $this->playByPlay()->uno($uno);
-            return ($uno) ?
-                $uno :
-                $this->drawCard($this->uid, $this->settings('unoDrawPenalty'));
+            if (!$uno){
+                return $this->drawCard($this->uid, $this->settings('unoDrawPenalty'));
+            }
+            (new achievement($this->uid))->checkUnoSquared($this->card->Card());
+            return $uno;
         }
     }
 
