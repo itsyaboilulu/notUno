@@ -248,9 +248,11 @@ class chatMessages
      *
      * @return boolean
      */
-    public function extremeFour($user, $target, $cards)
+    public function extremeFour($user, $target, $cards, $showchat = TRUE)
     {
-        $this->newMessage($this->username($user) . " played an extreme 4 ");
+        if ($showchat){
+            $this->newMessage($this->username($user) . " played an extreme 4 ");
+        }
         return $this->toDraw($target, $cards);
     }
 

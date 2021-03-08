@@ -303,6 +303,7 @@ class playPlayCard extends play
                     $this->gameMember()->save();
                     return NULL;
                 }),
+                $this->extremeFour(FALSE),
             );
             $rand = array_rand($arr);
             $data = $arr[$rand];
@@ -333,7 +334,7 @@ class playPlayCard extends play
      *
      * @return void
      */
-    private function extremeFour()
+    private function extremeFour($showchat = TRUE)
     {
         while (true) {
             $d = $this->deck()->draw();
@@ -346,7 +347,7 @@ class playPlayCard extends play
         foreach ($draw as $dr) {
             $mg->addCard($dr);
         }
-        $this->chat()->extremeFour($this->game()->turn, $this->checkNextTurn(), count($draw));
+        $this->chat()->extremeFour($this->game()->turn, $this->checkNextTurn(), count($draw), $showchat);
         $this->playByPlay()->draw(count($draw), $this->checkNextTurn());
         return FALSE;
     }
