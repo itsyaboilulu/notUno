@@ -34,13 +34,7 @@ class testController extends Controller
 
     public function test()
     {
-        $setting = new gameSettings(22);
-        $t1 = $setting->settings();
-        $t2 = $setting->maxSettings();
-        $t1['timeoutsTime'] = 60;
-        $t2['timeoutsTime'] = 60;
-        if ($t1 == $t2){
-            echo 1;
-        }
+        $ach = new achievement(11);
+        return $ach->checkGetBaited();
     }
 }

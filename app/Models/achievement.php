@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -496,7 +497,7 @@ class achievement
      */
     private function checkGetBaited()
     {
-        $baited = FALSE;
+        $play = 0;
         foreach ($this->stats()->cardsByGame as $key => $g) {
             foreach ($g as $key => $gn) {
                 for ($i = 0; $i < count($gn); $i++) {
@@ -504,21 +505,29 @@ class achievement
                     if ($n->action == 'draw' && $n->uid == $this->uid) {
                         $j = 1;
                         while (TRUE) {
-                            if ($gn[$i - $j]->action = 'draw') {
+                            try {
+                                if ($gn[$i - $j]->action == 'play'){
+                                    if ((new card($gn[$i - $j]->data))->drawAmount() > 0){
+                                        $play++;
+                                    }
+                                }
+                                if ($gn[$i - $j]->action == 'draw') {
+                                    break;
+                                }
+                                $j++;
+                            } catch (Exception $e){
                                 break;
                             }
-                            if ($gn[$i - $j]->action = 'play' && $gn[$i - $j]->uid == $this->uid) {
-                                $baited = TRUE;
-                                break;
-                            }
-                            $j++;
                         }
+                        if ($play > 1){
+                            if ($play == count(gameToMember::getMembers($n->gid))) {
+                                return $this->addAchievment(21);
+                            }
+                        }
+                        $play = 0;
                     }
                 }
             }
-        }
-        if ($baited) {
-            return $this->addAchievment(21);
         }
     }
 
