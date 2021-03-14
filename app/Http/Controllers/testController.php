@@ -34,7 +34,12 @@ class testController extends Controller
 
     public function test()
     {
-        $ach = new achievement(11);
-        return $ach->checkGetBaited();
+       $arr = [
+           'test'=>1,
+       ];
+        $arr2 = [
+            'test' => 1,
+        ];
+        return ($arr == $arr2)? 'yes' : 'no';
     }
 }
