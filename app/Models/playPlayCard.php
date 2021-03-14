@@ -243,6 +243,8 @@ class playPlayCard extends play
             $this->gameMember()->hand = serialize(unserialize($this->gameMember()->hand)[array_rand($this->gameMember()->hand())]);
             $this->gameMember()->save();
             (new achievement($this->uid))->checkOneInaThousand();
+            $this->chat()->extremeSix($rand, $data);
+            return FALSE;
         } else {
             $arr = array(
                 call_user_func( function (){
@@ -291,7 +293,7 @@ class playPlayCard extends play
                     return NULL;
                 }),
                 call_user_func( function (){
-                    //chnage hands with a ranom player
+                    //chnage hands with a random player
                     $data = unserialize($this->game()->order)[array_rand(unserialize($this->game()->order), 1)];
                     $this->extra = users::getName($data);
                     $this->extremeSeven(FALSE);

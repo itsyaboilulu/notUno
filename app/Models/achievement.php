@@ -163,9 +163,14 @@ class achievement
      */
     private function addAchievment($aid)
     {
-        return memberToAchievement::updateOrCreate(
-            ['aid' => $aid, 'uid' => $this->uid ]
-        );
+        try {
+            $m = new memberToAchievement();
+            $m->aid = $aid;
+            $m->uid = $this->uid;
+            return $m->save();
+        } catch (Exception $e){
+            return TRUE;
+        }
     }
 
     /**

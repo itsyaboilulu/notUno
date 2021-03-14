@@ -189,7 +189,7 @@ class play
         $this->game()->started = 0;
         $this->game()->game_no = ($this->game()->game_no) ? $this->game()->game_no + 1 : 1;
         $this->playByPlay()->winner();
-        ( new achievement($this->uid))->checkJustWhy($this->settings());
+        ( new achievement($this->uid) )->checkJustWhy($this->settings());
         return $this->game()->save();
     }
 
