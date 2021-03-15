@@ -61,7 +61,7 @@ export default {
         this.canplay            = ( this.dleaderboard.length > 1 ) ? 1 : 0 ;
         this.settings.setting   = this.setting;
         this.settings.deck      = this.deck;
-        this.joinLink           = "http://uno.yaboilulu.co.uk/join?join="+this.game.password;
+        this.joinLink           = "https://uno.yaboilulu.co.uk/join?join="+this.game.password;
         this.leaderboard        = this.dleaderboard;
     },
     created(){
