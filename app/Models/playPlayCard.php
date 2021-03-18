@@ -247,31 +247,29 @@ class playPlayCard extends play
             return FALSE;
         } else {
             $arr = array(
-                call_user_func( function (){
+                function (){
                     //change current card
                     $data = $this->deck()->draw(TRUE);
                     $this->game()->current_card = $data;
                     return $data;
-                }),
+                },
                 $this->extremeNine(FALSE) ,
-                call_user_func( function (){
+                function (){
                     //skip random players
                     $data = rand(0, 6);
                     for ($i = 1; $i < $data; $i++) {
                         $this->nextTurn();
                     }
                     return $data;
-                }),
+                },
                 $this->reverseOrder() ,
-                call_user_func(
-                    function () {
+                function () {
                     //draw random number of cards
                     $data = rand(1, 11);
                     $this->drawCard($this->uid, $data);
                     return $data;
-                }),
-                call_user_func(
-                    function () {
+                },
+                function () {
                     //remove random cards
                     $hand = $this->gameMember()->hand();
                     $data = rand(1, (count($hand) - 2));
@@ -281,9 +279,8 @@ class playPlayCard extends play
                     $this->gameMember()->hand = serialize($hand);
                     $this->gameMember()->save();
                     return $data;
-                }),
-                call_user_func(
-                    function () {
+                },
+                function () {
                     //randomise hand
                     for ($i = 0; $i < count($this->gameMember()->hand()); $i++) {
                         $new[]  = $this->deck()->draw();
@@ -291,24 +288,24 @@ class playPlayCard extends play
                     $this->gameMember()->hand = serialize($new);
                     $this->gameMember()->save();
                     return NULL;
-                }),
-                call_user_func( function (){
+                },
+                function (){
                     //chnage hands with a random player
                     $data = unserialize($this->game()->order)[array_rand(unserialize($this->game()->order), 1)];
                     $this->extra = users::getName($data);
                     $this->extremeSeven(FALSE);
                     return $data;
-                }),
-                call_user_func( function () {
+                },
+                function () {
                     //reset hand
                     $this->gameMember()->hand = serialize((new hand(NULL, $this->deck()->deck()))->newHand());
                     $this->gameMember()->save();
                     return NULL;
-                }),
+                },
                 $this->extremeFour(FALSE),
             );
             $rand = array_rand($arr);
-            $data = $arr[$rand];
+            $data = call_user_func($arr[$rand]);
         }
         $this->chat()->extremeSix($rand, $data);
         return FALSE;

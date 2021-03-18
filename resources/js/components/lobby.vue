@@ -100,7 +100,6 @@ export default {
             document.execCommand("copy");
             document.body.removeChild(el);
             this.joinLink = cpy;
-
         },
         check(){
             ajax( this.updateMembers, 'api/lobby', {

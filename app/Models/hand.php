@@ -139,8 +139,20 @@ class hand extends deck
      */
     public function hasEmptyHand()
     {
-        return (@count($this->hand)) ? ((count($this->hand)) ?
+        return (@count($this->hand)) ?
+            ( (count($this->hand)) ?
             FALSE : TRUE) : TRUE;
+    }
+
+    public function hasEmptyHand2()
+    {
+        $ret = TRUE;
+        if (@count($this->hand)) {
+            if ( !count( $this->hand ) ) {
+                $ret = FALSE;
+            }
+        }
+        return $ret;
     }
 
     /**
