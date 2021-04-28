@@ -106,6 +106,8 @@ class pushPad
      */
     public function alert($by = NULL, $game_password = NULL)
     {
+        //pushpad cancels subription so skip step
+        /*
         if ($this->settings()->getNotifications('alert')) {
             return $this->sendNotification(
                 NULL,
@@ -113,6 +115,7 @@ class pushPad
                 ($game_password) ? "https://uno.yaboilulu.co.uk/lobby?game=$game_password" : "https://uno.yaboilulu.co.uk/"
             );
         }
+        */
         return;
     }
 
