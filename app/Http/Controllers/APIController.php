@@ -148,4 +148,19 @@ class APIController extends Controller
         }
         return $this->error_notpost;
     }
+
+    /**
+     * one way api for bb app
+     *
+     * @return array
+     */
+    public function bb()
+    {
+        $game = game::find(4);
+        return [
+            'currCard'  => $game->current_card,
+            'turn'      => users::getName($game->turn),
+            'leader'    => gameLeaderboard::gameLeaderBoard(4),
+        ];
+    }
 }
