@@ -42,12 +42,6 @@ Route::post('api/lobby',    [App\Http\Controllers\APIController::class, 'lobby']
 Route::post('api/chat',     [App\Http\Controllers\APIController::class, 'chat']);
 Route::post('api/register', [App\Http\Controllers\APIController::class, 'register']);
 Route::post('api/settings', [App\Http\Controllers\APIController::class, 'settings']);
-Route::post('api/bb',       [App\Http\Controllers\APIController::class, 'bb']);
+Route::get('api/bb',        [App\Http\Controllers\APIController::class, 'bb']);
 
 Auth::routes();
-
-Route::get('/test',         function () {
-    if (app()->environment() == 'local' || Auth::id() == 8) {
-        return (new testController())->test();
-    }
-});
